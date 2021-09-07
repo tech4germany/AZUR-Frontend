@@ -1,6 +1,7 @@
 import React from "react";
-import Input from './components/Input'
-import Output from './components/Output'
+import Input from "./components/Input";
+import Output from "./components/Output";
+import { Container, Row, Col } from "react-bootstrap";
 
 function App() {
   const [data, setData] = React.useState({});
@@ -13,7 +14,7 @@ function App() {
       LINKE: 50000,
     },
     num_of_seats: 25,
-  })
+  });
 
   /* Fetching the result from API */
   React.useEffect(() => {
@@ -41,8 +42,16 @@ function App() {
     <div className="App">
       <header>Hello AZUR!</header>
       <main>
-        <Input inputData = {azurInput} />
-        <Output seatSplit={data.seats}/>
+        <Container fluid>
+          <Row>
+            <Col xs={6}>
+              <Input inputData={azurInput} />
+            </Col>
+            <Col xs={6}>
+              <Output seatSplit={data.seats} />
+            </Col>
+          </Row>
+        </Container>
       </main>
     </div>
   );

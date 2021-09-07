@@ -1,15 +1,14 @@
 import { React } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 Output.propTypes = {
-  seatSplit: PropTypes.object
-}
-
+  seatSplit: PropTypes.object,
+};
 
 export default function Output({ seatSplit }) {
   return (
     <>
-      <h1>Output</h1>
+      <h2>Output</h2>
       {seatSplit && (
         <table>
           <tbody>
@@ -27,4 +26,3 @@ export default function Output({ seatSplit }) {
     </>
   );
 }
-
