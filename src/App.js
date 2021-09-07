@@ -1,18 +1,21 @@
 import React from "react";
+import Input from './components/Input'
+import Output from './components/Output'
 
 function App() {
   const [data, setData] = React.useState({});
-  const azurInput = {
+  const [azurInput] = React.useState({
     method: "hare",
     votes: {
       SPD: 1000000,
       CDU: 300000,
-      GRÜNE: 100000,
+      GRUENE: 100000,
       LINKE: 50000,
     },
     num_of_seats: 25,
-  };
+  })
 
+  /* Fetching the result from API */
   React.useEffect(() => {
     const fetchAzur = async () => {
       // use effect itself should not be async according to linter so we put a function inside
@@ -33,58 +36,13 @@ function App() {
     fetchAzur();
   }, []);
 
-  const partyHeader = [];
-  Object.keys(azurInput.votes).forEach((result) => {
-    partyHeader.push(<th>{result}</th>);
-  });
-
-  const partyResults = [];
-  Object.values(azurInput.votes).forEach((result) => {
-    partyResults.push(<td>{result}</td>);
-  });
-
+  /* Rendering the App */
   return (
     <div className="App">
       <header>Hello AZUR!</header>
       <main>
-        <br></br>
-        <br></br>
-        <div>
-          <h1>Input</h1>
-          Wir testen ein hardcoded Beispiel.
-          <br></br>
-          Methode: {azurInput.method}
-          <br></br>
-          Sitzzahl: {azurInput.num_of_seats}
-          <br></br>
-          <table>
-            <tbody>
-              <tr>{partyHeader}</tr>
-              <tr>{partyResults}</tr>
-            </tbody>
-          </table>
-        </div>
-
-        <br></br>
-        <br></br>
-
-        <div>
-          <h1>Output</h1>
-          {data.seats && (
-            <table>
-              <tbody>
-                {Object.keys(data.seats).map((fractionName) => {
-                  return (
-                    <tr key={fractionName}>
-                      <td>{fractionName} </td>
-                      <td>{data.seats[fractionName]}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <Input inputData = {azurInput} />
+        <Output seatSplit={data.seats}/>
       </main>
     </div>
   );
