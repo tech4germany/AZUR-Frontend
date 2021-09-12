@@ -48,10 +48,10 @@ function App() {
       <main>
         <Container fluid>
           <Row>
-            <Col xs={5} className="bg-light">
+            <Col xs={4} className="p-2 bg-light">
               <AzurInputs azurInput={azurInput} setAzurInput={setAzurInput} />
             </Col>
-            <Col xs={7}>
+            <Col xs={8} className="p-2">
               <Output seatSplit={data.seats} />
             </Col>
           </Row>

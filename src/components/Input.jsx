@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Row, Col } from "react-bootstrap";
+
 import bundestagMandatsverteilung from "../presetData/bundestagMandate.json";
 
 import InputSectionHeader from "./InputSectionHeader";
+import FakeInput from "./FakeInput";
+import RemoveIcon from "./RemoveIcon";
 
 import {
   useFormikContext,
@@ -50,7 +53,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
       <Button
         className="w-100 h-100"
         onClick={()=> {setFieldValue('method', {apiMethodName})}}
-        variant={`${activeMethod == {apiMethodName} ? "danger" : "primary"}`}
+        variant={`${activeMethod == {apiMethodName} ? "success" : "primary"}`}
       >
         {children}
       </Button>
@@ -66,7 +69,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
 
   return (
     <>
-      <h2>Input</h2>
+      <h2 className="mb-4">Input</h2>
       <Formik
         initialValues={{
           parlGroups: bundestagMandatsverteilung.data,
@@ -84,19 +87,30 @@ function AzurInputs({ azurInput, setAzurInput }) {
               <Field
                 name="numSeats"
                 type="number"
-                style={{ fontSize: "3rem" }, {width: "6ex"}}
+                style={{ fontSize: "3rem", width: "4.5ex" }}
               />
-              <p className="text-center">Einheiten</p>
+              <p className="text-center mb-0" style={{ fontSize: "1.5rem" }}>
+                Einheiten
+              </p>
             </Row>
 
             <Row>
               <InputSectionHeader>Aufteilen nach:</InputSectionHeader>
-              <Col sm="6" className="mb-2">
+              <Col md="6" className="mb-2 mb-md-0">
                 <Button
                   // TODO Implement more systematic equality check!
-                  variant={`${JSON.stringify(values.parlGroups) == JSON.stringify(bundestagMandatsverteilung.data) ? "danger" : "primary"}`}
+                  variant={`${
+                    JSON.stringify(values.parlGroups) ==
+                    JSON.stringify(bundestagMandatsverteilung.data)
+                      ? "success"
+                      : "primary"
+                  }`}
+                  className="w-100 h-100"
                   onClick={() => {
-                    console.log(JSON.stringify(values.parlGroups) == JSON.stringify(bundestagMandatsverteilung.data))
+                    console.log(
+                      JSON.stringify(values.parlGroups) ==
+                        JSON.stringify(bundestagMandatsverteilung.data)
+                    );
                     setFieldValue(
                       "parlGroups",
                       bundestagMandatsverteilung.data
@@ -106,8 +120,9 @@ function AzurInputs({ azurInput, setAzurInput }) {
                   Aktuelle Bundestagsbesetzung
                 </Button>
               </Col>
-              <Col xs="12">
+              <Col md="6">
                 <Button
+                  className="w-100 h-100"
                   onClick={() => {
                     alert("TODO!");
                   }}
@@ -122,13 +137,14 @@ function AzurInputs({ azurInput, setAzurInput }) {
               <Col>Stimmen</Col>
             </Row>
             <FieldArray name="parlGroups">
-              {({ insert, remove, push }) => (
+              {({ remove, push }) => (
                 <div>
                   {values.parlGroups.length > 0 &&
                     values.parlGroups.map((friend, index) => (
-                      <Row key={index}>
+                      <Row key={index} className="my-1">
                         <Col>
                           <Field
+                            className="p-2"
                             name={`parlGroups.${index}.name`}
                             type="text"
                           />
@@ -140,6 +156,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
                         </Col>
                         <Col>
                           <Field
+                            className="p-2"
                             name={`parlGroups.${index}.strength`}
                             type="number"
                           />
@@ -149,16 +166,24 @@ function AzurInputs({ azurInput, setAzurInput }) {
                             className="field-error"
                           />
                         </Col>
-                        <Col>
-                          <Button onClick={() => remove(index)}>X</Button>
+                        <Col className="d-flex justify-content-center align-items-center">
+                          <RemoveIcon onClick={() => remove(index)} />
                         </Col>
                       </Row>
                     ))}
-                  <Button
+                  <Row
+                    id="addFractionButton"
+                    style={{ cursor: "pointer" }}
                     onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
                   >
-                    Fraktion hinzufügen
-                  </Button>
+                    <Col>
+                      <FakeInput />
+                    </Col>
+                    <Col>
+                      <FakeInput />
+                    </Col>
+                    <Col>{/*TODO Small + symbol goes here*/}</Col>
+                  </Row>
                 </div>
               )}
             </FieldArray>
@@ -172,7 +197,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
                     setFieldValue("method", "schepers");
                   }}
                   variant={`${
-                    values.method == "schepers" ? "danger" : "primary"
+                    values.method == "schepers" ? "success" : "primary"
                   }`}
                 >
                   Sainte-Laguë/Schepers
@@ -185,7 +210,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
                     setFieldValue("method", "dhondt");
                   }}
                   variant={`${
-                    values.method == "dhondt" ? "danger" : "primary"
+                    values.method == "dhondt" ? "success" : "primary"
                   }`}
                 >
                   D&apos;Hondt
@@ -198,7 +223,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
                   onClick={() => {
                     setFieldValue("method", "hare");
                   }}
-                  variant={`${values.method == "hare" ? "danger" : "primary"}`}
+                  variant={`${values.method == "hare" ? "success" : "primary"}`}
                 >
                   Hare-Niemeyer
                 </Button>

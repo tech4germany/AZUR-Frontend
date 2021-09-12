@@ -1,0 +1,29 @@
+{
+  "lastUpdate": "10.Sep.2021",
+  "data": [
+    {
+      "name": "CDU/CSU",
+      "strength": 245
+    },
+    {
+      "name": "SPD",
+      "strength": 152
+    },
+    {
+      "name": "AfD",
+      "strength": 87
+    },
+    {
+      "name": "FDP",
+      "strength": 80
+    },
+    {
+      "name": "Die Linke",
+      "strength": 69
+    },
+    {
+      "name": "Bündnis 90/Die Grünen",
+      "strength": 67
+    }
+  ]
+}
