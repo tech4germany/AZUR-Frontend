@@ -1,0 +1,17 @@
+{
+    "azurMethods": [
+        {
+            "apiName": "schepers",
+            "title": "Sainte-Laguë/Schepers",
+            "default": true
+        },
+        {
+            "apiName": "dhondt",
+            "title": "D'Hondt"
+        },
+        {
+            "apiName": "hare",
+            "title": "Hare-Niemeyer"
+        }
+    ]
+}

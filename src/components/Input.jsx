@@ -2,11 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Row, Col } from "react-bootstrap";
 
-import bundestagMandatsverteilung from "../presetData/bundestagMandate.json";
+import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
+import constants from "../constants/constants.json";
 
 import InputSectionHeader from "./InputSectionHeader";
 import FakeInput from "./FakeInput";
 import RemoveIcon from "./RemoveIcon";
+import { MethodButton } from "./Buttons";
 
 import {
   useFormikContext,
@@ -47,25 +49,6 @@ function AzurInputs({ azurInput, setAzurInput }) {
     return null;
   };
 
-  /*
-  const MethodButton = ({apiMethodName, activeMethod, setFieldValue, children}) => {
-    return(
-      <Button
-        className="w-100 h-100"
-        onClick={()=> {setFieldValue('method', {apiMethodName})}}
-        variant={`${activeMethod == {apiMethodName} ? "success" : "primary"}`}
-      >
-        {children}
-      </Button>
-    )
-  }
-  MethodButton.propTypes = {
-    apiMethodName: PropTypes.string,
-    activeMethod: PropTypes.string,
-    setFieldValue: PropTypes.func,
-    children: PropTypes.string
-  };
-  */
 
   return (
     <>
@@ -190,54 +173,21 @@ function AzurInputs({ azurInput, setAzurInput }) {
 
             <Row>
               <InputSectionHeader>Mathematische Verfahren</InputSectionHeader>
-              <Col>
-                <Button
-                  className="w-100 h-100"
-                  onClick={() => {
-                    setFieldValue("method", "schepers");
-                  }}
-                  variant={`${
-                    values.method == "schepers" ? "success" : "primary"
-                  }`}
-                >
-                  Sainte-Laguë/Schepers
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  className="w-100 h-100"
-                  onClick={() => {
-                    setFieldValue("method", "dhondt");
-                  }}
-                  variant={`${
-                    values.method == "dhondt" ? "success" : "primary"
-                  }`}
-                >
-                  D&apos;Hondt
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  className="w-100 h-100"
-                  apiMethodName="hare"
-                  onClick={() => {
-                    setFieldValue("method", "hare");
-                  }}
-                  variant={`${values.method == "hare" ? "success" : "primary"}`}
-                >
-                  Hare-Niemeyer
-                </Button>
-                {/**
-                <MethodButton
-                  apiMethodName='hare'
-                  activeMethod={values.method}
-                  setFieldValue={setFieldValue}
-                >
-                  Hare-Niemeyer
-                </MethodButton>
-               */}
-              </Col>
+              {constants.azurMethods.map((method)=> {
+                return(
+                  <Col key={method.apiName}>
+                    <MethodButton
+                      apiMethodName={method.apiName}
+                      activeMethod={values.method}
+                      setFieldValue={setFieldValue}
+                    >
+                      {method.title}
+                    </MethodButton>
+                </Col>
+                )
+              })}
             </Row>
+
             <ParentPropProvider />
           </Form>
         )}
