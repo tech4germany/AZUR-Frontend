@@ -6,21 +6,19 @@ import { Container, Row, Col } from "react-bootstrap";
 
 function App() {
   const [data, setData] = React.useState({});
+  const [loading, setLoading] = React.useState(true)
   const [azurInput, setAzurInput] = React.useState({});
 
 
   React.useEffect(() => {
     const fetchAzur = async () => {
+      setLoading(true)
       // Parse Form Content into a form digestable for the API
       const partyStrengthForApi = {}
       azurInput.partyStrengths.forEach( (entry) => {
           partyStrengthForApi[entry.name] = entry.strength
       })
-
-  
-  
       // use effect itself should not be async according to linter so we put a function inside
-      console.log(`Fetching...`);
       const azurResp = await fetch("http://127.0.0.1:5000/azur", {
         method: "POST",
         headers: {
@@ -32,8 +30,11 @@ function App() {
           num_of_seats: azurInput.num_of_seats,
         }),
       }).then((resp) => resp.json());
+      // TODO handle errors!
+
       setData(azurResp);
       console.log(azurResp)
+      setLoading(false)
     };
 
     if ('partyStrengths' in  azurInput){
@@ -48,11 +49,12 @@ function App() {
       <main>
         <Container fluid>
           <Row>
-            <Col xs={4} className="p-2 bg-light">
+            {/* TODO: Style: 100vh seems quite brutal here*/}
+            <Col xs={4} className="p-2 bg-light overflow-auto" style={{height:"100vh"}}>
               <AzurInputs azurInput={azurInput} setAzurInput={setAzurInput} />
             </Col>
-            <Col xs={8} className="p-2">
-              <Output seatSplit={data.seats} />
+            <Col xs={8} className="p-4">
+              <Output seatSplit={data.seats} loading={loading} />
             </Col>
           </Row>
         </Container>

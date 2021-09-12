@@ -1,28 +1,23 @@
 import { React } from "react";
 import PropTypes from "prop-types";
+import { Spinner} from 'react-bootstrap'
+import AnteileOutput from './AnteileOutput'
 
 Output.propTypes = {
   seatSplit: PropTypes.object,
+  loading: PropTypes.bool
 };
 
-export default function Output({ seatSplit }) {
+export default function Output({ seatSplit, loading }) {
   return (
     <>
       <h2>Output</h2>
-      {seatSplit && (
-        <table>
-          <tbody>
-            {Object.keys(seatSplit).map((fractionName) => {
-              return (
-                <tr key={fractionName}>
-                  <td>{fractionName} </td>
-                  <td>{seatSplit[fractionName]}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      {loading ? (
+          <Spinner animation="border"/>
+      ) : (
+        <AnteileOutput seatSplit={seatSplit} />
       )}
+
     </>
   );
 }

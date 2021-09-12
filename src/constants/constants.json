@@ -13,5 +13,21 @@
             "apiName": "hare",
             "title": "Hare-Niemeyer"
         }
-    ]
+    ],
+    "partyColors": {
+        "CDU/CSU": "#000000",
+        "SPD": "#E3000F",
+        "AfD": "#0489DB",
+        "FDP": "#FFEF00",
+        "Die Linke": "#E9009E",
+        "DIE GRÜNEN": "#1AA037"
+    },
+    "partyAltNamesMapping": {
+        "Union": "CDU/CSU",
+        "CDU": "CDU/CSU",
+        "Die Grünen": "DIE GRÜNEN",
+        "Bündnis 90/Die Grünen": "DIE GRÜNEN"
+    }
 }
+
+
