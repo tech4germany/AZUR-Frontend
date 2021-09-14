@@ -1,21 +1,33 @@
 import { React } from "react";
 import PropTypes from "prop-types";
-import { Spinner} from 'react-bootstrap'
+import { Spinner, Tabs, Tab } from 'react-bootstrap'
 import AnteileOutput from './AnteileOutput'
+import ReihenfolgeOutput from './ReihenfolgeOutput'
 
 Output.propTypes = {
-  seatSplit: PropTypes.object,
+  azurResponse: PropTypes.object,
   loading: PropTypes.bool
 };
 
-export default function Output({ seatSplit, loading }) {
+export default function Output({ azurResponse, loading }) {
   return (
     <>
-      <h2>Output</h2>
+      <h1>Output</h1>
       {loading ? (
           <Spinner animation="border"/>
       ) : (
-        <AnteileOutput seatSplit={seatSplit} />
+        <Tabs defaultActiveKey="anteile">
+          <Tab eventKey="anteile" title="Anteile">
+            <AnteileOutput seatSplit={azurResponse.seats} />
+          </Tab>
+          <Tab eventKey="zugriffsreihenfolge" title="Zugriffsreihenfolge">
+            <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence}/>
+            {console.log()}
+          </Tab>
+          <Tab eventKey="azurTable" title="Tabelle">
+            <p>Tabelle goes here</p>
+          </Tab>
+        </Tabs>
       )}
 
     </>

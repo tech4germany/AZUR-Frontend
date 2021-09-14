@@ -1,17 +1,19 @@
 import { React } from "react";
 import PropTypes from "prop-types";
-import { Row, Table, Container } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import PieChart from './PieChart'
+import { Box, Flex, Center } from '@chakra-ui/react'
+
 
 
 AnteileOutput.propTypes = {
-    seatSplit: PropTypes.object,
-  };
+  seatSplit: PropTypes.object,
+};
 
 export default function AnteileOutput({ seatSplit }) {
   return (
-    <Container className="mt-5">
-      <Row className="text-align-center">
+    <Flex flexDirection="column">
+      <Center p="space.4">
         {/*TODO: Why does table span to 100% width -> fix that cleanly*/}
         <Table className="p-5">
           <thead>
@@ -29,10 +31,10 @@ export default function AnteileOutput({ seatSplit }) {
             </tr>
           </tbody>
         </Table>
-      </Row>
-      <Row className="d-flex justify-content-center">
+      </Center>
+      <Center>
         <PieChart data={seatSplit} outerRadius={200} innerRadius={100} />
-      </Row>
-    </Container>
+      </Center>
+    </Flex>
   );
 }

@@ -25,6 +25,7 @@ AzurInputs.propTypes = {
 };
 
 function AzurInputs({ azurInput, setAzurInput }) {
+
   // TODO: Whats the smarter way to pass the state to the parent?
   const ParentPropProvider = () => {
     const { values } = useFormikContext();
@@ -58,10 +59,6 @@ function AzurInputs({ azurInput, setAzurInput }) {
           parlGroups: bundestagMandatsverteilung.data,
           numSeats: 25,
           method: "hare",
-        }}
-        onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
         }}
       >
         {({ values, setFieldValue }) => (
@@ -123,7 +120,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
               {({ remove, push }) => (
                 <div>
                   {values.parlGroups.length > 0 &&
-                    values.parlGroups.map((friend, index) => (
+                    values.parlGroups.map((_, index) => (
                       <Row key={index} className="my-1">
                         <Col>
                           <Field
@@ -150,7 +147,7 @@ function AzurInputs({ azurInput, setAzurInput }) {
                           />
                         </Col>
                         <Col className="d-flex justify-content-center align-items-center">
-                          <RemoveIcon onClick={() => remove(index)} />
+                            <RemoveIcon onClick={() => remove(index)} />
                         </Col>
                       </Row>
                     ))}
