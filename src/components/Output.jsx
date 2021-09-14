@@ -1,6 +1,6 @@
 import { React } from "react";
 import PropTypes from "prop-types";
-import { Spinner, Tabs, Tab } from 'react-bootstrap'
+import { Spinner, Tabs, TabList, TabPanels, Tab, TabPanel, Heading } from "@chakra-ui/react"
 import AnteileOutput from './AnteileOutput'
 import ReihenfolgeOutput from './ReihenfolgeOutput'
 
@@ -12,21 +12,28 @@ Output.propTypes = {
 export default function Output({ azurResponse, loading }) {
   return (
     <>
-      <h1>Output</h1>
+      <Heading size="2xl">Output</Heading>
       {loading ? (
-          <Spinner animation="border"/>
+          <Spinner color="brand.orange"/>
       ) : (
         <Tabs defaultActiveKey="anteile">
-          <Tab eventKey="anteile" title="Anteile">
-            <AnteileOutput seatSplit={azurResponse.seats} />
-          </Tab>
-          <Tab eventKey="zugriffsreihenfolge" title="Zugriffsreihenfolge">
-            <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence}/>
-            {console.log()}
-          </Tab>
-          <Tab eventKey="azurTable" title="Tabelle">
-            <p>Tabelle goes here</p>
-          </Tab>
+          <TabList>
+            <Tab>Anteile</Tab>
+            <Tab>Zugriffsreihenfolge</Tab>
+            <Tab>Tabelle</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <AnteileOutput seatSplit={azurResponse.seats} />
+            </TabPanel>
+            <TabPanel>
+              <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence}/>
+            </TabPanel>
+            <TabPanel>
+              <p>Tabelle goes here</p>
+            </TabPanel>
+          </TabPanels>
         </Tabs>
       )}
 

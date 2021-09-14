@@ -17,4 +17,9 @@ const fontSizes = {
 }
 
 
-export const bundestagTheme = extendTheme({ colors, fontSizes })
+export const bundestagTheme = extendTheme(
+    {
+        colors,
+        fontSizes
+    }
+)
