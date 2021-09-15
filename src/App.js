@@ -1,9 +1,8 @@
 import React from "react";
 import AzurInputs from "./components/Input";
 import Output from "./components/Output";
-import { Container, Row, Col } from "react-bootstrap";
-import { bundestagTheme } from "./css/themes";
-import { ThemeProvider } from "styled-components";
+
+import { Flex } from "@chakra-ui/react";
 import { useForm, useFieldArray } from "react-hook-form";
 
 function App() {
@@ -11,24 +10,21 @@ function App() {
   const [loading, setLoading] = React.useState(true);
   const [azurInput, setAzurInput] = React.useState({});
 
-  const { control, register, watch, getValues, setValue, formState } = useForm({
-    nativeValidation: true,
-  }); // TODO we will introduce a custom validation
+  const formProps = useForm();
   const partyStrengths = useFieldArray({
-    control,
+    control: formProps.control,
     name: "partyStrengths",
     // keyName: "id", default to "id", you can change the key name
   });
 
-
-  // UPDATING INPUTS FROM 
-  const inputUpdate = watch();
+  //*** UPDATING INPUTS
+  const inputUpdate = formProps.watch();
 
   React.useEffect(() => {
     if (inputUpdate?.partyStrengths != null) {
       console.log(inputUpdate);
       console.log(azurInput.partyStrengths);
-      
+
       /*TODO feels like parsing to int should happen as output of the form already*/
       const partyStrengthsAsInts = inputUpdate.partyStrengths.map((elem) => {
         return { name: elem.name, strength: parseInt(elem.strength) };
@@ -52,9 +48,9 @@ function App() {
         partyStrengths: partyStrengthsAsInts,
       });
     }
-   
   }, [inputUpdate]);
 
+  //*** FETCHING AZUR OUTPUTS
   React.useEffect(() => {
     const fetchAzur = async () => {
       setLoading(true);
@@ -64,11 +60,7 @@ function App() {
         partyStrengthForApi[entry.name] = entry.strength;
       });
       console.log("Starting request");
-      console.log({
-        votes: partyStrengthForApi,
-        method: azurInput.method,
-        num_of_seats: azurInput.num_of_seats,
-      });
+
       // useEffect itself should not be async according to linter, so we work with an anonymous function
       const azurResp = await fetch("http://127.0.0.1:5000/azur", {
         method: "POST",
@@ -92,39 +84,19 @@ function App() {
     }
   }, [azurInput]);
 
-  /* Rendering the App */
+
+
+  //*** RENDERING THE APP
   return (
-    <ThemeProvider theme={bundestagTheme}>
-      <div className="App">
-        <header></header>
-        <main>
-          <Container fluid>
-            <Row>
-              {/* TODO: Style: 100vh seems quite brutal here*/}
-              <Col
-                xs={4}
-                className="p-2 bg-light overflow-auto"
-                style={{ height: "100vh" }}
-              >
-                <AzurInputs
-                  formProps={{
-                    register,
-                    watch,
-                    getValues,
-                    setValue,
-                    formState,
-                    partyStrengths,
-                  }}
-                />
-              </Col>
-              <Col xs={8} className="p-4">
-                <Output azurResponse={data} loading={loading} />
-              </Col>
-            </Row>
-          </Container>
-        </main>
-      </div>
-    </ThemeProvider>
+    <div className="App">
+      <Flex flexDirection={["column", "row", "row"]}>
+        <AzurInputs
+          backgroundColor="blue"
+          formProps={{...formProps, partyStrengths}}
+        />
+        <Output azurResponse={data} loading={loading} />
+      </Flex>
+    </div>
   );
 }
 

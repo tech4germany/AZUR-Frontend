@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Flex, Box, Center, Heading, Input } from "@chakra-ui/react";
+import { Flex, Box, Center, Heading, Input, Button } from "@chakra-ui/react";
 
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
 import constants from "../constants/constants.json";
 
-import FakeInput from "./FakeInput";
-import RemoveIcon from "./RemoveIcon";
+import { IoMdRemove } from "react-icons/io";
 import { MethodButton, PresetButton } from "./Buttons";
 
 
@@ -26,7 +25,7 @@ function AzurInputs({ formProps }) {
   }, []);
 
   return (
-    <div>
+    <Box backgroundColor="gray.50" height='100vh' overflowY='auto'>
       <form>
         <Center flexDirection="column">
           <Input
@@ -43,7 +42,7 @@ function AzurInputs({ formProps }) {
         </Center>
 
         {/* PRESETS */ }
-        <Heading fontSize="2xl">Aufteilen nach</Heading>
+        <Heading as="h3" size="xl">Aufteilen nach</Heading>
         <Flex flexDirection={["column", "column", "row"]} flexWrap='wrap'>
           <PresetButton
             currentInput={formProps.partyStrengths}
@@ -64,7 +63,7 @@ function AzurInputs({ formProps }) {
         </Flex>
         
         {/* INPUT PARTY STRENGTHS */ }
-        <Heading fontSize="2xl">Fraktionsstärken</Heading>
+        <Heading as="h3" size="xl">Fraktionsstärken</Heading>
         <Box>
           {formProps.partyStrengths.fields.map((field, index) => (
             <Flex key={index} flexDirection="row">
@@ -74,19 +73,32 @@ function AzurInputs({ formProps }) {
                 // TODO important to include key with field's id // TODO
                 {...formProps.register(`partyStrengths.${index}.name`)}
               />
-              <input
+              <Input
                 type="number"
                 min={1}
                 m={'1'}
                 // important to include key with field's id // TODO
                 {...formProps.register(`partyStrengths.${index}.strength`)}
               />
+              <Button variant='ghost' onClick={() => {alert(`TODO Remove row for partyStrenghts.${index}`)}}>
+                <IoMdRemove />
+              </Button>
             </Flex>
           ))}
+          <Button variant='ghost' _hover={{}} onClick={()=>{
+            console.log("Hello")
+          }}>
+            <Flex flexDirection="row">
+              <Input disabled variant="outline" m={'1'} pointerEvents='none' />
+              <Input disabled variant="outline" m={'1'} pointerEvents='none' />
+              <Button variant='ghost' pointerEvents='none'>+</Button>
+            </Flex>
+          </Button>
+
         </Box>
         
         {/* MATHEMATICAL METHOD */ }
-        <Heading fontSize="2xl">Mathematische Verfahren</Heading>
+        <Heading as="h3" size="xl">Mathematische Verfahren</Heading>
         <Flex flexDirection={['row', 'column', 'column']} flexWrap='wrap'>
             {constants.azurMethods.map((method) => {
               return (
@@ -108,7 +120,7 @@ function AzurInputs({ formProps }) {
         </Box>
 
       </form>
-    </div>
+    </Box>
   );
 }
 
