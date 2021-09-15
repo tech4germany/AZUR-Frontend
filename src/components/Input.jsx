@@ -87,7 +87,7 @@ function AzurInputs({ formProps }) {
             </Flex>
           ))}
           <Button variant='ghost' _hover={{}} onClick={()=>{
-            console.log("Hello")
+            formProps.partyStrengths.append({'name': 'FraktionXY', 'strength': 0})
           }}>
             <Flex flexDirection="row">
               <Input disabled variant="outline" m={'1'} pointerEvents='none' />
