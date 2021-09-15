@@ -20,7 +20,7 @@ export function MethodButton({
       onClick={() => {
         setFieldValue("method", apiMethodName);
       }}
-      variant={`${activeMethod == apiMethodName ? "solid" : "outline"}`}
+      variant={`${activeMethod == apiMethodName ? "aaaa" : "outline"}`}
       m={1}
     >
       {children}

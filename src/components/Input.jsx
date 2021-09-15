@@ -8,7 +8,9 @@ import {
   Heading,
   Input,
   Button,
+  ButtonGroup,
   Spacer,
+  Text,
 } from "@chakra-ui/react";
 
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
@@ -31,34 +33,37 @@ function AzurInputs({ formProps }) {
   }, []);
 
   return (
-    <Box backgroundColor="gray.50" height="100vh" overflowY="auto">
+    <Box
+      backgroundColor="gray.50"
+      height="100vh"
+      overflowY="auto"
+      px="10"
+      py="5"
+    >
       {/* TODO: Height 100vh is too brutal here? */}
+      <Heading size="2xl">Input</Heading>
       <form>
-        <Button
-          onClick={() => {
-            formProps.partyStrengths.replace(bundestagMandatsverteilung.data);
-          }}
-        >
-          REPLACE
-        </Button>
         <Center flexDirection="column">
           <Input
             type="number"
-            fontSize="3xl"
+            fontSize="5xl"
+            height="3.5rem" // Todo we want to use the font size var 5xl here!
+            width="6ex"
+            textAlign="center"
             name="numSeats"
             {...formProps.register("numSeats", {
               required: true,
               minValue: 0,
             })}
           />
-          <p>Einheiten</p>
+          <Text fontSize="xl">Einheiten</Text>
         </Center>
 
         {/* PRESETS */}
         <Heading as="h3" size="xl">
           Aufteilen nach
         </Heading>
-        <Flex flexDirection={["column", "column", "row"]} flexWrap="wrap">
+        <ButtonGroup>
           <PresetButton
             fieldArray={formProps.partyStrengths}
             presetData={bundestagMandatsverteilung.data}
@@ -71,7 +76,7 @@ function AzurInputs({ formProps }) {
           >
             Alt Button
           </PresetButton>
-        </Flex>
+        </ButtonGroup>
 
         {/* INPUT PARTY STRENGTHS */}
         <Heading as="h3" size="xl">
@@ -140,10 +145,6 @@ function AzurInputs({ formProps }) {
             );
           })}
         </Flex>
-
-        <Box>
-          <input fontSize="5xl" {...formProps.register("method")} />
-        </Box>
       </form>
     </Box>
   );

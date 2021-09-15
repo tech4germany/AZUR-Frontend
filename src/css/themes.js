@@ -17,14 +17,30 @@ const fontSizes = {
 
 
 const Button = {
-    baseStyle: {
-        margin: '1'
+  baseStyle: {
+      margin: '1'
+  },
+}
+
+const Heading = {
+  sizes: {
+    "xl": {
+      color: 'brand.darkBlue',
+      fontSize: 'xl',
+      mt: '5',
+      mb: '3'
     },
+    "2xl": {
+      fontSize: '2xl',
+      mb: '7'
+    }
+  }
 }
 
 export const bundestagTheme = extendTheme({
   components: {
-      Button
+      Button,
+      Heading
   },
   colors,
   fontSizes,

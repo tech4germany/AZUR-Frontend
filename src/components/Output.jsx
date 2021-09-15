@@ -1,20 +1,29 @@
 import { React } from "react";
 import PropTypes from "prop-types";
-import { Spinner, Tabs, TabList, TabPanels, Tab, TabPanel, Heading } from "@chakra-ui/react"
-import AnteileOutput from './AnteileOutput'
-import ReihenfolgeOutput from './ReihenfolgeOutput'
+import {
+  Spinner,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Heading,
+  Box,
+} from "@chakra-ui/react";
+import AnteileOutput from "./OutputViews/AnteileOutput";
+import ReihenfolgeOutput from "./OutputViews/ReihenfolgeOutput";
 
 Output.propTypes = {
   azurResponse: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
 export default function Output({ azurResponse, loading }) {
   return (
-    <>
+    <Box px="10" py="5">
       <Heading size="2xl">Output</Heading>
       {loading ? (
-          <Spinner color="brand.orange"/>
+        <Spinner color="brand.orange" />
       ) : (
         <Tabs defaultActiveKey="anteile">
           <TabList>
@@ -28,7 +37,7 @@ export default function Output({ azurResponse, loading }) {
               <AnteileOutput seatSplit={azurResponse.seats} />
             </TabPanel>
             <TabPanel>
-              <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence}/>
+              <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence} />
             </TabPanel>
             <TabPanel>
               <p>Tabelle goes here</p>
@@ -36,7 +45,6 @@ export default function Output({ azurResponse, loading }) {
           </TabPanels>
         </Tabs>
       )}
-
-    </>
+    </Box>
   );
 }
