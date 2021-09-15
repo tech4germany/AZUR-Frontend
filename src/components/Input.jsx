@@ -26,6 +26,7 @@ function AzurInputs({ formProps }) {
 
   return (
     <Box backgroundColor="gray.50" height='100vh' overflowY='auto'>
+      {/* TODO: Height 100vh is too brutal here? */}
       <form>
         <Center flexDirection="column">
           <Input
@@ -80,7 +81,7 @@ function AzurInputs({ formProps }) {
                 // important to include key with field's id // TODO
                 {...formProps.register(`partyStrengths.${index}.strength`)}
               />
-              <Button variant='ghost' onClick={() => {alert(`TODO Remove row for partyStrenghts.${index}`)}}>
+              <Button variant='ghost' onClick={() => {formProps.partyStrengths.remove(index)}}>
                 <IoMdRemove />
               </Button>
             </Flex>
