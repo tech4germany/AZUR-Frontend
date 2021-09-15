@@ -22,9 +22,6 @@ function App() {
 
   React.useEffect(() => {
     if (inputUpdate?.partyStrengths != null) {
-      console.log(inputUpdate);
-      console.log(azurInput.partyStrengths);
-
       /*TODO feels like parsing to int should happen as output of the form already*/
       const partyStrengthsAsInts = inputUpdate.partyStrengths.map((elem) => {
         return { name: elem.name, strength: parseInt(elem.strength) };
@@ -41,7 +38,6 @@ function App() {
       ) {
         return null;
       }
-      console.log("CHANGING INPUT");
       setAzurInput({
         method: inputUpdate.method,
         num_of_seats: parseInt(inputUpdate.numSeats),
@@ -84,16 +80,11 @@ function App() {
     }
   }, [azurInput]);
 
-
-
   //*** RENDERING THE APP
   return (
     <div className="App">
       <Flex flexDirection={["column", "row", "row"]}>
-        <AzurInputs
-          backgroundColor="blue"
-          formProps={{...formProps, partyStrengths}}
-        />
+        <AzurInputs formProps={{ ...formProps, partyStrengths }} />
         <Output azurResponse={data} loading={loading} />
       </Flex>
     </div>
