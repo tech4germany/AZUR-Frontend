@@ -1,195 +1,114 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Row, Col } from "react-bootstrap";
+
+import { Flex, Box, Center, Heading, Input } from "@chakra-ui/react";
 
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
 import constants from "../constants/constants.json";
 
-import InputSectionHeader from "./InputSectionHeader";
 import FakeInput from "./FakeInput";
 import RemoveIcon from "./RemoveIcon";
-import { MethodButton } from "./Buttons";
+import { MethodButton, PresetButton } from "./Buttons";
 
-import {
-  useFormikContext,
-  Formik,
-  Field,
-  Form,
-  ErrorMessage,
-  FieldArray,
-} from "formik";
 
 AzurInputs.propTypes = {
-  azurInput: PropTypes.object,
-  setAzurInput: PropTypes.func,
+  formProps: PropTypes.object,
 };
 
-function AzurInputs({ azurInput, setAzurInput }) {
+function AzurInputs({ formProps }) {
 
-  // TODO: Whats the smarter way to pass the state to the parent?
-  const ParentPropProvider = () => {
-    const { values } = useFormikContext();
-    React.useEffect(() => {
-      // I dont exactly know why I have to do this check/ Why does dep-array not do that check?
-      // TODO WE WANT SOME DEBOUNCING SOLUTION!
-      if (
-        azurInput.method == values.method &&
-        azurInput.num_of_seats == values.numSeats &&
-        // TODO MAKE THIS ARRAY EQUALITY CHECK MORE SOLID (if we cant avoid it alltogether)
-        JSON.stringify(azurInput.partyStrengths) ==
-          JSON.stringify(values.parlGroups)
-      ) {
-        return null;
-      }
-      setAzurInput({
-        method: values.method,
-        num_of_seats: values.numSeats,
-        partyStrengths: values.parlGroups,
-      });
-    }, [values]);
-    return null;
-  };
-
+  // Setting initial values
+  React.useEffect(() => {
+    formProps.setValue("numSeats", 25);
+    formProps.setValue("method", "hare");
+    formProps.partyStrengths.replace(bundestagMandatsverteilung.data);
+    console.log();
+  }, []);
 
   return (
-    <>
-      <h2 className="mb-4">Input</h2>
-      <Formik
-        initialValues={{
-          parlGroups: bundestagMandatsverteilung.data,
-          numSeats: 25,
-          method: "hare",
-        }}
-      >
-        {({ values, setFieldValue }) => (
-          <Form>
-            <Row className="d-flex justify-content-center">
-              <Field
-                name="numSeats"
-                type="number"
-                style={{ fontSize: "3rem", width: "4.5ex" }}
+    <div>
+      <form>
+        <Center flexDirection="column">
+          <Input
+            type="number"
+            fontSize="3xl"
+            name='numSeats'
+            {...formProps.register("numSeats",{
+                required: true,
+                minValue: 0
+              })
+            }
+          />
+          <p>Einheiten</p>
+        </Center>
+
+        {/* PRESETS */ }
+        <Heading fontSize="2xl">Aufteilen nach</Heading>
+        <Flex flexDirection={["column", "column", "row"]} flexWrap='wrap'>
+          <PresetButton
+            currentInput={formProps.partyStrengths}
+            presetData={bundestagMandatsverteilung.data}
+            setValue={formProps.setValue}
+            attribute='partyStrengths'
+          >
+            Aktuelle Bundestagsbesetzung
+          </PresetButton>
+          <PresetButton
+            currentInput={formProps.partyStrengths}
+            presetData={bundestagMandatsverteilung.data}
+            setValue={formProps.setValue}
+            attribute='partyStrengths'
+          >
+            Alt Button
+          </PresetButton>
+        </Flex>
+        
+        {/* INPUT PARTY STRENGTHS */ }
+        <Heading fontSize="2xl">Fraktionsstärken</Heading>
+        <Box>
+          {formProps.partyStrengths.fields.map((field, index) => (
+            <Flex key={index} flexDirection="row">
+              <Input
+                m={'1'}
+                type="text"
+                // TODO important to include key with field's id // TODO
+                {...formProps.register(`partyStrengths.${index}.name`)}
               />
-              <p className="text-center mb-0" style={{ fontSize: "1.5rem" }}>
-                Einheiten
-              </p>
-            </Row>
-
-            <Row>
-              <InputSectionHeader>Aufteilen nach:</InputSectionHeader>
-              <Col md="6" className="mb-2 mb-md-0">
-                <Button
-                  // TODO Implement more systematic equality check!
-                  variant={`${
-                    JSON.stringify(values.parlGroups) ==
-                    JSON.stringify(bundestagMandatsverteilung.data)
-                      ? "success"
-                      : "primary"
-                  }`}
-                  className="w-100 h-100"
-                  onClick={() => {
-                    console.log(
-                      JSON.stringify(values.parlGroups) ==
-                        JSON.stringify(bundestagMandatsverteilung.data)
-                    );
-                    setFieldValue(
-                      "parlGroups",
-                      bundestagMandatsverteilung.data
-                    );
-                  }}
-                >
-                  Aktuelle Bundestagsbesetzung
-                </Button>
-              </Col>
-              <Col md="6">
-                <Button
-                  className="w-100 h-100"
-                  onClick={() => {
-                    alert("TODO!");
-                  }}
-                >
-                  Wahlprognose Bundestag
-                </Button>
-              </Col>
-            </Row>
-            <Row>
-              <InputSectionHeader>Fraktionsstärken</InputSectionHeader>
-              <Col>Name</Col>
-              <Col>Stimmen</Col>
-            </Row>
-            <FieldArray name="parlGroups">
-              {({ remove, push }) => (
-                <div>
-                  {values.parlGroups.length > 0 &&
-                    values.parlGroups.map((_, index) => (
-                      <Row key={index} className="my-1">
-                        <Col>
-                          <Field
-                            className="p-2"
-                            name={`parlGroups.${index}.name`}
-                            type="text"
-                          />
-                          <ErrorMessage
-                            name={`parlGroups.${index}.name`}
-                            component="div"
-                            className="field-error"
-                          />
-                        </Col>
-                        <Col>
-                          <Field
-                            className="p-2"
-                            name={`parlGroups.${index}.strength`}
-                            type="number"
-                          />
-                          <ErrorMessage
-                            name={`parlGroups.${index}.name`}
-                            component="div"
-                            className="field-error"
-                          />
-                        </Col>
-                        <Col className="d-flex justify-content-center align-items-center">
-                            <RemoveIcon onClick={() => remove(index)} />
-                        </Col>
-                      </Row>
-                    ))}
-                  <Row
-                    id="addFractionButton"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
+              <input
+                type="number"
+                min={1}
+                m={'1'}
+                // important to include key with field's id // TODO
+                {...formProps.register(`partyStrengths.${index}.strength`)}
+              />
+            </Flex>
+          ))}
+        </Box>
+        
+        {/* MATHEMATICAL METHOD */ }
+        <Heading fontSize="2xl">Mathematische Verfahren</Heading>
+        <Flex flexDirection={['row', 'column', 'column']} flexWrap='wrap'>
+            {constants.azurMethods.map((method) => {
+              return (
+                <Box key={method.apiName}>
+                  <MethodButton
+                    apiMethodName={method.apiName}
+                    activeMethod={formProps.getValues('method')} //TODO currentValues
+                    setFieldValue={formProps.setValue}
                   >
-                    <Col>
-                      <FakeInput />
-                    </Col>
-                    <Col>
-                      <FakeInput />
-                    </Col>
-                    <Col>{/*TODO Small + symbol goes here*/}</Col>
-                  </Row>
-                </div>
-              )}
-            </FieldArray>
+                    {method.title}
+                  </MethodButton>
+                </Box>
+              );
+            })}
+        </Flex>
 
-            <Row>
-              <InputSectionHeader>Mathematische Verfahren</InputSectionHeader>
-              {constants.azurMethods.map((method)=> {
-                return(
-                  <Col key={method.apiName}>
-                    <MethodButton
-                      apiMethodName={method.apiName}
-                      activeMethod={values.method}
-                      setFieldValue={setFieldValue}
-                    >
-                      {method.title}
-                    </MethodButton>
-                </Col>
-                )
-              })}
-            </Row>
+        <Box>
+          <input fontSize="5xl" {...formProps.register("method")} />
+        </Box>
 
-            <ParentPropProvider />
-          </Form>
-        )}
-      </Formik>
-    </>
+      </form>
+    </div>
   );
 }
 
