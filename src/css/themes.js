@@ -4,7 +4,10 @@ const colors = {
   brand: {
     orange: "#FF7100",
     orangeAlpha: {
-      300: "rgba(255,133,0,0.16)",
+      50: "rgba(255, 133, 0, 0.02)",
+      100: "rgba(255, 133, 0, 0.04)",
+      200: "rgba(255, 133, 0, 0.08)",
+      300: "rgba(255, 133, 0, 0.16)",
       400: "rgba(255, 133, 0, 0.24)",
       500: "rgba(255, 133, 0, 0.36)",
       600: "rgba(255, 133, 0, 0.48)",
@@ -12,6 +15,17 @@ const colors = {
       800: "rgba(255, 133, 0, 0.80)",
     },
     darkBlue: "#31505F",
+    darkBlueAlpha: {
+      50: "rgba(49, 80, 95, 0.02)",
+      100: "rgba(49, 80, 95, 0.04)",
+      200: "rgba(49, 80, 95, 0.08)",
+      300: "rgba(49, 80, 95, 0.16)",
+      400: "rgba(49, 80, 95, 0.24)",
+      500: "rgba(49, 80, 95, 0.36)",
+      600: "rgba(49, 80, 95, 0.48)",
+      700: "rgba(49, 80, 95, 0.64)",
+      800: "rgba(49, 80, 95, 0.80)",
+    },
     red: "#EF4344",
   },
 };
@@ -46,10 +60,18 @@ const Input = {
     }
   },
   variants: {
-    specialTest:{
+    specialTest: {
       field: {
         backgroundColor: 'whiteAlpha.700'
       }
+    },
+    fakeInput: {
+        field: {
+          pointerEvents: "none",
+          backgroundColor: 'whiteAlpha.700',
+          border: "1px solid",
+          borderColor: 'blackAlpha.200'
+        }
     }
   }
 }
@@ -59,7 +81,7 @@ const Heading = {
     "xl": {
       color: 'brand.darkBlue',
       fontSize: 'xl',
-      mt: '5',
+      mt: '7',
       mb: '3'
     },
     "2xl": {

@@ -8,7 +8,6 @@ import {
   Heading,
   Input,
   Button,
-  ButtonGroup,
   Spacer,
   Text,
 } from "@chakra-ui/react";
@@ -105,7 +104,12 @@ function AzurInputs({ formProps, ...cssprops }) {
           ))}
           <Button
             variant="ghost"
-            _hover={{}}
+            _hover={{
+              backgroundColor: 'brand.darkBlueAlpha.300'
+            }}
+            px={0}
+            m={0}
+            mt={1}
             onClick={() => {
               formProps.partyStrengths.append({
                 name: "FraktionXY",
@@ -113,9 +117,15 @@ function AzurInputs({ formProps, ...cssprops }) {
               });
             }}
           >
-            <Flex flexDirection="row">
-              <Input disabled variant="outline" m={"1"} pointerEvents="none" />
-              <Input disabled variant="outline" m={"1"} pointerEvents="none" />
+            <Flex flexDirection="row" m={0}>
+              <Input disabled variant="fakeInput" />
+              <Input disabled variant="fakeInput" />
+              <Button
+                variant="ghost"
+                pointerEvents="none"
+              >
+                <Text color='blackAlpha.400'>+</Text>
+              </Button>
               <Spacer />
             </Flex>
           </Button>

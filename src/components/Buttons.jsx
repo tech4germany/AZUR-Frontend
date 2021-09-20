@@ -22,6 +22,8 @@ export function MethodButton({
       }}
       variant={`${activeMethod == apiMethodName ? "active" : "outline"}`}
       m={1}
+      p={2}
+      py={6}
       flexGrow='1'
     >
       {children}
@@ -45,6 +47,8 @@ export function PresetButton({ fieldArray, presetData, children }) {
         fieldArray.replace(presetData);
       }}
       flexGrow='1'
+      p={2}
+      py={6}
     >
       {children}
     </Button>
