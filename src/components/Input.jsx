@@ -24,7 +24,7 @@ AzurInputs.propTypes = {
   formProps: PropTypes.object,
 };
 
-function AzurInputs({ formProps, ...props }) {
+function AzurInputs({ formProps, ...cssprops }) {
   // Setting initial values
   React.useEffect(() => {
     formProps.setValue("numSeats", 25);
@@ -33,35 +33,33 @@ function AzurInputs({ formProps, ...props }) {
   }, []);
 
   return (
-    <Box
-      {...props}
-    >
-      {/* TODO: Height 100vh is too brutal here? */}
+    <Box {...cssprops}>
       <Heading size="2xl">Input</Heading>
-
       <form>
         <Center flexDirection="column">
           <Input
+            variant="azur-input"
             type="number"
             fontSize="5xl"
             height="3.5rem" // Todo we want to use the font size var 5xl here!
             width="6ex"
             textAlign="center"
             name="numSeats"
-            backgroundColor='whiteAlpha.700'
             {...formProps.register("numSeats", {
               required: true,
               minValue: 0,
             })}
           />
-          <Text fontSize="xl" padding={2}>Einheiten</Text>
+          <Text fontSize="xl" padding={2}>
+            Einheiten
+          </Text>
         </Center>
 
         {/* PRESETS */}
         <Heading as="h3" size="xl">
           Aufteilen nach
         </Heading>
-        <ButtonGroup>
+        <Flex flexDirection={['column', 'column', 'column', 'row']}>
           <PresetButton
             fieldArray={formProps.partyStrengths}
             presetData={bundestagMandatsverteilung.data}
@@ -72,9 +70,9 @@ function AzurInputs({ formProps, ...props }) {
             fieldArray={formProps.partyStrengths}
             presetData={[{ name: "Abc", strength: 59 }]}
           >
-            Alt Button
+            Mandatsprognose (INSA)
           </PresetButton>
-        </ButtonGroup>
+        </Flex>
 
         {/* INPUT PARTY STRENGTHS */}
         <Heading as="h3" size="xl">
@@ -85,12 +83,14 @@ function AzurInputs({ formProps, ...props }) {
             <Flex key={index} flexDirection="row">
               <Input
                 type="text"
+                variant="azur-input"
                 // TODO important to include key with field's id // TODO
                 {...formProps.register(`partyStrengths.${index}.name`)}
               />
               <Input
                 type="number"
                 min={1}
+                variant="azur-input"
                 {...formProps.register(`partyStrengths.${index}.strength`)}
               />
               <Button
@@ -125,18 +125,17 @@ function AzurInputs({ formProps, ...props }) {
         <Heading as="h3" size="xl">
           Mathematische Verfahren
         </Heading>
-        <Flex flexDirection={["row", "column", "column"]} flexWrap="wrap">
+        <Flex flexDirection={['column', 'column', 'column', 'row']}>
           {constants.azurMethods.map((method) => {
             return (
-              <Box key={method.apiName}>
-                <MethodButton
-                  apiMethodName={method.apiName}
-                  activeMethod={formProps.getValues("method")} //TODO currentValues
-                  setFieldValue={formProps.setValue}
-                >
-                  {method.title}
-                </MethodButton>
-              </Box>
+              <MethodButton
+                key={method.apiName}
+                apiMethodName={method.apiName}
+                activeMethod={formProps.getValues("method")} //TODO currentValues
+                setFieldValue={formProps.setValue}
+              >
+                {method.title}
+              </MethodButton>
             );
           })}
         </Flex>

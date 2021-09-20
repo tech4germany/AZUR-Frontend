@@ -12,8 +12,7 @@ import {
 } from "@chakra-ui/react";
 import AnteileOutput from "./OutputViews/AnteileOutput";
 import ReihenfolgeOutput from "./OutputViews/ReihenfolgeOutput";
-import TabellenOutput from './OutputViews/TabellenOutput'
-
+import TabellenOutput from "./OutputViews/TabellenOutput";
 
 Output.propTypes = {
   azurInput: PropTypes.object,
@@ -21,10 +20,14 @@ Output.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default function Output({ azurInput, azurResponse, loading }) {
-
+export default function Output({
+  azurInput,
+  azurResponse,
+  loading,
+  ...cssprops
+}) {
   return (
-    <Box px="10" py="5" flexGrow={1} overflowY='auto'>
+    <Box {...cssprops}>
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
@@ -62,7 +65,10 @@ export default function Output({ azurInput, azurResponse, loading }) {
               <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence} />
             </TabPanel>
             <TabPanel>
-              <TabellenOutput rawTableData={azurResponse.table} partyStrengths={azurInput.partyStrengths}/>
+              <TabellenOutput
+                rawTableData={azurResponse.table}
+                partyStrengths={azurInput.partyStrengths}
+              />
             </TabPanel>
           </TabPanels>
         </Tabs>

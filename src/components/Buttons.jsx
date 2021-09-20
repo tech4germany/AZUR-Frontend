@@ -20,8 +20,9 @@ export function MethodButton({
       onClick={() => {
         setFieldValue("method", apiMethodName);
       }}
-      variant={`${activeMethod == apiMethodName ? "aaaa" : "outline"}`}
+      variant={`${activeMethod == apiMethodName ? "active" : "outline"}`}
       m={1}
+      flexGrow='1'
     >
       {children}
     </Button>
@@ -43,6 +44,7 @@ export function PresetButton({ fieldArray, presetData, children }) {
       onClick={() => {
         fieldArray.replace(presetData);
       }}
+      flexGrow='1'
     >
       {children}
     </Button>

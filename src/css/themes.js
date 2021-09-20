@@ -26,7 +26,9 @@ const fontSizes = {
 
 const Button = {
   baseStyle: {
-      margin: '1'
+      margin: '1',
+      whiteSpace: "normal", // necessary to allow for line breaks
+      wordWrap: "break-word"
   },
   variants: {
     active: {
@@ -39,9 +41,15 @@ const Button = {
 
 const Input = {
   baseStyle: {
-    field:{
-      margin: '1',
-      backgroundColor: 'whiteAlpha.700'
+    field: {
+      margin: '1'
+    }
+  },
+  variants: {
+    specialTest:{
+      field: {
+        backgroundColor: 'whiteAlpha.700'
+      }
     }
   }
 }
