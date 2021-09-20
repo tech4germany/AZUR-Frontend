@@ -1,9 +1,9 @@
-import { React } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import PieChart from '../PieChart'
-import DataTable from '../DataTable'
 import { Flex, Center, Table, Thead,  Tbody, Tr, Th, Td, } from '@chakra-ui/react'
 
+import { useTheme } from "@chakra-ui/react"
 
 
 AnteileOutput.propTypes = {
@@ -11,6 +11,11 @@ AnteileOutput.propTypes = {
 };
 
 export default function AnteileOutput({ seatSplit }) {
+  const sizes = useTheme().sizes
+  const innerWidthPx = convertRemToPixels(sizes[28])
+  const outerWidthPx = convertRemToPixels(sizes[56])
+  console.log(innerWidthPx)
+  console.log(outerWidthPx)
   return (
     <Flex flexDirection="column">
       <Center my="10">
@@ -32,8 +37,12 @@ export default function AnteileOutput({ seatSplit }) {
         </Table>
       </Center>
       <Center>
-        <PieChart data={seatSplit} outerRadius={200} innerRadius={100} />
+        <PieChart data={seatSplit} outerRadius={outerWidthPx} innerRadius={innerWidthPx} />
       </Center>
     </Flex>
   );
+}
+
+function convertRemToPixels(rem) {    
+  return parseFloat(rem) * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }

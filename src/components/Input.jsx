@@ -121,6 +121,7 @@ function AzurInputs({ formProps, ...cssprops }) {
               <Input disabled variant="fakeInput" />
               <Input disabled variant="fakeInput" />
               <Button
+                as="span"
                 variant="ghost"
                 pointerEvents="none"
               >
