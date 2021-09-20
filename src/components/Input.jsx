@@ -24,24 +24,21 @@ AzurInputs.propTypes = {
   formProps: PropTypes.object,
 };
 
-function AzurInputs({ formProps }) {
+function AzurInputs({ formProps, ...props }) {
   // Setting initial values
   React.useEffect(() => {
     formProps.setValue("numSeats", 25);
-    formProps.setValue("method", "hare");
+    formProps.setValue("method", "schepers");
     formProps.partyStrengths.replace(bundestagMandatsverteilung.data);
   }, []);
 
   return (
     <Box
-      backgroundColor="gray.50"
-      height="100vh"
-      overflowY="auto"
-      px="10"
-      py="5"
+      {...props}
     >
       {/* TODO: Height 100vh is too brutal here? */}
       <Heading size="2xl">Input</Heading>
+
       <form>
         <Center flexDirection="column">
           <Input
@@ -51,12 +48,13 @@ function AzurInputs({ formProps }) {
             width="6ex"
             textAlign="center"
             name="numSeats"
+            backgroundColor='whiteAlpha.700'
             {...formProps.register("numSeats", {
               required: true,
               minValue: 0,
             })}
           />
-          <Text fontSize="xl">Einheiten</Text>
+          <Text fontSize="xl" padding={2}>Einheiten</Text>
         </Center>
 
         {/* PRESETS */}
@@ -83,11 +81,9 @@ function AzurInputs({ formProps }) {
           Fraktionsstärken
         </Heading>
         <Box>
-          {console.log(formProps.partyStrengths.fields)}
           {formProps.partyStrengths.fields.map((field, index) => (
             <Flex key={index} flexDirection="row">
               <Input
-                m={"1"}
                 type="text"
                 // TODO important to include key with field's id // TODO
                 {...formProps.register(`partyStrengths.${index}.name`)}
@@ -95,7 +91,6 @@ function AzurInputs({ formProps }) {
               <Input
                 type="number"
                 min={1}
-                m={"1"}
                 {...formProps.register(`partyStrengths.${index}.strength`)}
               />
               <Button

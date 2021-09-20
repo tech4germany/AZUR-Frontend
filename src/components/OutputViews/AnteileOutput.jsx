@@ -1,6 +1,7 @@
 import { React } from "react";
 import PropTypes from "prop-types";
 import PieChart from '../PieChart'
+import DataTable from '../DataTable'
 import { Flex, Center, Table, Thead,  Tbody, Tr, Th, Td, } from '@chakra-ui/react'
 
 

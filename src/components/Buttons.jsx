@@ -38,12 +38,10 @@ export function PresetButton({ fieldArray, presetData, children }) {
   return (
     <Button
       variant={`${
-        matchesPreset(fieldArray.fields, presetData) ? "solid" : "outline"
+        matchesPreset(fieldArray.fields, presetData) ? "active" : "outline"
       }`}
-      m={1}
       onClick={() => {
         fieldArray.replace(presetData);
-        console.log(fieldArray.fields);
       }}
     >
       {children}

@@ -55,7 +55,6 @@ function App() {
       azurInput.partyStrengths.forEach((entry) => {
         partyStrengthForApi[entry.name] = entry.strength;
       });
-      console.log("Starting request");
 
       // useEffect itself should not be async according to linter, so we work with an anonymous function
       const azurResp = await fetch("http://127.0.0.1:5000/azur", {
@@ -67,6 +66,7 @@ function App() {
           votes: partyStrengthForApi,
           method: azurInput.method,
           num_of_seats: azurInput.num_of_seats,
+          return_table: true,
         }),
       }).then((resp) => resp.json());
       // TODO handle errors!
@@ -82,12 +82,21 @@ function App() {
 
   //*** RENDERING THE APP
   return (
-    <div className="App">
-      <Flex flexDirection={["column", "row", "row"]}>
-        <AzurInputs formProps={{ ...formProps, partyStrengths }} />
-        <Output azurResponse={data} loading={loading} />
-      </Flex>
-    </div>
+    <Flex
+      className="App"
+      flexDirection={["column", "row", "row"]}
+      maxHeight="100vh"
+    >
+      <AzurInputs
+        formProps={{ ...formProps, partyStrengths }}
+        backgroundColor="gray.50"
+        height="100vh"
+        overflowY="auto"
+        px="10"
+        py="5"
+      />
+      <Output azurInput={azurInput} azurResponse={data} loading={loading} />
+    </Flex>
   );
 }
 
