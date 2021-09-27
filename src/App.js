@@ -87,26 +87,25 @@ function App() {
       flexDirection={["column", "column", "row", "row"]}
       height="100vh"
     >
-      <AzurInputs
-        formProps={{ ...formProps, partyStrengths }}
+        <AzurInputs
+          formProps={{ ...formProps, partyStrengths }}
+          backgroundColor="gray.50"
+          height="100%"
+          overflowY="auto"
+          px="10"
+          py="5"
+        />
+        <Output
+          azurInput={azurInput}
+          azurResponse={data}
+          loading={loading}
 
-        backgroundColor="gray.50"
-        height="100%"
-        overflowY="auto"
-        px="10"
-        py="5"
-      />
-      <Output
-        azurInput={azurInput}
-        azurResponse={data}
-        loading={loading}
-
-        height="100%"
-        px="10"
-        py="5"
-        flexGrow={1}
-        overflowY="auto"
-      />
+          height="100%"
+          px="10"
+          py="5"
+          flexGrow={1}
+          overflowY="auto"
+        />
     </Flex>
   );
 }
