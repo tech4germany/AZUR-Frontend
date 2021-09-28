@@ -2,49 +2,23 @@ import React from "react";
 import { Button } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-MethodButton.propTypes = {
-  apiMethodName: PropTypes.string,
-  activeMethod: PropTypes.string,
-  setFieldValue: PropTypes.func,
-  children: PropTypes.string,
-};
-
-export function MethodButton({
-  apiMethodName,
-  activeMethod,
-  setFieldValue,
-  children,
-}) {
-  return (
-    <Button
-      onClick={() => {
-        setFieldValue("method", apiMethodName);
-      }}
-      variant={`${activeMethod == apiMethodName ? "active" : "outline"}`}
-      m={1}
-      p={2}
-      py={6}
-      flexGrow='1'
-    >
-      {children}
-    </Button>
-  );
-}
 
 PresetButton.propTypes = {
-  fieldArray: PropTypes.object,
-  presetData: PropTypes.array,
+  setFieldValue: PropTypes.func,
+  activeValue: PropTypes.any,
+  presetData: PropTypes.any,
+  attributeName: PropTypes.string,
   children: PropTypes.string,
 };
 
-export function PresetButton({ fieldArray, presetData, children }) {
+export function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children }) {
   return (
     <Button
       variant={`${
-        matchesPreset(fieldArray.fields, presetData) ? "active" : "outline"
+        matchesPreset(activeValue, presetData) ? "active" : "outline"
       }`}
       onClick={() => {
-        fieldArray.replace(presetData);
+        setFieldValue(attributeName, presetData); // TODO ADJUST TO FORMIK
       }}
       flexGrow='1'
       p={2}
@@ -59,13 +33,11 @@ export function PresetButton({ fieldArray, presetData, children }) {
 // TODO VERIFY RESULTS
 
 const matchesPreset = (input, preset) => {
-  if (input === null || input.length === 0) return false;
+  if (input === null) return false;
+  else if (Array.isArray(input)) return arraysEqual(input, preset);
+  else if (typeof yourVariable === 'object') return objectsEqual(input, preset)
+  else return input === preset
 
-  const inputSelect = input.map((obj) => {
-    return (({ name, strength }) => ({ name, strength }))(obj);
-  });
-
-  return arraysEqual(inputSelect, preset);
 };
 
 const objectsEqual = (o1, o2) =>
@@ -74,5 +46,10 @@ const objectsEqual = (o1, o2) =>
       Object.keys(o1).every((p) => objectsEqual(o1[p], o2[p]))
     : o1 === o2;
 
-const arraysEqual = (a1, a2) =>
-  a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+const arraysEqual = (a1, a2) => {
+  if(a1.length != a2.length) return false
+  else {
+    return a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+  }
+}
+  

@@ -14,8 +14,6 @@ export default function AnteileOutput({ seatSplit }) {
   const sizes = useTheme().sizes
   const innerWidthPx = convertRemToPixels(sizes[28])
   const outerWidthPx = convertRemToPixels(sizes[56])
-  console.log(innerWidthPx)
-  console.log(outerWidthPx)
   return (
     <Flex flexDirection="column">
       <Center my="10">

@@ -3,48 +3,13 @@ import AzurInputs from "./components/Input";
 import Output from "./components/Output";
 
 import { Flex } from "@chakra-ui/react";
-import { useForm, useFieldArray } from "react-hook-form";
 
 function App() {
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [azurInput, setAzurInput] = React.useState({});
 
-  const formProps = useForm();
-  const partyStrengths = useFieldArray({
-    control: formProps.control,
-    name: "partyStrengths",
-    // keyName: "id", default to "id", you can change the key name
-  });
 
-  //*** UPDATING INPUTS
-  const inputUpdate = formProps.watch();
-
-  React.useEffect(() => {
-    if (inputUpdate?.partyStrengths != null) {
-      /*TODO feels like parsing to int should happen as output of the form already*/
-      const partyStrengthsAsInts = inputUpdate.partyStrengths.map((elem) => {
-        return { name: elem.name, strength: parseInt(elem.strength) };
-      });
-
-      // TODO probably this can be done smoother
-      if (
-        (azurInput.method == inputUpdate.method &&
-          azurInput.num_of_seats == parseInt(inputUpdate.numSeats) &&
-          // TODO MAKE THIS ARRAY EQUALITY CHECK MORE SOLID (if we cant avoid it alltogether)
-          JSON.stringify(azurInput.partyStrengths) ==
-            JSON.stringify(partyStrengthsAsInts)) ||
-        azurInput == null
-      ) {
-        return null;
-      }
-      setAzurInput({
-        method: inputUpdate.method,
-        num_of_seats: parseInt(inputUpdate.numSeats),
-        partyStrengths: partyStrengthsAsInts,
-      });
-    }
-  }, [inputUpdate]);
 
   //*** FETCHING AZUR OUTPUTS
   React.useEffect(() => {
@@ -88,7 +53,8 @@ function App() {
       height="100vh"
     >
         <AzurInputs
-          formProps={{ ...formProps, partyStrengths }}
+          azurInput={azurInput}
+          setAzurInput={setAzurInput}
           backgroundColor="gray.50"
           height="100%"
           overflowY="auto"
