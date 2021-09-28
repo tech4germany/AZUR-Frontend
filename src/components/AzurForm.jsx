@@ -46,19 +46,19 @@ export default function AzurForm({ParentPropProvider}) {
       <Flex flexDirection={["column", "column", "column", "row"]}>
         <PresetButton
           activeValue={values.partyStrengths}
-          presetData={bundestagMandatsverteilung.data}
+          presetData={bundestagMandatsverteilung.btw2021}
           attributeName={"partyStrengths"}
           setFieldValue={setFieldValue}
         >
-          Aktuelle Bundestagsbesetzung
+          Bundestagswahl 2021
         </PresetButton>
         <PresetButton
           activeValue={values.partyStrengths}
-          presetData={{ a: 100 }} //TODO old bundestag
+          presetData={bundestagMandatsverteilung.btw2017}
           attributeName={"partyStrengths"}
           setFieldValue={setFieldValue}
         >
-          Mandatsprognose (INSA)
+          Bundestagswahl 2017
         </PresetButton>
       </Flex>
 
@@ -120,7 +120,7 @@ export default function AzurForm({ParentPropProvider}) {
             <PresetButton
               key={method.apiName}
               activeValue={values.method}
-              presetData={method.apiName} //TODO old bundestag
+              presetData={method.apiName}
               attributeName={"method"}
               setFieldValue={setFieldValue}
             >

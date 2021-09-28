@@ -1,17 +1,16 @@
 {
-  "lastUpdate": "10.Sep.2021",
-  "data": [
+  "btw2017" : [
     {
       "name": "CDU/CSU",
-      "strength": 245
+      "strength": 246
     },
     {
       "name": "SPD",
-      "strength": 152
+      "strength": 153
     },
     {
       "name": "AfD",
-      "strength": 87
+      "strength": 94
     },
     {
       "name": "FDP",
@@ -25,5 +24,32 @@
       "name": "Bündnis 90/Die Grünen",
       "strength": 67
     }
+  ],
+  "btw2021" : [
+    {
+      "name": "SPD",
+      "strength": 206
+    },
+    {
+      "name": "CDU/CSU",
+      "strength": 196
+    },
+    {
+      "name": "Bündnis 90/Die Grünen",
+      "strength": 118
+    },
+    {
+      "name": "FDP",
+      "strength": 92
+    },
+    {
+      "name": "AfD",
+      "strength": 83
+    },
+    {
+      "name": "Die Linke",
+      "strength": 39
+    }
   ]
+
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import AzurInputs from "./components/Input";
 import Output from "./components/Output";
-
+import _ from "lodash";
 import { Flex } from "@chakra-ui/react";
 
 function App() {
@@ -9,39 +9,46 @@ function App() {
   const [loading, setLoading] = React.useState(true);
   const [azurInput, setAzurInput] = React.useState({});
 
-
+  const DEBOUNCE_DELAY = 700 // we wait for additional input for 700ms before calling AZUR
 
   //*** FETCHING AZUR OUTPUTS
+  const fetchAzur = async (azurInputUpdate) => {
+    setLoading(true);
+    // Parse Form Input into a form digestable for the API
+    const partyStrengthForApi = {};
+    azurInputUpdate.partyStrengths.forEach((entry) => {
+      partyStrengthForApi[entry.name] = entry.strength;
+    });
+
+    // useEffect itself should not be async according to linter, so we work with an anonymous function
+    const azurResp = await fetch("http://127.0.0.1:5000/azur", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        votes: partyStrengthForApi,
+        method: azurInputUpdate.method,
+        num_of_seats: azurInputUpdate.num_of_seats,
+        return_table: true,
+      }),
+    }).then((resp) => resp.json());
+    // TODO handle errors!
+
+    setData(azurResp);
+    setLoading(false);
+  };
+
+  const debouncedFetchAzur = React.useCallback(
+    _.debounce((azurInputUpdate) => {
+      fetchAzur(azurInputUpdate);
+    }, DEBOUNCE_DELAY),
+    []
+  );
+
   React.useEffect(() => {
-    const fetchAzur = async () => {
-      setLoading(true);
-      // Parse Form Content into a form digestable for the API
-      const partyStrengthForApi = {};
-      azurInput.partyStrengths.forEach((entry) => {
-        partyStrengthForApi[entry.name] = entry.strength;
-      });
-
-      // useEffect itself should not be async according to linter, so we work with an anonymous function
-      const azurResp = await fetch("http://127.0.0.1:5000/azur", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          votes: partyStrengthForApi,
-          method: azurInput.method,
-          num_of_seats: azurInput.num_of_seats,
-          return_table: true,
-        }),
-      }).then((resp) => resp.json());
-      // TODO handle errors!
-
-      setData(azurResp);
-      setLoading(false);
-    };
-
     if ("partyStrengths" in azurInput) {
-      fetchAzur();
+      debouncedFetchAzur(azurInput);
     }
   }, [azurInput]);
 
