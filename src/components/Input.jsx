@@ -16,9 +16,9 @@ AzurInputs.propTypes = {
 function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
   // Initial Values
   const initialValues = {
-    numSeats: 22,
+    numSeats: 25,
     method: "schepers",
-    partyStrengths: bundestagMandatsverteilung.data,
+    partyStrengths: bundestagMandatsverteilung.btw2021,
   };
 
   // Validation Scheme
