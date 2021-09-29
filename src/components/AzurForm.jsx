@@ -15,31 +15,31 @@ import {
   Heading,
   Input,
   Button,
-  Text
+  Text,
 } from "@chakra-ui/react";
 
 AzurForm.propTypes = {
   ParentPropProvider: PropTypes.func,
 };
 
-export default function AzurForm({ParentPropProvider}) {
-  
-  const { values, setFieldValue } = useFormikContext()
+export default function AzurForm({ ParentPropProvider }) {
+  const { values, setFieldValue } = useFormikContext();
 
   if (values == null) {
-    return <p>Loading</p>
+    return <p>Loading</p>;
   }
 
   return (
     <Form>
       <Center flexDirection="column">
-        <Input as={Field}
+        <Input
+          as={Field}
           name="numSeats"
           type="number"
           fontSize="4xl"
-          textAlign='center'
-          width='6ex'
-          height='auto'
+          textAlign="center"
+          width="6ex"
+          height="auto"
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
@@ -63,6 +63,33 @@ export default function AzurForm({ParentPropProvider}) {
           setFieldValue={setFieldValue}
         >
           Bundestagswahl 2017
+        </PresetButton>
+      </Flex>
+      <Flex flexDirection={["column", "column", "column", "row"]}>
+        <PresetButton
+          activeValue={values.partyStrengths}
+          presetData={[
+            {
+              name: "SPD",
+              strength: 1000000,
+            },
+            {
+              name: "CDU",
+              strength: 300000,
+            },
+            {
+              name: "GRÜNE",
+              strength: 100000,
+            },
+            {
+              name: "LINKE",
+              strength: 5000,
+            },
+          ]}
+          attributeName={"partyStrengths"}
+          setFieldValue={setFieldValue}
+        >
+          Demo Preset
         </PresetButton>
       </Flex>
 
@@ -100,10 +127,10 @@ export default function AzurForm({ParentPropProvider}) {
               px={0}
               m={0}
               mt={1}
-              width={'100%'}
+              width={"100%"}
               onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
             >
-              <Flex flexDirection="row" m={0} width={'100%'}>
+              <Flex flexDirection="row" m={0} width={"100%"}>
                 <Input disabled variant="fakeInput" />
                 <Input disabled variant="fakeInput" />
                 <Button as="span" variant="ghost" pointerEvents="none">

@@ -34,7 +34,9 @@ export default function Output({
       {loading ? (
         <Spinner color="brand.orange" />
       ) : azurError != null ? (
-        <p>Ein Fehler bei der Berechnung ist aufgetreten: {azurError.message}</p>
+        <p>
+          Ein Fehler bei der Berechnung ist aufgetreten: {azurError.message}
+        </p>
       ) : (
         <Tabs defaultActiveKey="anteile">
           <TabList>
@@ -63,16 +65,18 @@ export default function Output({
 
           <TabPanels>
             <TabPanel>
-              <AnteileOutput seatSplit={azurResponse.seats} />
+              <AnteileOutput isAmbiguous={azurResponse.distribution.is_ambiguous} seatSplit={azurResponse.distribution.seats} />
             </TabPanel>
             <TabPanel>
-              <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence} />
+              {/* <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence} /> */}
             </TabPanel>
             <TabPanel>
-              <TabellenOutput
-                rawTableData={azurResponse.table}
-                partyStrengths={azurInput.partyStrengths}
-              />
+              {/*
+                <TabellenOutput
+                  rawTableData={azurResponse.table}
+                  partyStrengths={azurInput.partyStrengths}
+                />
+              */}
             </TabPanel>
           </TabPanels>
         </Tabs>
