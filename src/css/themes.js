@@ -35,6 +35,7 @@ const fontSizes = {
   xl: "1.6rem", // 20px heading 3
   "2xl": "2rem", // 24px heading 2
   "3xl": "2.3rem", // 28px heading 1
+  "4xl": "3rem", // custom very large
 };
 
 
@@ -56,23 +57,25 @@ const Button = {
 const Input = {
   baseStyle: {
     field: {
-      margin: '1'
+      margin: '1',
+      backgroundColor: 'whiteAlpha.700',
+      outline: "1px solid",
+      outlineColor: 'brand.darkBlueAlpha.200',
+      border: 'none'
     }
   },
   variants: {
-    specialTest: {
-      field: {
-        backgroundColor: 'whiteAlpha.700'
-      }
+    azurBrand: {
+    
     },
     fakeInput: {
         field: {
           pointerEvents: "none",
-          backgroundColor: 'whiteAlpha.700',
-          border: "1px solid",
-          borderColor: 'blackAlpha.200'
         }
     }
+  },
+  defaultProps: {
+    variant: 'azurBrand'
   }
 }
 

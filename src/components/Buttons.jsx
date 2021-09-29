@@ -1,6 +1,8 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import { objectsEqual, arraysEqual } from '../utils/equalityChecks'
+
 
 
 PresetButton.propTypes = {
@@ -18,7 +20,7 @@ export function PresetButton({ activeValue, presetData, attributeName, setFieldV
         matchesPreset(activeValue, presetData) ? "active" : "outline"
       }`}
       onClick={() => {
-        setFieldValue(attributeName, presetData); // TODO ADJUST TO FORMIK
+        setFieldValue(attributeName, presetData);
       }}
       flexGrow='1'
       p={2}
@@ -29,8 +31,7 @@ export function PresetButton({ activeValue, presetData, attributeName, setFieldV
   );
 }
 
-// CHECK FOR EQULITY OF OBJECTS https://stackoverflow.com/questions/27030/comparing-arrays-of-objects-in-javascript
-// TODO VERIFY RESULTS
+// CHECK FOR EQUALITY OF OBJECTS https://stackoverflow.com/questions/27030/comparing-arrays-of-objects-in-javascript
 
 const matchesPreset = (input, preset) => {
   if (input === null) return false;
@@ -40,16 +41,3 @@ const matchesPreset = (input, preset) => {
 
 };
 
-const objectsEqual = (o1, o2) =>
-  typeof o1 === "object" && Object.keys(o1).length > 0
-    ? Object.keys(o1).length === Object.keys(o2).length &&
-      Object.keys(o1).every((p) => objectsEqual(o1[p], o2[p]))
-    : o1 === o2;
-
-const arraysEqual = (a1, a2) => {
-  if(a1.length != a2.length) return false
-  else {
-    return a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
-  }
-}
-  
