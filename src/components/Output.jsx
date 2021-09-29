@@ -68,7 +68,7 @@ export default function Output({
               <AnteileOutput isAmbiguous={azurResponse.distribution.is_ambiguous} seatSplit={azurResponse.distribution.seats} />
             </TabPanel>
             <TabPanel>
-              {/* <ReihenfolgeOutput seatOrder={azurResponse.assignment_sequence} /> */}
+              <ReihenfolgeOutput assignmentSequence={azurResponse.assignment_sequence} />
             </TabPanel>
             <TabPanel>
               {/*
