@@ -65,16 +65,18 @@ export default function Output({
 
           <TabPanels>
             <TabPanel>
-              <AnteileOutput isAmbiguous={azurResponse.distribution.is_ambiguous} seatSplit={azurResponse.distribution.seats} />
+              <AnteileOutput
+                isAmbiguous={azurResponse.distribution.is_ambiguous}
+                seatSplit={azurResponse.distribution.seats}
+              />
             </TabPanel>
             <TabPanel>
-              <ReihenfolgeOutput assignmentSequence={azurResponse.assignment_sequence} />
+              <ReihenfolgeOutput
+                assignmentSequence={azurResponse.assignment_sequence}
+              />
             </TabPanel>
             <TabPanel>
-                <TabellenOutput
-                  tableData={azurResponse.table}
-                  partyStrengths={azurInput.partyStrengths}
-                />
+              <TabellenOutput tableData={azurResponse.table} />
             </TabPanel>
           </TabPanels>
         </Tabs>

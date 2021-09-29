@@ -1,45 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DataTable from "../DataTable";
+import DataTable from "./DataTable";
 import { Spinner } from "@chakra-ui/react";
 
 TabellenOutput.propTypes = {
-  tableData: PropTypes.array,
-  partyStrengths: PropTypes.array,
+  tableData: PropTypes.array
 };
 
-export default function TabellenOutput({ tableData, partyStrengths }) {
+export default function TabellenOutput({ tableData }) {
   const [columns, setColumns] = React.useState();
   const [data, setData] = React.useState();
 
+
+
+  // TODO MEMOIZE COLUMNS AND DATA! 
+
   React.useEffect(() => {
-    /* TODO We should not convert in frontend but already receive this from frontend? */
+
     if (tableData != undefined) {
       const colLabels = Object.keys(tableData[0].seats)
-      console.log(colLabels)
-      const columnsObjs = []
-      colLabels.map(colLabel => {
-        columnsObjs.push(
+      const columnsObjs = colLabels.map(colLabel => {
+        return(
           {
             Header: colLabel,
-            accessor: colLabel,
+            accessor: 'seats.' + colLabel, // we want to access the seats subitem
             isNumeric: true,
+            Cell: ({ cell: { value } }) => {
+              if (Array.isArray(value)){
+                return ('Mehrdeutig! ' + value.join(' oder '))
+              } else {
+                return value
+              }
+              
+            }
           }
         )
       })
 
-
-      // TODO CAN WE REMOVE PARTY STRENGTHS??
-
       setColumns(columnsObjs)
 
       // TODO ignoring ambig for now
-      const tableDataParsed = tableData.map((row) => row.seats)
+      // const tableDataParsed = tableData.map((row) => row.seats)
 
 
-      setData(tableDataParsed);
+      setData(tableData);
     }
-  }, [tableData, partyStrengths]);
+  }, [tableData]);
 
   return (
     <>
