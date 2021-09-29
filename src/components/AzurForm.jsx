@@ -15,11 +15,11 @@ import {
   Heading,
   Input,
   Button,
-  Text,
+  Text
 } from "@chakra-ui/react";
 
 AzurForm.propTypes = {
-  ParentPropProvider: PropTypes.element,
+  ParentPropProvider: PropTypes.func,
 };
 
 export default function AzurForm({ParentPropProvider}) {
@@ -29,13 +29,17 @@ export default function AzurForm({ParentPropProvider}) {
   if (values == null) {
     return <p>Loading</p>
   }
+
   return (
     <Form>
       <Center flexDirection="column">
-        <Field
+        <Input as={Field}
           name="numSeats"
           type="number"
-          style={{ fontSize: "3rem", width: "4.5ex" }}
+          fontSize="4xl"
+          textAlign='center'
+          width='6ex'
+          height='auto'
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
@@ -66,7 +70,6 @@ export default function AzurForm({ParentPropProvider}) {
       <Heading as="h3" size="xl">
         Fraktionsstärken
       </Heading>
-      {/* TODO TABLE HEADERS "NAME" AND "STÄRKE" */}
       <FieldArray name="partyStrengths">
         {({ remove, push }) => (
           <Box>
@@ -74,12 +77,12 @@ export default function AzurForm({ParentPropProvider}) {
               values.partyStrengths.map((_, index) => (
                 <Flex key={index} flexDirection="row">
                   <Field
-                    className="p-2"
+                    as={Input}
                     name={`partyStrengths.${index}.name`}
                     type="text"
                   />
                   <Field
-                    className="p-2"
+                    as={Input}
                     name={`partyStrengths.${index}.strength`}
                     type="number"
                   />
@@ -88,6 +91,7 @@ export default function AzurForm({ParentPropProvider}) {
                   </Button>
                 </Flex>
               ))}
+            {/*ADD FRACTION FAKE INPUT*/}
             <Button
               variant="ghost"
               _hover={{
@@ -96,9 +100,10 @@ export default function AzurForm({ParentPropProvider}) {
               px={0}
               m={0}
               mt={1}
+              width={'100%'}
               onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
             >
-              <Flex flexDirection="row" m={0}>
+              <Flex flexDirection="row" m={0} width={'100%'}>
                 <Input disabled variant="fakeInput" />
                 <Input disabled variant="fakeInput" />
                 <Button as="span" variant="ghost" pointerEvents="none">

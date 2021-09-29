@@ -9,7 +9,7 @@ function App() {
   const [loading, setLoading] = React.useState(true);
   const [azurInput, setAzurInput] = React.useState({});
 
-  const DEBOUNCE_DELAY = 700 // we wait for additional input for 700ms before calling AZUR
+  const DEBOUNCE_DELAY = 700; // we wait for additional input for 700ms before calling AZUR
 
   //*** FETCHING AZUR OUTPUTS
   const fetchAzur = async (azurInputUpdate) => {
@@ -32,9 +32,11 @@ function App() {
         num_of_seats: azurInputUpdate.num_of_seats,
         return_table: true,
       }),
-    }).then((resp) => resp.json());
-    // TODO handle errors!
-
+    }).then((resp) => resp.json()
+    ).catch((err) => {
+      // TODO handle errors!  
+      console.log(err)
+    });
     setData(azurResp);
     setLoading(false);
   };
@@ -52,6 +54,7 @@ function App() {
     }
   }, [azurInput]);
 
+  
   //*** RENDERING THE APP
   return (
     <Flex
@@ -59,26 +62,25 @@ function App() {
       flexDirection={["column", "column", "row", "row"]}
       height="100vh"
     >
-        <AzurInputs
-          azurInput={azurInput}
-          setAzurInput={setAzurInput}
-          backgroundColor="gray.50"
-          height="100%"
-          overflowY="auto"
-          px="10"
-          py="5"
-        />
-        <Output
-          azurInput={azurInput}
-          azurResponse={data}
-          loading={loading}
-
-          height="100%"
-          px="10"
-          py="5"
-          flexGrow={1}
-          overflowY="auto"
-        />
+      <AzurInputs
+        azurInput={azurInput}
+        setAzurInput={setAzurInput}
+        backgroundColor="gray.50"
+        height="100%"
+        overflowY="auto"
+        px="10"
+        py="5"
+      />
+      <Output
+        azurInput={azurInput}
+        azurResponse={data}
+        loading={loading}
+        height="100%"
+        px="10"
+        py="5"
+        flexGrow={1}
+        overflowY="auto"
+      />
     </Flex>
   );
 }

@@ -7,6 +7,7 @@ import { Box } from "@chakra-ui/react";
 import { useFormikContext, Formik } from "formik";
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
 import * as Yup from "yup";
+import { arraysEqual } from '../utils/equalityChecks'
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
@@ -14,6 +15,7 @@ AzurInputs.propTypes = {
 };
 
 function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
+
   // Initial Values
   const initialValues = {
     numSeats: 25,
@@ -36,14 +38,9 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
   const ParentPropProvider = () => {
     const { values } = useFormikContext();
     React.useEffect(() => {
-      // I dont exactly know why I have to do this check/ Why does dep-array not do that check?
-      // TODO WE WANT SOME DEBOUNCING SOLUTION!
-      if (
-        azurInput.method == values.method &&
-        azurInput.num_of_seats == values.numSeats &&
-        // TODO MAKE THIS ARRAY EQUALITY CHECK MORE SOLID (if we cant avoid it alltogether)
-        JSON.stringify(azurInput.partyStrengths) ==
-          JSON.stringify(values.partyStrengths)
+      if (arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&
+        azurInput.method === values.method &&
+        azurInput.num_of_seats === values.numSeats
       ) {
         return null;
       }

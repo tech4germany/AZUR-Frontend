@@ -36,8 +36,7 @@ function PieChart({ data, outerRadius, innerRadius }) {
         }
     })
 
-    // TODO REPLACE WITH CUSTOM COLOR SCALE
-    const colorScale = d3.scaleLinear().domain([1, parsedData.length]).range(["#666", "gray"])
+    const colorScale = d3.scaleLinear().domain([1, parsedData.length]).range(["#333", "gray"])
 
     d3.select("#pie-container").select("svg").remove(); // Create new svg
     const svg = d3
