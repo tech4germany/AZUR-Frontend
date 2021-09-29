@@ -94,7 +94,7 @@ const PureDataTable = ({
               <Th
                 key={column.header}
                 {...column.getHeaderProps()}
-                isNumeric={column.isNumeric}
+                textAlign='center'
               >
                 {column.render("Header")}
               </Th>
@@ -108,7 +108,7 @@ const PureDataTable = ({
           return (
             <Tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <Td {...cell.getCellProps()} isNumeric={cell.column.isNumeric}>
+                <Td {...cell.getCellProps()} textAlign='center'>
                   {cell.render("Cell")}
                 </Td>
               ))}

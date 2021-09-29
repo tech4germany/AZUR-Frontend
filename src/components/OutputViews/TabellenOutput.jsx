@@ -4,26 +4,20 @@ import DataTable from "../DataTable";
 import { Spinner } from "@chakra-ui/react";
 
 TabellenOutput.propTypes = {
-  rawTableData: PropTypes.array,
+  tableData: PropTypes.array,
   partyStrengths: PropTypes.array,
 };
 
-export default function TabellenOutput({ rawTableData, partyStrengths }) {
+export default function TabellenOutput({ tableData, partyStrengths }) {
   const [columns, setColumns] = React.useState();
   const [data, setData] = React.useState();
 
   React.useEffect(() => {
     /* TODO We should not convert in frontend but already receive this from frontend? */
-    if (rawTableData != undefined) {
-      const colLabels = partyStrengths.map(({ name }) => name); // TODO at least use the table headers here
+    if (tableData != undefined) {
+      const colLabels = Object.keys(tableData[0].seats)
+      console.log(colLabels)
       const columnsObjs = []
-      columnsObjs.push(
-        {
-          Header: 'Index',
-          accessor: 'index',
-          isNumeric: true,
-        }
-      )
       colLabels.map(colLabel => {
         columnsObjs.push(
           {
@@ -34,21 +28,18 @@ export default function TabellenOutput({ rawTableData, partyStrengths }) {
         )
       })
 
+
+      // TODO CAN WE REMOVE PARTY STRENGTHS??
+
       setColumns(columnsObjs)
-      let tableDataParsed = [];
-      let j = 1;
-      tableDataParsed = rawTableData.map((row) => {
-        let outputRow = {};
-        outputRow.index = j;
-        j++;
-        for (let i = 0; i < row.length; i++) {
-          outputRow[colLabels[i]] = row[i]; // TODO at least use the table headers here
-        }
-        return outputRow;
-      });
+
+      // TODO ignoring ambig for now
+      const tableDataParsed = tableData.map((row) => row.seats)
+
+
       setData(tableDataParsed);
     }
-  }, [rawTableData, partyStrengths]);
+  }, [tableData, partyStrengths]);
 
   return (
     <>

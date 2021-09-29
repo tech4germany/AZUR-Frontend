@@ -71,12 +71,10 @@ export default function Output({
               <ReihenfolgeOutput assignmentSequence={azurResponse.assignment_sequence} />
             </TabPanel>
             <TabPanel>
-              {/*
                 <TabellenOutput
-                  rawTableData={azurResponse.table}
+                  tableData={azurResponse.table}
                   partyStrengths={azurInput.partyStrengths}
                 />
-              */}
             </TabPanel>
           </TabPanels>
         </Tabs>
