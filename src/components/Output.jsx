@@ -17,12 +17,14 @@ import TabellenOutput from "./OutputViews/TabellenOutput";
 Output.propTypes = {
   azurInput: PropTypes.object,
   azurResponse: PropTypes.object,
+  azurError: PropTypes.object,
   loading: PropTypes.bool,
 };
 
 export default function Output({
   azurInput,
   azurResponse,
+  azurError,
   loading,
   ...cssprops
 }) {
@@ -31,6 +33,8 @@ export default function Output({
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
+      ) : azurError != null ? (
+        <p>Ein Fehler bei der Berechnung ist aufgetreten: {azurError.message}</p>
       ) : (
         <Tabs defaultActiveKey="anteile">
           <TabList>

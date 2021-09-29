@@ -1,61 +1,15 @@
 import React from "react";
 import AzurInputs from "./components/Input";
 import Output from "./components/Output";
-import _ from "lodash";
+import useAzur from './hooks/useAzur'
+
 import { Flex } from "@chakra-ui/react";
 
+
 function App() {
-  const [data, setData] = React.useState({});
-  const [loading, setLoading] = React.useState(true);
   const [azurInput, setAzurInput] = React.useState({});
+  const {data, loading, error} = useAzur(azurInput)
 
-  const DEBOUNCE_DELAY = 700; // we wait for additional input for 700ms before calling AZUR
-
-  //*** FETCHING AZUR OUTPUTS
-  const fetchAzur = async (azurInputUpdate) => {
-    setLoading(true);
-    // Parse Form Input into a form digestable for the API
-    const partyStrengthForApi = {};
-    azurInputUpdate.partyStrengths.forEach((entry) => {
-      partyStrengthForApi[entry.name] = entry.strength;
-    });
-
-    // useEffect itself should not be async according to linter, so we work with an anonymous function
-    const azurResp = await fetch("http://127.0.0.1:5000/azur", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        votes: partyStrengthForApi,
-        method: azurInputUpdate.method,
-        num_of_seats: azurInputUpdate.num_of_seats,
-        return_table: true,
-      }),
-    }).then((resp) => resp.json()
-    ).catch((err) => {
-      // TODO handle errors!  
-      console.log(err)
-    });
-    setData(azurResp);
-    setLoading(false);
-  };
-
-  const debouncedFetchAzur = React.useCallback(
-    _.debounce((azurInputUpdate) => {
-      fetchAzur(azurInputUpdate);
-    }, DEBOUNCE_DELAY),
-    []
-  );
-
-  React.useEffect(() => {
-    if ("partyStrengths" in azurInput) {
-      debouncedFetchAzur(azurInput);
-    }
-  }, [azurInput]);
-
-  
-  //*** RENDERING THE APP
   return (
     <Flex
       className="App"
@@ -74,6 +28,7 @@ function App() {
       <Output
         azurInput={azurInput}
         azurResponse={data}
+        azurError={error}
         loading={loading}
         height="100%"
         px="10"

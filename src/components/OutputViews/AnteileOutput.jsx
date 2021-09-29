@@ -12,7 +12,7 @@ AnteileOutput.propTypes = {
 
 export default function AnteileOutput({ seatSplit }) {
   const sizes = useTheme().sizes
-  const innerWidthPx = convertRemToPixels(sizes[28])
+  const innerWidthPx = convertRemToPixels(sizes[20])
   const outerWidthPx = convertRemToPixels(sizes[56])
   return (
     <Flex flexDirection="column">
