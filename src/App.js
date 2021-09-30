@@ -1,20 +1,19 @@
 import React from "react";
 import AzurInputs from "./components/Input";
 import Output from "./components/Output";
-import useAzur from './hooks/useAzur'
+import useAzur from "./hooks/useAzur";
 
 import { Flex } from "@chakra-ui/react";
-
 
 function App() {
   const [azurInput, setAzurInput] = React.useState({});
   const [azurInputError, setAzurInputError] = React.useState({});
-  const {data, loading, error} = useAzur(azurInput)
+  const { data, loading, error } = useAzur(azurInput);
 
   return (
     <Flex
       className="App"
-      flexDirection={["column", "column", "row", "row"]}
+      flexDirection={["column", "column", "column", "row"]}
       height="100vh"
     >
       <AzurInputs

@@ -7,8 +7,8 @@ import { Box } from "@chakra-ui/react";
 
 import { useFormikContext, Formik } from "formik";
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-
 import { arraysEqual } from "../utils/equalityChecks";
+
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
@@ -25,11 +25,9 @@ function AzurInputs({ azurInput, setAzurInput, setAzurInputError, ...cssprops })
   };
 
 
-
   const ParentPropProvider = () => {
     const { values, errors } = useFormikContext();
     React.useEffect(() => {
-      console.log(errors)
       setAzurInputError(errors)
       if (
         arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&

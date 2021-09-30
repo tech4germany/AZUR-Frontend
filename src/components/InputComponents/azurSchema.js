@@ -28,7 +28,6 @@ const azurSchema = Yup.object().shape({
     .min(1, "Es wird mindestens eine Fraktion benötigt.")
     .test('test_for_duplicates', 'Es werden zwei Fraktionen mit dem selben Namen aufgeführt.', (partyStrengths) => {
       const namesList = partyStrengths.map(({name}) => name)
-      console.log(new Set(namesList).size === namesList.length)
       return (new Set(namesList).size === namesList.length) // returns true if no duplicates exist
     }),
   method: Yup.string().required("Dieses Feld wird benötigt."),

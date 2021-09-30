@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OutputTabs from "./OutputViews/OutputTabs";
 import {
   Spinner,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Heading,
   Box,
   Alert,
@@ -14,10 +10,8 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
-import AnteileOutput from "./OutputViews/AnteileOutput";
-import ReihenfolgeOutput from "./OutputViews/ReihenfolgeOutput";
-import TabellenOutput from "./OutputViews/TabellenOutput";
 import _ from "lodash";
+
 
 Output.propTypes = {
   azurInput: PropTypes.object,
@@ -40,65 +34,29 @@ export default function Output({
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
-      ) : azurInputError != null && !(_.isEmpty(azurInputError)) ? (
+      ) : azurInputError != null && !_.isEmpty(azurInputError) ? (
         <Alert status="error">
           <AlertIcon />
           <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
           <AlertDescription>
-            Es besteht ein Fehler in der Eingabe. Sie müssen die Daten anpassen, um eine Berechnung durchführen zu können.
+            Es besteht ein Fehler in der Eingabe. Sie müssen die Daten anpassen,
+            um eine Berechnung durchführen zu können.
+            
+            <Heading size="md"></Heading>
           </AlertDescription>
         </Alert>
       ) : azurError != null ? (
         <Alert status="error">
           <AlertIcon />
-          <AlertTitle mr={2}>Fehler bei der Berechnung Berechnung</AlertTitle>
+          <AlertTitle mr={2}>Fehler bei der Berechnung</AlertTitle>
           <AlertDescription>
-            Es ist ein Fehler bei der Berechnung aufgetreten: {azurError.message}
+            Es ist ein Fehler bei der Berechnung aufgetreten:{" "}
+            {azurError.message}
           </AlertDescription>
         </Alert>
       ) : (
-        <Tabs defaultActiveKey="anteile">
-          <TabList>
-            <Tab>Anteile</Tab>
-            <Tab
-              title={
-                azurInput.method === "hare"
-                  ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine Zugriffsreihenfolge. Probieren Sie eine andere Methode.`
-                  : `Reihenfolge in der die einzelnen Einheiten an die Fraktionen vergeben werden.`
-              }
-              isDisabled={azurInput.method === "hare"}
-            >
-              Zugriffsreihenfolge
-            </Tab>
-            <Tab
-              isDisabled={azurInput.method === "hare"}
-              title={
-                azurInput.method === "hare"
-                  ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine tabellarische Übersicht. Probieren Sie eine andere Methode.`
-                  : `Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`
-              }
-            >
-              Tabelle
-            </Tab>
-          </TabList>
-
-          <TabPanels>
-            <TabPanel>
-              <AnteileOutput
-                isAmbiguous={azurResponse.distribution.is_ambiguous}
-                seatSplit={azurResponse.distribution.seats}
-              />
-            </TabPanel>
-            <TabPanel>
-              <ReihenfolgeOutput
-                assignmentSequence={azurResponse.assignment_sequence}
-              />
-            </TabPanel>
-            <TabPanel>
-              <TabellenOutput tableData={azurResponse.table} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        // everything went fine and we have results
+        <OutputTabs azurResponse={azurResponse} azurInput={azurInput} />
       )}
     </Box>
   );

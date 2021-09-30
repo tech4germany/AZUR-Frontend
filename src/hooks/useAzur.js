@@ -17,7 +17,14 @@ export default function useAzur(azurInput){
       azurInputUpdate.partyStrengths.forEach((entry) => {
         partyStrengthForApi[entry.name] = entry.strength;
       });
-   
+      
+      console.log(JSON.stringify({
+        votes: partyStrengthForApi,
+        method: azurInputUpdate.method,
+        num_of_seats: azurInputUpdate.num_of_seats,
+        return_table: true,
+      }))
+
       // useEffect itself should not be async according to linter, so we work with an anonymous function
       fetch("http://127.0.0.1:5000/azur", {
         method: "POST",
@@ -43,9 +50,11 @@ export default function useAzur(azurInput){
         }
       }).then((azurResponse) => {
         setError(null)
+        console.log(azurResponse)
         setData(azurResponse);
       }).catch((fetchingError) => {
         setData(null)
+        console.log(fetchingError)
         setError(fetchingError)
       }).finally(()=>{
         setLoading(false);
