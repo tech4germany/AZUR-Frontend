@@ -13,9 +13,10 @@ import { arraysEqual } from "../utils/equalityChecks";
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
   setAzurInput: PropTypes.func,
+  setAzurInputError: PropTypes.func
 };
 
-function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
+function AzurInputs({ azurInput, setAzurInput, setAzurInputError, ...cssprops }) {
   // Initial Values
   const initialValues = {
     numSeats: 13, //reset to 25
@@ -26,8 +27,10 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
 
 
   const ParentPropProvider = () => {
-    const { values } = useFormikContext();
+    const { values, errors } = useFormikContext();
     React.useEffect(() => {
+      console.log(errors)
+      setAzurInputError(errors)
       if (
         arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&
         azurInput.method === values.method &&

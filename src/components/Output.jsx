@@ -9,13 +9,19 @@ import {
   TabPanel,
   Heading,
   Box,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import AnteileOutput from "./OutputViews/AnteileOutput";
 import ReihenfolgeOutput from "./OutputViews/ReihenfolgeOutput";
 import TabellenOutput from "./OutputViews/TabellenOutput";
+import _ from "lodash";
 
 Output.propTypes = {
   azurInput: PropTypes.object,
+  azurInputError: PropTypes.object,
   azurResponse: PropTypes.object,
   azurError: PropTypes.object,
   loading: PropTypes.bool,
@@ -23,6 +29,7 @@ Output.propTypes = {
 
 export default function Output({
   azurInput,
+  azurInputError,
   azurResponse,
   azurError,
   loading,
@@ -33,10 +40,22 @@ export default function Output({
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
+      ) : azurInputError != null && !(_.isEmpty(azurInputError)) ? (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
+          <AlertDescription>
+            Es besteht ein Fehler in der Eingabe. Sie müssen die Daten anpassen, um eine Berechnung durchführen zu können.
+          </AlertDescription>
+        </Alert>
       ) : azurError != null ? (
-        <p>
-          Ein Fehler bei der Berechnung ist aufgetreten: {azurError.message}
-        </p>
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Fehler bei der Berechnung Berechnung</AlertTitle>
+          <AlertDescription>
+            Es ist ein Fehler bei der Berechnung aufgetreten: {azurError.message}
+          </AlertDescription>
+        </Alert>
       ) : (
         <Tabs defaultActiveKey="anteile">
           <TabList>
