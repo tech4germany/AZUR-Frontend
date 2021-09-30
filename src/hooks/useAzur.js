@@ -30,15 +30,23 @@ export default function useAzur(azurInput){
           num_of_seats: azurInputUpdate.num_of_seats,
           return_table: true,
         }),
-      }).then((resp) =>
-        resp.json()
-      ).catch((fetchingError) => {
-        // TODO test error handling after errors are returned in json
-        console.log(fetchingError)
-        setError(fetchingError)
+      }).then(async (resp) => {
+        if(resp.ok)
+          return resp.json()
+        else{ // error handling
+          const error = await resp.json()
+          let errorMessage = error?.message
+          if(errorMessage == null){
+            errorMessage = 'An unexpected error occured'
+          }
+          throw new Error(errorMessage)
+        }
       }).then((azurResponse) => {
         setError(null)
         setData(azurResponse);
+      }).catch((fetchingError) => {
+        setData(null)
+        setError(fetchingError)
       }).finally(()=>{
         setLoading(false);
       });
