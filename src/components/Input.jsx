@@ -18,8 +18,8 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
 
   // Initial Values
   const initialValues = {
-    numSeats: 25,
-    method: "schepers",
+    numSeats: 13,   //reset to 25
+    method: "dhondt", //reset to dhondt
     partyStrengths: bundestagMandatsverteilung.btw2021,
   };
 

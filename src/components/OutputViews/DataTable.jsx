@@ -94,7 +94,7 @@ const PureDataTable = ({
               <Th
                 key={column.header}
                 {...column.getHeaderProps()}
-                isNumeric={column.isNumeric}
+                textAlign='center'
               >
                 {column.render("Header")}
               </Th>
@@ -105,13 +105,18 @@ const PureDataTable = ({
       <Tbody {...getTableBodyProps()}>
         {page.map((row) => {
           prepareRow(row);
+          console.log(row)
           return (
-            <Tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <Td {...cell.getCellProps()} isNumeric={cell.column.isNumeric}>
-                  {cell.render("Cell")}
-                </Td>
-              ))}
+            // TODO HIGHLIGHT ROW IF IT IS AMBIGIOUS {row.original.is_ambiguous && } ....
+            <Tr {...row.getRowProps()} >
+              {row.cells.map((cell) => {
+                // console.log(cell)
+                return(
+                  <Td {...cell.getCellProps()} textAlign='center'>
+                    {cell.render("Cell")}
+                  </Td>
+                )  
+              })}
             </Tr>
           );
         })}
@@ -119,6 +124,7 @@ const PureDataTable = ({
     </Table>
   );
 };
+
 
 const PaginationToolbar = ({
   canPreviousPage,

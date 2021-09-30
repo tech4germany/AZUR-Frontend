@@ -1,54 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DataTable from "../DataTable";
+import DataTable from "./DataTable";
 import { Spinner } from "@chakra-ui/react";
 
 TabellenOutput.propTypes = {
-  rawTableData: PropTypes.array,
-  partyStrengths: PropTypes.array,
+  tableData: PropTypes.array
 };
 
-export default function TabellenOutput({ rawTableData, partyStrengths }) {
+export default function TabellenOutput({ tableData }) {
   const [columns, setColumns] = React.useState();
   const [data, setData] = React.useState();
 
+
+
+  // TODO MEMOIZE COLUMNS AND DATA! 
+
   React.useEffect(() => {
-    /* TODO We should not convert in frontend but already receive this from frontend? */
-    if (rawTableData != undefined) {
-      const colLabels = partyStrengths.map(({ name }) => name); // TODO at least use the table headers here
-      const columnsObjs = []
-      columnsObjs.push(
-        {
-          Header: 'Index',
-          accessor: 'index',
-          isNumeric: true,
-        }
-      )
-      colLabels.map(colLabel => {
-        columnsObjs.push(
+
+    if (tableData != undefined) {
+      const colLabels = Object.keys(tableData[0].seats)
+      const columnsObjs = colLabels.map(colLabel => {
+        return(
           {
             Header: colLabel,
-            accessor: colLabel,
+            accessor: 'seats.' + colLabel, // we want to access the seats subitem
             isNumeric: true,
+            Cell: ({ cell: { value } }) => {
+              if (Array.isArray(value)){
+                return ('Mehrdeutig! ' + value.join(' oder '))
+              } else {
+                return value
+              }
+              
+            }
           }
         )
       })
 
       setColumns(columnsObjs)
-      let tableDataParsed = [];
-      let j = 1;
-      tableDataParsed = rawTableData.map((row) => {
-        let outputRow = {};
-        outputRow.index = j;
-        j++;
-        for (let i = 0; i < row.length; i++) {
-          outputRow[colLabels[i]] = row[i]; // TODO at least use the table headers here
-        }
-        return outputRow;
-      });
-      setData(tableDataParsed);
+
+      // TODO ignoring ambig for now
+      // const tableDataParsed = tableData.map((row) => row.seats)
+
+
+      setData(tableData);
     }
-  }, [rawTableData, partyStrengths]);
+  }, [tableData]);
 
   return (
     <>

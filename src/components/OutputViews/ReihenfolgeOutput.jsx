@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { Table, Tbody, Tr, Td } from "@chakra-ui/react";
 
 ReihenfolgeOutput.propTypes = {
-  seatOrder: PropTypes.array,
+  assignmentSequence: PropTypes.array,
 };
 
-export default function ReihenfolgeOutput({ seatOrder }) {
-  if (seatOrder == null) {
+export default function ReihenfolgeOutput({ assignmentSequence }) {
+  if (assignmentSequence == null) {
     return (
       <p>
         Bei dem Verfahren Hare/Niemeyer ergibt sich keine Zugriffsreihenfolge
@@ -19,12 +19,19 @@ export default function ReihenfolgeOutput({ seatOrder }) {
   return (
     <Table>
       <Tbody>
-        {seatOrder.map((partyThatGetsSeat) => {
+        {assignmentSequence.map((sequenceEntry) => {
           i++;
           return (
-            <Tr key={`${partyThatGetsSeat}${i}`}>
+            <Tr key={`${JSON.stringify(sequenceEntry.seat_goes_to)}${i}`}>
               <Td>{i}.</Td>
-              <Td>{partyThatGetsSeat}</Td>
+              <Td>
+                {sequenceEntry.is_ambiguous ? (
+                    `Mehrdeutig zwischen ${sequenceEntry.seat_goes_to.join(' und ')}!` 
+                  ) : (
+                    sequenceEntry.seat_goes_to
+                  )
+                }
+              </Td>
             </Tr>
           );
         })}
