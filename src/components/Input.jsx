@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AzurForm from "./AzurForm";
+import AzurForm from "./InputComponents/AzurForm";
+import azurSchema from "./InputComponents/azurSchema"
 import { Box } from "@chakra-ui/react";
 
 import { useFormikContext, Formik } from "formik";
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-import * as Yup from "yup";
-import { arraysEqual } from '../utils/equalityChecks'
+
+import { arraysEqual } from "../utils/equalityChecks";
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
@@ -15,30 +16,20 @@ AzurInputs.propTypes = {
 };
 
 function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
-
   // Initial Values
   const initialValues = {
-    numSeats: 13,   //reset to 25
-    method: "dhondt", //reset to dhondt
+    numSeats: 13, //reset to 25
+    method: "dhondt", //reset to schepers
     partyStrengths: bundestagMandatsverteilung.btw2021,
   };
 
-  // Validation Scheme
-  const azurSchema = Yup.object().shape({
-    numSeats: Yup.number()
-      .required("Dieses Feld wird benötigt.")
-      .min(1, "Die Anzahl der Einheiten muss größer als 1 sein.")
-      .max(
-        10_000_000,
-        "Berechnungen von mehr als 10 000 000 Einheiten sind nicht erlaubt"
-      ),
-    method: Yup.string().required("Dieses Feld wird benötigt."),
-  });
+
 
   const ParentPropProvider = () => {
     const { values } = useFormikContext();
     React.useEffect(() => {
-      if (arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&
+      if (
+        arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&
         azurInput.method === values.method &&
         azurInput.num_of_seats === values.numSeats
       ) {

@@ -1,10 +1,10 @@
 import React from "react";
-import { Field, Form, FieldArray, useFormikContext } from "formik";
-import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-import constants from "../constants/constants.json";
+import { Field, ErrorMessage, Form, FieldArray, useFormikContext } from "formik";
+import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
+import constants from "../../constants/constants.json";
 
 import { IoMdRemove } from "react-icons/io";
-import { PresetButton } from "./Buttons";
+import { PresetButton } from "../Buttons";
 
 import PropTypes from "prop-types";
 
@@ -16,6 +16,7 @@ import {
   Input,
   Button,
   Text,
+  Vstack
 } from "@chakra-ui/react";
 
 AzurForm.propTypes = {
@@ -23,7 +24,15 @@ AzurForm.propTypes = {
 };
 
 export default function AzurForm({ ParentPropProvider }) {
-  const { values, setFieldValue } = useFormikContext();
+  const { values, errors, touched, isValidating, setFieldValue } = useFormikContext();
+
+
+  React.useEffect(() => {
+    console.log(errors)
+    console.log(touched)
+    console.log(errors.numSeats && touched.numSeats)
+  }, [errors, touched])
+
 
   if (values == null) {
     return <p>Loading</p>;
@@ -32,8 +41,8 @@ export default function AzurForm({ ParentPropProvider }) {
   return (
     <Form>
       <Center flexDirection="column">
-        <Input
-          as={Field}
+        <Field
+          as={Input}
           name="numSeats"
           type="number"
           fontSize="4xl"
@@ -41,6 +50,7 @@ export default function AzurForm({ ParentPropProvider }) {
           width="6ex"
           height="auto"
         />
+        <ErrorMessage name="numSeats" />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
 
@@ -108,11 +118,14 @@ export default function AzurForm({ ParentPropProvider }) {
                     name={`partyStrengths.${index}.name`}
                     type="text"
                   />
+                  <ErrorMessage name={`partyStrengths.${index}.name`} />
                   <Field
                     as={Input}
                     name={`partyStrengths.${index}.strength`}
                     type="number"
                   />
+                  <ErrorMessage name={`partyStrengths.${index}.strength`} />
+
                   <Button variant="ghost" onClick={() => remove(index)}>
                     <IoMdRemove />
                   </Button>
@@ -141,6 +154,7 @@ export default function AzurForm({ ParentPropProvider }) {
           </Box>
         )}
       </FieldArray>
+      {typeof errors.partyStrengths === 'string' && <ErrorMessage name="partyStrengths" /> }
 
       {/* MATHEMATICAL METHOD */}
       <Heading as="h3" size="xl">
