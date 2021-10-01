@@ -1,11 +1,11 @@
 import React from "react";
-import { Field, Form, FieldArray, useFormikContext } from "formik";
+import { Form, FieldArray, useFormikContext } from "formik";
 import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
 import constants from "../../constants/constants.json";
 
 import { IoMdRemove } from "react-icons/io";
 import { PresetButton } from "../Buttons";
-import FieldArrayInput from "./FieldArrayInput";
+import { FieldArrayInput, FieldInput } from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
 import {
@@ -34,12 +34,10 @@ export default function AzurForm({ ParentPropProvider }) {
   return (
     <Form>
       <Center flexDirection="column">
-        <Field
-          as={Input}
+        <FieldInput
           name="numSeats"
           type="number"
-          variant={errors?.numSeats == null ? "" : "glowing"}
-          title={errors?.numSeats == null ? "" : errors?.numSeats}
+          errorMsg={errors?.numSeats}
           fontSize="4xl"
           textAlign="center"
           width="6ex"
@@ -51,6 +49,7 @@ export default function AzurForm({ ParentPropProvider }) {
       <Heading as="h3" size="xl">
         Aufteilen nach
       </Heading>
+      {/* PRESET BUTTONS*/}
       <Flex flexDirection={["column", "column", "column", "row"]}>
         <PresetButton
           activeValue={values.partyStrengths}
@@ -105,17 +104,11 @@ export default function AzurForm({ ParentPropProvider }) {
         {({ remove, push }) => (
           <Stack
             p={2}
-            outline={
+            layerStyle={
               errors?.partyStrengths != null &&
               typeof errors.partyStrengths === "string"
-                ? "1px solid #E53E3E"
-                : "none"
-            }
-            boxShadow={
-              errors?.partyStrengths != null &&
-              typeof errors.partyStrengths === "string"
-                ? "0 0 10px #E53E3E"
-                : "none"
+                ? "errorGlow"
+                : ""
             }
             title={
               errors?.partyStrengths != null &&

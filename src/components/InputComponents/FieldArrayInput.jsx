@@ -11,7 +11,7 @@ FieldArrayInput.propTypes = {
   errors: PropTypes.object,
 };
 
-export default function FieldArrayInput({
+export function FieldArrayInput({
   fieldArrayName,
   index,
   fieldKey,
@@ -19,18 +19,33 @@ export default function FieldArrayInput({
   errors,
 }) {
   return (
-    <Field
-      as={Input}
+    <FieldInput
       name={`${fieldArrayName}.${index}.${fieldKey}`}
-      variant={
-        errorForFieldExists(errors?.[fieldArrayName], index, fieldKey) ? "glowing" : ""
-      }
-      title={
+      errorMsg={
         errorForFieldExists(errors?.[fieldArrayName], index, fieldKey)
           ? errors[fieldArrayName][index][fieldKey]
-          : ""
+          : null
       }
       type={fieldType}
+    />
+  );
+}
+
+FieldInput.propTypes = {
+  name: PropTypes.string,
+  errorMsg: PropTypes.string,
+  type: PropTypes.string,
+};
+
+export function FieldInput({ name, errorMsg, type, ...cssprops }) {
+  return (
+    <Field
+      as={Input}
+      name={name}
+      layerStyle={errorMsg != null ? "errorGlow" : ""}
+      title={errorMsg != null ? errorMsg : ""}
+      type={type}
+      {...cssprops}
     />
   );
 }

@@ -114,4 +114,10 @@ export const bundestagTheme = extendTheme({
   },
   colors,
   fontSizes,
+  layerStyles: {
+    errorGlow: {
+      outline: "1px solid #E53E3E",
+      boxShadow: "0 0 10px #E53E3E"
+    }
+  }
 });
