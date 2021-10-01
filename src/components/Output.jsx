@@ -5,6 +5,7 @@ import {
   Spinner,
   Heading,
   Box,
+  Text,
   Alert,
   AlertIcon,
   AlertTitle,
@@ -39,10 +40,31 @@ export default function Output({
           <AlertIcon />
           <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
           <AlertDescription>
-            Es besteht ein Fehler in der Eingabe. Sie müssen die Daten anpassen,
-            um eine Berechnung durchführen zu können.
-            
-            <Heading size="md"></Heading>
+            {azurInputError.numSeats != null && 
+              <>
+                <Text mt={3} fontWeight="bold">Fehler bei der Eingabe der Einheiten</Text>
+                <Text>{azurInputError.numSeats}</Text>
+              </>
+            }
+            {azurInputError.partyStrengths != null && 
+              <>
+                <Text mt={3} fontWeight="bold">Fehler bei der Eingabe der Fraktionsstärken</Text>
+                {typeof azurInputError.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
+                     <Text>azurInputError.partyStrengths</Text>
+                  ) : (
+                    azurInputError.partyStrengths.map((errorEntry) => {
+                      return(
+                        errorEntry.strength ? (
+                          <Text>{errorEntry.strength}</Text>
+                        ) : (
+                          <Text>{errorEntry.name}</Text>
+                        )
+                      )
+                    })
+                  )
+                }
+              </>
+            }
           </AlertDescription>
         </Alert>
       ) : azurError != null ? (

@@ -19,8 +19,8 @@ AzurInputs.propTypes = {
 function AzurInputs({ azurInput, setAzurInput, setAzurInputError, ...cssprops }) {
   // Initial Values
   const initialValues = {
-    numSeats: 13, //reset to 25
-    method: "dhondt", //reset to schepers
+    numSeats: 13, //TODO reset to 25
+    method: "schepers",
     partyStrengths: bundestagMandatsverteilung.btw2021,
   };
 

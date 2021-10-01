@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Field,
-  ErrorMessage,
   Form,
   FieldArray,
   useFormikContext,
@@ -22,7 +21,6 @@ import {
   Input,
   Button,
   Text,
-  Vstack,
 } from "@chakra-ui/react";
 
 AzurForm.propTypes = {
@@ -46,12 +44,13 @@ export default function AzurForm({ ParentPropProvider }) {
           as={Input}
           name="numSeats"
           type="number"
+          variant={errors?.numSeats == null ? "" : "glowing"}
+          title={errors?.numSeats == null ? "" : errors?.numSeats}
           fontSize="4xl"
           textAlign="center"
           width="6ex"
           height="auto"
         />
-        <ErrorMessage name="numSeats" />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
 
@@ -117,15 +116,17 @@ export default function AzurForm({ ParentPropProvider }) {
                   <Field
                     as={Input}
                     name={`partyStrengths.${index}.name`}
+                    variant={errorForFieldExists(errors, index, 'name') ? "glowing" : "" }
+                    title={errorForFieldExists(errors, index, 'name') ? errors.partyStrengths[index].name : ""}
                     type="text"
                   />
-                  <ErrorMessage name={`partyStrengths.${index}.name`} />
                   <Field
                     as={Input}
                     name={`partyStrengths.${index}.strength`}
                     type="number"
+                    variant={errorForFieldExists(errors, index, 'strength') ? "glowing" : "" }
+                    title={errorForFieldExists(errors, index, 'strength') ? errors.partyStrengths[index].strength : ""}
                   />
-                  <ErrorMessage name={`partyStrengths.${index}.strength`} />
 
                   <Button
                     variant="ghost"
@@ -174,9 +175,6 @@ export default function AzurForm({ ParentPropProvider }) {
           </Box>
         )}
       </FieldArray>
-      {typeof errors.partyStrengths === "string" && ( // Errors that are on FieldArray Level (not on level of one specific field but for the whole array)
-        <ErrorMessage name="partyStrengths" />
-      )}
 
       {/* MATHEMATICAL METHOD */}
       <Heading as="h3" size="xl">
@@ -200,4 +198,18 @@ export default function AzurForm({ ParentPropProvider }) {
       <ParentPropProvider />
     </Form>
   );
+}
+
+
+const errorForFieldExists = (errors, index, fieldKey) => {
+  if(
+      errors?.partyStrengths != null &&
+      Array.isArray(errors.partyStrengths) &&
+      Object.prototype.hasOwnProperty.call(errors.partyStrengths, index) &&
+      errors.partyStrengths[index][fieldKey] != null
+  ){
+    return true;
+  } else {
+    return false;
+  }
 }
