@@ -50,7 +50,7 @@ export default function Output({
               <>
                 <Text mt={3} fontWeight="bold">Fehler bei der Eingabe der Fraktionsstärken</Text>
                 {typeof azurInputError.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
-                     <Text>azurInputError.partyStrengths</Text>
+                     <Text>{azurInputError.partyStrengths}</Text>
                   ) : (
                     azurInputError.partyStrengths.map((errorEntry) => {
                       return(

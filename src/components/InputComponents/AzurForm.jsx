@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Field,
-  Form,
-  FieldArray,
-  useFormikContext,
-} from "formik";
+import { Field, Form, FieldArray, useFormikContext } from "formik";
 import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
 import constants from "../../constants/constants.json";
 
@@ -15,7 +10,7 @@ import PropTypes from "prop-types";
 
 import {
   Flex,
-  Box,
+  Stack,
   Center,
   Heading,
   Input,
@@ -28,10 +23,9 @@ AzurForm.propTypes = {
 };
 
 export default function AzurForm({ ParentPropProvider }) {
-  const { values, errors, setFieldValue } =
-    useFormikContext();
+  const { values, errors, setFieldValue } = useFormikContext();
 
-  const MAX_FRACTIONS = 15
+  const MAX_FRACTIONS = 15;
 
   if (values == null) {
     return <p>Loading</p>;
@@ -109,36 +103,53 @@ export default function AzurForm({ ParentPropProvider }) {
       </Heading>
       <FieldArray name="partyStrengths">
         {({ remove, push }) => (
-          <Box>
+          <Stack
+            p={2}
+            outline={
+              errors?.partyStrengths != null &&
+              typeof errors.partyStrengths === "string"
+                ? "1px solid #E53E3E"
+                : "none"
+            }
+            boxShadow={
+              errors?.partyStrengths != null &&
+              typeof errors.partyStrengths === "string"
+                ? "0 0 10px #E53E3E"
+                : "none"
+            }
+            title={
+              errors?.partyStrengths != null &&
+              typeof errors.partyStrengths === "string"
+                ? errors.partyStrengths
+                : "Fraktionsstärken"
+            }
+          >
             {values.partyStrengths.length > 0 &&
               values.partyStrengths.map((_, index) => (
                 <Flex key={index} flexDirection="row">
                   <FieldArrayInput
-                      fieldKey='name'
-                      fieldArrayName='partyStrengths'
-                      index={index}
-                      fieldType='text'
-                      errors={errors}
+                    fieldKey="name"
+                    fieldArrayName="partyStrengths"
+                    index={index}
+                    fieldType="text"
+                    errors={errors}
                   />
                   <FieldArrayInput
-                      fieldKey='strength'
-                      fieldArrayName='partyStrengths'
-                      index={index}
-                      fieldType='number'
-                      errors={errors}
+                    fieldKey="strength"
+                    fieldArrayName="partyStrengths"
+                    index={index}
+                    fieldType="number"
+                    errors={errors}
                   />
                   <Button
                     variant="ghost"
                     isDisabled={values.partyStrengths.length <= 1}
                     title={
-                      values.partyStrengths.length > 1 ? (
-                        "Fraktion entfernen"
-                      ): (
-                        "Fraktion kann nicht entfernt werden, da es mindestens eine Fraktion geben muss."
-                    )}
-                    onClick={() => 
-                      remove(index)
+                      values.partyStrengths.length > 1
+                        ? "Fraktion entfernen"
+                        : "Fraktion kann nicht entfernt werden, da es mindestens eine Fraktion geben muss."
                     }
+                    onClick={() => remove(index)}
                   >
                     <IoMdRemove />
                   </Button>
@@ -156,12 +167,11 @@ export default function AzurForm({ ParentPropProvider }) {
               mt={1}
               width={"100%"}
               isDisabled={values.partyStrengths.length >= MAX_FRACTIONS}
-                    title={
-                      values.partyStrengths.length < MAX_FRACTIONS ? (
-                        "Fraktion hinzufügen"
-                      ): (
-                        `Es können keine weiteren Fraktion hinzugefügt werden. Dieser Rechner unterstützt maximal ${MAX_FRACTIONS} Einträge für Fraktionen.`
-                    )}
+              title={
+                values.partyStrengths.length < MAX_FRACTIONS
+                  ? "Fraktion hinzufügen"
+                  : `Es können keine weiteren Fraktion hinzugefügt werden. Dieser Rechner unterstützt maximal ${MAX_FRACTIONS} Einträge für Fraktionen.`
+              }
               onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
             >
               <Flex flexDirection="row" m={0} width={"100%"}>
@@ -172,7 +182,7 @@ export default function AzurForm({ ParentPropProvider }) {
                 </Button>
               </Flex>
             </Button>
-          </Box>
+          </Stack>
         )}
       </FieldArray>
 
