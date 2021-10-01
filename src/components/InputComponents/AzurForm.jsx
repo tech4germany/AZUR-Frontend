@@ -10,7 +10,7 @@ import constants from "../../constants/constants.json";
 
 import { IoMdRemove } from "react-icons/io";
 import { PresetButton } from "../Buttons";
-
+import FieldArrayInput from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
 import {
@@ -113,21 +113,20 @@ export default function AzurForm({ ParentPropProvider }) {
             {values.partyStrengths.length > 0 &&
               values.partyStrengths.map((_, index) => (
                 <Flex key={index} flexDirection="row">
-                  <Field
-                    as={Input}
-                    name={`partyStrengths.${index}.name`}
-                    variant={errorForFieldExists(errors, index, 'name') ? "glowing" : "" }
-                    title={errorForFieldExists(errors, index, 'name') ? errors.partyStrengths[index].name : ""}
-                    type="text"
+                  <FieldArrayInput
+                      fieldKey='name'
+                      fieldArrayName='partyStrengths'
+                      index={index}
+                      fieldType='text'
+                      errors={errors}
                   />
-                  <Field
-                    as={Input}
-                    name={`partyStrengths.${index}.strength`}
-                    type="number"
-                    variant={errorForFieldExists(errors, index, 'strength') ? "glowing" : "" }
-                    title={errorForFieldExists(errors, index, 'strength') ? errors.partyStrengths[index].strength : ""}
+                  <FieldArrayInput
+                      fieldKey='strength'
+                      fieldArrayName='partyStrengths'
+                      index={index}
+                      fieldType='number'
+                      errors={errors}
                   />
-
                   <Button
                     variant="ghost"
                     isDisabled={values.partyStrengths.length <= 1}
@@ -145,7 +144,8 @@ export default function AzurForm({ ParentPropProvider }) {
                   </Button>
                 </Flex>
               ))}
-            {/*ADD FRACTION FAKE INPUT*/}
+
+            {/*ADD FRACTION*/}
             <Button
               variant="ghost"
               _hover={{
@@ -198,18 +198,4 @@ export default function AzurForm({ ParentPropProvider }) {
       <ParentPropProvider />
     </Form>
   );
-}
-
-
-const errorForFieldExists = (errors, index, fieldKey) => {
-  if(
-      errors?.partyStrengths != null &&
-      Array.isArray(errors.partyStrengths) &&
-      Object.prototype.hasOwnProperty.call(errors.partyStrengths, index) &&
-      errors.partyStrengths[index][fieldKey] != null
-  ){
-    return true;
-  } else {
-    return false;
-  }
 }
