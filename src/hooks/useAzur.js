@@ -61,9 +61,12 @@ export default function useAzur(azurInput){
     );
    
     React.useEffect(() => {
-      if ("partyStrengths" in azurInput) {
-        debouncedFetchAzur(azurInput);
+      if (_.isEmpty(azurInput?.errors)) { // TODO seems like input triggers an early rerender which still returns 1 error for the first error existing
+        if ("partyStrengths" in azurInput?.data) {
+          debouncedFetchAzur(azurInput.data);
+        }
       }
+
     }, [azurInput]);
 
     return {data, loading, error}

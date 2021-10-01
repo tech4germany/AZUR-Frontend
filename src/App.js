@@ -7,7 +7,7 @@ import { Flex } from "@chakra-ui/react";
 
 function App() {
   const [azurInput, setAzurInput] = React.useState({data: {}, errors: {}});
-  const { data, loading, error } = useAzur(azurInput.data);
+  const { data, loading, error } = useAzur(azurInput);
 
   return (
     <Flex

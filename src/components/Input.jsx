@@ -37,7 +37,6 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
     }, [errors]);
 
     React.useEffect(() => {
-      console.log(azurInput);
       if (
         arraysEqual(azurInput.data.partyStrengths, values.partyStrengths) &&
         azurInput.data.method === values.method &&

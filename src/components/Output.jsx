@@ -27,7 +27,6 @@ export default function Output({
   loading,
   ...cssprops
 }) {
-  console.log(azurInput.errors);
   return (
     <Box {...cssprops}>
       <Heading size="2xl">Output</Heading>
