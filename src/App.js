@@ -6,9 +6,8 @@ import useAzur from "./hooks/useAzur";
 import { Flex } from "@chakra-ui/react";
 
 function App() {
-  const [azurInput, setAzurInput] = React.useState({});
-  const [azurInputError, setAzurInputError] = React.useState({});
-  const { data, loading, error } = useAzur(azurInput);
+  const [azurInput, setAzurInput] = React.useState({data: {}, errors: {}});
+  const { data, loading, error } = useAzur(azurInput.data);
 
   return (
     <Flex
@@ -19,7 +18,6 @@ function App() {
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
-        setAzurInputError={setAzurInputError}
         backgroundColor="gray.50"
         height="100%"
         overflowY="auto"
@@ -28,7 +26,6 @@ function App() {
       />
       <Output
         azurInput={azurInput}
-        azurInputError={azurInputError}
         azurResponse={data}
         azurError={error}
         loading={loading}

@@ -13,10 +13,8 @@ import {
 } from "@chakra-ui/react";
 import _ from "lodash";
 
-
 Output.propTypes = {
   azurInput: PropTypes.object,
-  azurInputError: PropTypes.object,
   azurResponse: PropTypes.object,
   azurError: PropTypes.object,
   loading: PropTypes.bool,
@@ -24,47 +22,48 @@ Output.propTypes = {
 
 export default function Output({
   azurInput,
-  azurInputError,
   azurResponse,
   azurError,
   loading,
   ...cssprops
 }) {
+  console.log(azurInput.errors);
   return (
     <Box {...cssprops}>
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
-      ) : azurInputError != null && !_.isEmpty(azurInputError) ? (
+      ) : azurInput.errors != null && !_.isEmpty(azurInput.errors) ? (
         <Alert status="error">
           <AlertIcon />
           <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
           <AlertDescription>
-            {azurInputError.numSeats != null && 
+            {azurInput.errors.numSeats != null && (
               <>
-                <Text mt={3} fontWeight="bold">Fehler bei der Eingabe der Einheiten</Text>
-                <Text>{azurInputError.numSeats}</Text>
+                <Text mt={3} fontWeight="bold">
+                  Fehler bei der Eingabe der Einheiten
+                </Text>
+                <Text>{azurInput.errors.numSeats}</Text>
               </>
-            }
-            {azurInputError.partyStrengths != null && 
+            )}
+            {azurInput.errors.partyStrengths != null && (
               <>
-                <Text mt={3} fontWeight="bold">Fehler bei der Eingabe der Fraktionsstärken</Text>
-                {typeof azurInputError.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
-                     <Text>{azurInputError.partyStrengths}</Text>
-                  ) : (
-                    azurInputError.partyStrengths.map((errorEntry) => {
-                      return(
-                        errorEntry.strength ? (
-                          <Text>{errorEntry.strength}</Text>
-                        ) : (
-                          <Text>{errorEntry.name}</Text>
-                        )
-                      )
-                    })
-                  )
-                }
+                <Text mt={3} fontWeight="bold">
+                  Fehler bei der Eingabe der Fraktionsstärken
+                </Text>
+                {typeof azurInput.errors.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
+                  <Text>{azurInput.errors.partyStrengths}</Text>
+                ) : (
+                  azurInput.errors.partyStrengths.map((errorEntry) => {
+                    return errorEntry.strength ? (
+                      <Text>{errorEntry.strength}</Text>
+                    ) : (
+                      <Text>{errorEntry.name}</Text>
+                    );
+                  })
+                )}
               </>
-            }
+            )}
           </AlertDescription>
         </Alert>
       ) : azurError != null ? (
@@ -78,7 +77,7 @@ export default function Output({
         </Alert>
       ) : (
         // everything went fine and we have results
-        <OutputTabs azurResponse={azurResponse} azurInput={azurInput} />
+        <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
       )}
     </Box>
   );

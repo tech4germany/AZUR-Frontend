@@ -2,21 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import AzurForm from "./InputComponents/AzurForm";
-import azurSchema from "./InputComponents/azurSchema"
+import azurSchema from "./InputComponents/azurSchema";
 import { Box } from "@chakra-ui/react";
 
 import { useFormikContext, Formik } from "formik";
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-import { arraysEqual } from "../utils/equalityChecks";
-
+import { arraysEqual, objectsEqual } from "../utils/equalityChecks";
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
   setAzurInput: PropTypes.func,
-  setAzurInputError: PropTypes.func
 };
 
-function AzurInputs({ azurInput, setAzurInput, setAzurInputError, ...cssprops }) {
+function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
   // Initial Values
   const initialValues = {
     numSeats: 13, //TODO reset to 25
@@ -24,22 +22,36 @@ function AzurInputs({ azurInput, setAzurInput, setAzurInputError, ...cssprops })
     partyStrengths: bundestagMandatsverteilung.btw2021,
   };
 
-
   const ParentPropProvider = () => {
     const { values, errors } = useFormikContext();
+
     React.useEffect(() => {
-      setAzurInputError(errors)
+      if (objectsEqual(azurInput.errors, errors)) {
+        return null;
+      } else {
+        setAzurInput({
+          ...azurInput,
+          errors: errors,
+        });
+      }
+    }, [errors]);
+
+    React.useEffect(() => {
+      console.log(azurInput);
       if (
-        arraysEqual(azurInput.partyStrengths, values.partyStrengths) &&
-        azurInput.method === values.method &&
-        azurInput.num_of_seats === values.numSeats
+        arraysEqual(azurInput.data.partyStrengths, values.partyStrengths) &&
+        azurInput.data.method === values.method &&
+        azurInput.data.num_of_seats === values.numSeats
       ) {
         return null;
       }
       setAzurInput({
-        method: values.method,
-        num_of_seats: values.numSeats,
-        partyStrengths: values.partyStrengths,
+        ...azurInput,
+        data: {
+          method: values.method,
+          num_of_seats: values.numSeats,
+          partyStrengths: values.partyStrengths,
+        },
       });
     }, [values]);
     return null;
