@@ -53,11 +53,11 @@ export default function Output({
                 {typeof azurInput.errors.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
                   <Text>{azurInput.errors.partyStrengths}</Text>
                 ) : (
-                  azurInput.errors.partyStrengths.map((errorEntry) => {
+                  azurInput.errors.partyStrengths.map((errorEntry, index) => {
                     return errorEntry.strength ? (
-                      <Text>{errorEntry.strength}</Text>
+                      <Text key={index+'strengthError'}>{errorEntry.strength}</Text>
                     ) : (
-                      <Text>{errorEntry.name}</Text>
+                      <Text key={index+'nameError'}>{errorEntry.name}</Text>
                     );
                   })
                 )}
