@@ -31,7 +31,6 @@ export default function TabellenOutput({ tableData }) {
               } else {
                 return value
               }
-              
             }
           }
         )
