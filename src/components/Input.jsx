@@ -5,9 +5,11 @@ import AzurForm from "./InputComponents/AzurForm";
 import azurSchema from "./InputComponents/azurSchema";
 import { Box } from "@chakra-ui/react";
 
+import _ from "lodash";
+
 import { useFormikContext, Formik } from "formik";
 import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-import { arraysEqual, objectsEqual } from "../utils/equalityChecks";
+import { arraysEqual } from "../utils/equalityChecks";
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
@@ -21,22 +23,11 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
     method: "schepers",
     partyStrengths: bundestagMandatsverteilung.btw2021,
   };
+  const DEBOUNCE_DELAY = 300; // we wait for additional input for 700ms before  updating the input
 
-  const ParentPropProvider = () => {
-    const { values, errors } = useFormikContext();
-
-    React.useEffect(() => {
-      if (objectsEqual(azurInput.errors, errors)) {
-        return null;
-      } else {
-        setAzurInput({
-          ...azurInput,
-          errors: errors,
-        });
-      }
-    }, [errors]);
-
-    React.useEffect(() => {
+  const debouncedSetAzur = React.useCallback(
+    _.debounce(async (values, azurInput, validateForm) => {
+      // cancel update if nothing has changed
       if (
         arraysEqual(azurInput.data.partyStrengths, values.partyStrengths) &&
         azurInput.data.method === values.method &&
@@ -44,21 +35,46 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
       ) {
         return null;
       }
-      setAzurInput({
-        ...azurInput,
-        data: {
-          method: values.method,
-          num_of_seats: values.numSeats,
-          partyStrengths: values.partyStrengths,
-        },
-      });
+      // otherwise trigger a debounced update
+      updateAzurInput(values, validateForm);
+    }, DEBOUNCE_DELAY),
+    []
+  );
+
+  const updateAzurInput = async (values, validateForm) => {
+    // validate input changes for form
+    const errors = await validateForm();
+
+    // update the parent state
+    setAzurInput({
+      ...azurInput,
+      errors,
+      data: {
+        method: values.method,
+        num_of_seats: values.numSeats,
+        partyStrengths: values.partyStrengths,
+      },
+    });
+  };
+
+  const ParentPropProvider = () => {
+    const { values, validateForm } = useFormikContext();
+
+    React.useEffect(() => {
+      debouncedSetAzur(values, azurInput, validateForm);
     }, [values]);
     return null;
   };
 
+  // Validate is manually triggered in useEffect
   return (
     <Box {...cssprops}>
-      <Formik initialValues={initialValues} validationSchema={azurSchema}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={azurSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
+      >
         <AzurForm ParentPropProvider={ParentPropProvider} />
       </Formik>
     </Box>

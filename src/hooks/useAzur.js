@@ -6,9 +6,7 @@ export default function useAzur(azurInput){
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null)
-   
-    const DEBOUNCE_DELAY = 700; // we wait for additional input for 700ms before calling AZUR
-   
+      
     //*** FETCHING AZUR OUTPUTS
     const fetchAzur = async (azurInputUpdate) => {
       setLoading(true);
@@ -52,18 +50,11 @@ export default function useAzur(azurInput){
         setLoading(false);
       });
     };
-   
-    const debouncedFetchAzur = React.useCallback(
-      _.debounce((azurInputUpdate) => {
-        fetchAzur(azurInputUpdate);
-      }, DEBOUNCE_DELAY),
-      []
-    );
-   
+     
     React.useEffect(() => {
-      if (_.isEmpty(azurInput?.errors)) { // TODO seems like input triggers an early rerender which still returns 1 error for the first error existing
+      if (_.isEmpty(azurInput?.errors)) {
         if ("partyStrengths" in azurInput?.data) {
-          debouncedFetchAzur(azurInput.data);
+          fetchAzur(azurInput.data);
         }
       }
 
