@@ -1,5 +1,5 @@
 {
-  "btw2017" : [
+  "btw2017": [
     {
       "name": "CDU/CSU",
       "strength": 246
@@ -25,7 +25,7 @@
       "strength": 67
     }
   ],
-  "btw2021" : [
+  "btw2021": [
     {
       "name": "SPD",
       "strength": 206
@@ -50,6 +50,23 @@
       "name": "Die Linke",
       "strength": 39
     }
+  ],
+  "weirdDemo": [
+    {
+      "name": "SPD",
+      "strength": 1000000
+    },
+    {
+      "name": "CDU",
+      "strength": 300000
+    },
+    {
+      "name": "GRÜNE",
+      "strength": 100000
+    },
+    {
+      "name": "LINKE",
+      "strength": 5000
+    }
   ]
-
 }
