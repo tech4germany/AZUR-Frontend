@@ -8,7 +8,6 @@ import {
   AlertDescription,
   Flex,
   Center,
-  Text,
   Table,
   Thead,
   Tbody,
@@ -31,25 +30,6 @@ export default function AnteileOutput({ isAmbiguous, seatSplit }) {
 
   return (
     <Flex flexDirection="column">
-      <Center>
-        {isAmbiguous ? (
-           <Alert status="warning">
-            <AlertIcon />
-            <AlertTitle mr={2}>Mehrdeutiges Ergebnis</AlertTitle>
-            <AlertDescription>
-              Es lässt sich kein eindeutiges Ergebnis für diese Eingabe berechnen. Das heißt, dass die Einheiten
-              nicht eindeutig bestimmten Fraktionen zugewiesen werden können. Es kann helfen eine andere mathematische
-              Methode zu wählen, oder diese Verteilungsgröße zu vermeiden.
-            </AlertDescription>
-          </Alert>
-        ) : (
-          <PieChart
-            data={seatSplit}
-            outerRadius={outerWidthPx}
-            innerRadius={innerWidthPx}
-          />
-        )}
-      </Center>
       <Center my="10">
         <Table>
           <Thead>
@@ -74,7 +54,25 @@ export default function AnteileOutput({ isAmbiguous, seatSplit }) {
           </Tbody>
         </Table>
       </Center>
-
+      <Center>
+        {isAmbiguous ? (
+           <Alert status="warning">
+            <AlertIcon />
+            <AlertTitle mr={2}>Mehrdeutiges Ergebnis</AlertTitle>
+            <AlertDescription>
+              Es lässt sich kein eindeutiges Ergebnis für diese Eingabe berechnen. Das heißt, dass die Einheiten
+              nicht eindeutig bestimmten Fraktionen zugewiesen werden können. Es kann helfen eine andere mathematische
+              Methode zu wählen, oder diese Verteilungsgröße zu vermeiden.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <PieChart
+            data={seatSplit}
+            outerRadius={outerWidthPx}
+            innerRadius={innerWidthPx}
+          />
+        )}
+      </Center>
     </Flex>
   );
 }
