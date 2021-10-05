@@ -52,14 +52,6 @@ const Button = {
   },
 };
 
-const Stack = {
-  variants: {
-    glowing: {
-      outlineColor: "red.500",
-      boxShadow: "0 0 10px #E53E3E", // same as red.500 // TODO how to avoid this manual assignment of the color?
-    },
-  },
-};
 
 const Input = {
   baseStyle: {
@@ -81,7 +73,7 @@ const Input = {
     glowing: {
       field: {
         outlineColor: "red.500",
-        boxShadow: "0 0 10px #E53E3E", // same as red.500 // TODO how to avoid this manual assignment of the color?
+        boxShadow: "0 0 10px #E53E3E",  // same as red.500 // TODO how to avoid this manual assignment of the color?
       },
     },
   },
@@ -110,7 +102,6 @@ export const bundestagTheme = extendTheme({
     Button,
     Input,
     Heading,
-    Stack,
   },
   colors,
   fontSizes,

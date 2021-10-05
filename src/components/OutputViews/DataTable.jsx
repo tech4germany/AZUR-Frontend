@@ -55,26 +55,32 @@ export default function DataTable({ data, columns }) {
   } = useTable({ columns, data }, usePagination);
 
   return (
-    <VStack>
-      <PureDataTable
-        getTableProps={getTableProps}
-        getTableBodyProps={getTableBodyProps}
-        headerGroups={headerGroups}
-        prepareRow={prepareRow}
-        page={page}
-      />
-      <PaginationToolbar
-        canPreviousPage={canPreviousPage}
-        canNextPage={canNextPage}
-        pageOptions={pageOptions}
-        pageCount={pageCount}
-        gotoPage={gotoPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        setPageSize={setPageSize}
-        state={{ pageIndex, pageSize }}
-      />
-    </VStack>
+    <>
+      {columns == undefined || data == undefined ? (
+        <Spinner />
+      ) : (
+        <VStack>
+        <PureDataTable
+          getTableProps={getTableProps}
+          getTableBodyProps={getTableBodyProps}
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
+          page={page}
+        />
+        <PaginationToolbar
+          canPreviousPage={canPreviousPage}
+          canNextPage={canNextPage}
+          pageOptions={pageOptions}
+          pageCount={pageCount}
+          gotoPage={gotoPage}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          setPageSize={setPageSize}
+          state={{ pageIndex, pageSize }}
+        />
+      </VStack>
+      )}
+    </>
   );
 }
 
