@@ -26,7 +26,6 @@ const colors = {
       700: "rgba(49, 80, 95, 0.64)",
       800: "rgba(49, 80, 95, 0.80)",
     },
-    red: "#EF4344",
   },
 };
 
@@ -38,68 +37,87 @@ const fontSizes = {
   "4xl": "3rem", // custom very large
 };
 
-
 const Button = {
   baseStyle: {
-      margin: '1',
-      whiteSpace: "normal", // necessary to allow for line breaks
-      wordWrap: "break-word"
+    margin: "1",
+    whiteSpace: "normal", // necessary to allow for line breaks
+    wordWrap: "break-word",
   },
   variants: {
     active: {
       backgroundColor: "brand.orangeAlpha.500",
       border: "1px solid",
-      borderColor: "brand.orange"
-    } 
-  }
-}
+      borderColor: "brand.orange",
+    },
+  },
+};
+
+const Stack = {
+  variants: {
+    glowing: {
+      outlineColor: "red.500",
+      boxShadow: "0 0 10px #E53E3E", // same as red.500 // TODO how to avoid this manual assignment of the color?
+    },
+  },
+};
 
 const Input = {
   baseStyle: {
     field: {
-      margin: '1',
-      backgroundColor: 'whiteAlpha.700',
+      margin: "1",
+      backgroundColor: "whiteAlpha.700",
       outline: "1px solid",
-      outlineColor: 'brand.darkBlueAlpha.200',
-      border: 'none'
-    }
+      outlineColor: "brand.darkBlueAlpha.200",
+      border: "none",
+    },
   },
   variants: {
-    azurBrand: {
-    
-    },
+    azurBrand: {},
     fakeInput: {
-        field: {
-          pointerEvents: "none",
-        }
-    }
+      field: {
+        pointerEvents: "none",
+      },
+    },
+    glowing: {
+      field: {
+        outlineColor: "red.500",
+        boxShadow: "0 0 10px #E53E3E", // same as red.500 // TODO how to avoid this manual assignment of the color?
+      },
+    },
   },
   defaultProps: {
-    variant: 'azurBrand'
-  }
-}
+    variant: "azurBrand",
+  },
+};
 
 const Heading = {
   sizes: {
-    "xl": {
-      color: 'brand.darkBlue',
-      fontSize: 'xl',
-      mt: '7',
-      mb: '3'
+    xl: {
+      color: "brand.darkBlue",
+      fontSize: "xl",
+      mt: "7",
+      mb: "3",
     },
     "2xl": {
-      fontSize: '2xl',
-      mb: '7'
-    }
-  }
-}
+      fontSize: "2xl",
+      mb: "7",
+    },
+  },
+};
 
 export const bundestagTheme = extendTheme({
   components: {
-      Button,
-      Input,
-      Heading
+    Button,
+    Input,
+    Heading,
+    Stack,
   },
   colors,
   fontSizes,
+  layerStyles: {
+    errorGlow: {
+      outline: "1px solid #E53E3E",
+      boxShadow: "0 0 10px #E53E3E"
+    }
+  }
 });

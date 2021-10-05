@@ -1,18 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OutputTabs from "./OutputViews/OutputTabs";
 import {
   Spinner,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Heading,
   Box,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
-import AnteileOutput from "./OutputViews/AnteileOutput";
-import ReihenfolgeOutput from "./OutputViews/ReihenfolgeOutput";
-import TabellenOutput from "./OutputViews/TabellenOutput";
+import _ from "lodash";
 
 Output.propTypes = {
   azurInput: PropTypes.object,
@@ -33,53 +32,51 @@ export default function Output({
       <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
+      ) : azurInput.errors != null && !_.isEmpty(azurInput.errors) ? (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
+          <AlertDescription>
+            {azurInput.errors.numSeats != null && (
+              <>
+                <Text mt={3} fontWeight="bold">
+                  Fehler bei der Eingabe der Einheiten
+                </Text>
+                <Text>{azurInput.errors.numSeats}</Text>
+              </>
+            )}
+            {azurInput.errors.partyStrengths != null && (
+              <>
+                <Text mt={3} fontWeight="bold">
+                  Fehler bei der Eingabe der Fraktionsstärken
+                </Text>
+                {typeof azurInput.errors.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
+                  <Text>{azurInput.errors.partyStrengths}</Text>
+                ) : (
+                  azurInput.errors.partyStrengths.map((errorEntry, index) => {
+                    return errorEntry.strength ? (
+                      <Text key={index+'strengthError'}>{errorEntry.strength}</Text>
+                    ) : (
+                      <Text key={index+'nameError'}>{errorEntry.name}</Text>
+                    );
+                  })
+                )}
+              </>
+            )}
+          </AlertDescription>
+        </Alert>
       ) : azurError != null ? (
-        <p>
-          Ein Fehler bei der Berechnung ist aufgetreten: {azurError.message}
-        </p>
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Fehler bei der Berechnung</AlertTitle>
+          <AlertDescription>
+            Es ist ein Fehler bei der Berechnung aufgetreten:{" "}
+            {azurError.message}
+          </AlertDescription>
+        </Alert>
       ) : (
-        <Tabs defaultActiveKey="anteile">
-          <TabList>
-            <Tab>Anteile</Tab>
-            <Tab
-              title={
-                azurInput.method === "hare"
-                  ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine Zugriffsreihenfolge. Probieren Sie eine andere Methode.`
-                  : `Reihenfolge in der die einzelnen Einheiten an die Fraktionen vergeben werden.`
-              }
-              isDisabled={azurInput.method === "hare"}
-            >
-              Zugriffsreihenfolge
-            </Tab>
-            <Tab
-              isDisabled={azurInput.method === "hare"}
-              title={
-                azurInput.method === "hare"
-                  ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine tabellarische Übersicht. Probieren Sie eine andere Methode.`
-                  : `Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`
-              }
-            >
-              Tabelle
-            </Tab>
-          </TabList>
-
-          <TabPanels>
-            <TabPanel>
-              <AnteileOutput
-                isAmbiguous={azurResponse.distribution.is_ambiguous}
-                seatSplit={azurResponse.distribution.seats}
-              />
-            </TabPanel>
-            <TabPanel>
-              <ReihenfolgeOutput
-                assignmentSequence={azurResponse.assignment_sequence}
-              />
-            </TabPanel>
-            <TabPanel>
-              <TabellenOutput tableData={azurResponse.table} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        // everything went fine and we have results
+        <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
       )}
     </Box>
   );

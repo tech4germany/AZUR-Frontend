@@ -1,16 +1,16 @@
 import React from "react";
-import { Field, Form, FieldArray, useFormikContext } from "formik";
-import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
-import constants from "../constants/constants.json";
+import { Form, FieldArray, useFormikContext } from "formik";
+import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
+import constants from "../../constants/constants.json";
 
 import { IoMdRemove } from "react-icons/io";
-import { PresetButton } from "./Buttons";
-
+import { PresetButton } from "../Buttons";
+import { FieldArrayInput, FieldInput } from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
 import {
   Flex,
-  Box,
+  Stack,
   Center,
   Heading,
   Input,
@@ -23,7 +23,9 @@ AzurForm.propTypes = {
 };
 
 export default function AzurForm({ ParentPropProvider }) {
-  const { values, setFieldValue } = useFormikContext();
+  const { values, errors, setFieldValue } = useFormikContext();
+
+  const MAX_FRACTIONS = 15;
 
   if (values == null) {
     return <p>Loading</p>;
@@ -32,10 +34,10 @@ export default function AzurForm({ ParentPropProvider }) {
   return (
     <Form>
       <Center flexDirection="column">
-        <Input
-          as={Field}
+        <FieldInput
           name="numSeats"
           type="number"
+          errorMsg={errors?.numSeats}
           fontSize="4xl"
           textAlign="center"
           width="6ex"
@@ -47,6 +49,7 @@ export default function AzurForm({ ParentPropProvider }) {
       <Heading as="h3" size="xl">
         Aufteilen nach
       </Heading>
+      {/* PRESET BUTTONS*/}
       <Flex flexDirection={["column", "column", "column", "row"]}>
         <PresetButton
           activeValue={values.partyStrengths}
@@ -99,26 +102,54 @@ export default function AzurForm({ ParentPropProvider }) {
       </Heading>
       <FieldArray name="partyStrengths">
         {({ remove, push }) => (
-          <Box>
+          <Stack
+            p={2}
+            layerStyle={
+              errors?.partyStrengths != null &&
+              typeof errors.partyStrengths === "string"
+                ? "errorGlow"
+                : ""
+            }
+            title={
+              errors?.partyStrengths != null &&
+              typeof errors.partyStrengths === "string"
+                ? errors.partyStrengths
+                : "Fraktionsstärken"
+            }
+          >
             {values.partyStrengths.length > 0 &&
               values.partyStrengths.map((_, index) => (
                 <Flex key={index} flexDirection="row">
-                  <Field
-                    as={Input}
-                    name={`partyStrengths.${index}.name`}
-                    type="text"
+                  <FieldArrayInput
+                    fieldKey="name"
+                    fieldArrayName="partyStrengths"
+                    index={index}
+                    fieldType="text"
+                    errors={errors}
                   />
-                  <Field
-                    as={Input}
-                    name={`partyStrengths.${index}.strength`}
-                    type="number"
+                  <FieldArrayInput
+                    fieldKey="strength"
+                    fieldArrayName="partyStrengths"
+                    index={index}
+                    fieldType="number"
+                    errors={errors}
                   />
-                  <Button variant="ghost" onClick={() => remove(index)}>
+                  <Button
+                    variant="ghost"
+                    isDisabled={values.partyStrengths.length <= 1}
+                    title={
+                      values.partyStrengths.length > 1
+                        ? "Fraktion entfernen"
+                        : "Fraktion kann nicht entfernt werden, da es mindestens eine Fraktion geben muss."
+                    }
+                    onClick={() => remove(index)}
+                  >
                     <IoMdRemove />
                   </Button>
                 </Flex>
               ))}
-            {/*ADD FRACTION FAKE INPUT*/}
+
+            {/*ADD FRACTION*/}
             <Button
               variant="ghost"
               _hover={{
@@ -128,6 +159,12 @@ export default function AzurForm({ ParentPropProvider }) {
               m={0}
               mt={1}
               width={"100%"}
+              isDisabled={values.partyStrengths.length >= MAX_FRACTIONS}
+              title={
+                values.partyStrengths.length < MAX_FRACTIONS
+                  ? "Fraktion hinzufügen"
+                  : `Es können keine weiteren Fraktion hinzugefügt werden. Dieser Rechner unterstützt maximal ${MAX_FRACTIONS} Einträge für Fraktionen.`
+              }
               onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
             >
               <Flex flexDirection="row" m={0} width={"100%"}>
@@ -138,7 +175,7 @@ export default function AzurForm({ ParentPropProvider }) {
                 </Button>
               </Flex>
             </Button>
-          </Box>
+          </Stack>
         )}
       </FieldArray>
 

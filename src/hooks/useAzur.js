@@ -17,7 +17,7 @@ export default function useAzur(azurInput){
       azurInputUpdate.partyStrengths.forEach((entry) => {
         partyStrengthForApi[entry.name] = entry.strength;
       });
-   
+      
       // useEffect itself should not be async according to linter, so we work with an anonymous function
       fetch("http://127.0.0.1:5000/azur", {
         method: "POST",
@@ -30,15 +30,24 @@ export default function useAzur(azurInput){
           num_of_seats: azurInputUpdate.num_of_seats,
           return_table: true,
         }),
-      }).then((resp) =>
-        resp.json()
-      ).catch((fetchingError) => {
-        // TODO test error handling after errors are returned in json
-        console.log(fetchingError)
-        setError(fetchingError)
+      }).then(async (resp) => {
+        if(resp.ok)
+          return resp.json()
+        else{ // error handling
+          const error = await resp.json()
+          let errorMessage = error?.message
+          if(errorMessage == null){
+            errorMessage = 'An unexpected error occured'
+          }
+          throw new Error(errorMessage)
+        }
       }).then((azurResponse) => {
         setError(null)
         setData(azurResponse);
+      }).catch((fetchingError) => {
+        setData(null)
+        console.log(fetchingError)
+        setError(fetchingError)
       }).finally(()=>{
         setLoading(false);
       });
@@ -52,9 +61,12 @@ export default function useAzur(azurInput){
     );
    
     React.useEffect(() => {
-      if ("partyStrengths" in azurInput) {
-        debouncedFetchAzur(azurInput);
+      if (_.isEmpty(azurInput?.errors)) { // TODO seems like input triggers an early rerender which still returns 1 error for the first error existing
+        if ("partyStrengths" in azurInput?.data) {
+          debouncedFetchAzur(azurInput.data);
+        }
       }
+
     }, [azurInput]);
 
     return {data, loading, error}
