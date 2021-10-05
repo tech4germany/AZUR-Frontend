@@ -7,9 +7,15 @@ TabellenOutput.propTypes = {
 };
 
 export default function TabellenOutput({ tableData }) {
-  const data = React.useMemo(() => tableData, []);
+  const data = React.useMemo(() => {
+    if (tableData == null) {
+      return [];
+    }
+    return tableData;
+  }, []);
 
   const columns = React.useMemo(() => {
+    if (tableData == null) return [];
     const startHeaders = [
       {
         Header: "Position",

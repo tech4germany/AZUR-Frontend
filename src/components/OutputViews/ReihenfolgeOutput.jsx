@@ -8,8 +8,9 @@ ReihenfolgeOutput.propTypes = {
 };
 
 export default function ReihenfolgeOutput({ assignmentSequence }) {
-  const columns = React.useMemo(
-    () => [
+  const columns = React.useMemo(() => {
+    if (assignmentSequence == null) return [];
+    return [
       {
         Header: "Position",
         id: "index",
@@ -26,17 +27,15 @@ export default function ReihenfolgeOutput({ assignmentSequence }) {
           }
         },
       },
-    ],
-    []
-  );
+    ];
+  }, []);
 
-  const data = React.useMemo(
-    () =>
-      assignmentSequence.map((partyName) => {
-        return { assignmentSequence: partyName };
-      }),
-    []
-  );
+  const data = React.useMemo(() => {
+    if (assignmentSequence == null) return [];
+    return assignmentSequence.map((partyName) => {
+      return { assignmentSequence: partyName };
+    });
+  }, []);
 
   return <DataTable data={data} columns={columns} />;
 }
