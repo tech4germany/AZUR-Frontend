@@ -7,25 +7,10 @@ TabellenOutput.propTypes = {
 };
 
 export default function TabellenOutput({ tableData }) {
-  const data = React.useMemo(() => {
-    if (tableData == null) {
-      return [];
-    }
-    return tableData;
-  }, []);
-
-  const columns = React.useMemo(() => {
-    if (tableData == null) return [];
-    const startHeaders = [
-      {
-        Header: "Position",
-        id: "index",
-        Cell: ({ row }) => row.index + 1,
-      },
-    ];
-
+  let columns = [];
+  if (tableData != null && Array.isArray(tableData) && tableData.length >= 1) {
     const partyNames = Object.keys(tableData[0].seats);
-    const partyStrengthsCols = partyNames.map((partyName) => {
+    columns = partyNames.map((partyName) => {
       return {
         Header: partyName,
         accessor: "seats." + partyName, // we want to access the seats subitem
@@ -39,9 +24,7 @@ export default function TabellenOutput({ tableData }) {
         },
       };
     });
+  }
 
-    return startHeaders.concat(partyStrengthsCols);
-  }, []);
-
-  return <DataTable data={data} columns={columns} />;
+  return <DataTable data={tableData} columns={columns} />;
 }

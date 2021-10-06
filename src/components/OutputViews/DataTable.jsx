@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React from "react";
+import NumberRangeFilter from './NumberRangeFilter'
 
 import {
   Table,
@@ -27,7 +28,7 @@ import {
   ChevronRightIcon,
   ChevronLeftIcon,
 } from "@chakra-ui/icons";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useFilters } from "react-table";
 
 import PropTypes from "prop-types";
 
@@ -37,6 +38,40 @@ DataTable.propTypes = {
 };
 
 export default function DataTable({ data, columns }) {
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      disableFilters: true,
+    }),
+    []
+  )
+
+  const startHeaders = [
+    {
+      Header: "Position",
+      id: "index",
+      accessor: (_row, i) => i+1,
+      disableFilters: false,
+      defaultCanFilter: true,
+      Filter: NumberRangeFilter,
+      filter: 'between'
+    }
+  ]
+
+  const dataMemo = React.useMemo(() => {
+    if (data == null) {
+      return [];
+    }
+    return data;
+  }, [data]);
+
+  const colsMemo = React.useMemo(() => {
+    if (columns == null) {
+      return [];
+    }
+    return startHeaders.concat(columns);
+  }, [columns]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -52,7 +87,7 @@ export default function DataTable({ data, columns }) {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable({ columns, data }, usePagination);
+  } = useTable({ columns: colsMemo, data: dataMemo, defaultColumn }, useFilters, usePagination);
 
   return (
     <>
@@ -103,6 +138,7 @@ const PureDataTable = ({
                 textAlign='center'
               >
                 {column.render("Header")}
+                <div>{column.canFilter && column.render("Filter")}</div>
               </Th>
             ))}
           </Tr>
