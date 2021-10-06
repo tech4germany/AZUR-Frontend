@@ -1,36 +1,35 @@
 /* eslint-disable */
-import React from "react";
-import NumberRangeFilter from './NumberRangeFilter'
-
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
+import {
   Flex,
-  Tooltip,
+  Box,
+  Center,
   IconButton,
-  Text,
-  Select,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  Select,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
   VStack,
 } from "@chakra-ui/react";
-
-import {
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@chakra-ui/icons";
-import { useTable, usePagination, useFilters } from "react-table";
-
 import PropTypes from "prop-types";
+import React from "react";
+import { useFilters, usePagination, useTable } from "react-table";
+import NumberRangeFilter from "./NumberRangeFilter";
 
 DataTable.propTypes = {
   data: PropTypes.array,
@@ -38,25 +37,24 @@ DataTable.propTypes = {
 };
 
 export default function DataTable({ data, columns }) {
-
   const defaultColumn = React.useMemo(
     () => ({
       disableFilters: true,
     }),
     []
-  )
+  );
 
   const startHeaders = [
     {
       Header: "Position",
       id: "index",
-      accessor: (_row, i) => i+1,
+      accessor: (_row, i) => i + 1,
       disableFilters: false,
       defaultCanFilter: true,
       Filter: NumberRangeFilter,
-      filter: 'between'
-    }
-  ]
+      filter: "between",
+    },
+  ];
 
   const dataMemo = React.useMemo(() => {
     if (data == null) {
@@ -87,33 +85,58 @@ export default function DataTable({ data, columns }) {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable({ columns: colsMemo, data: dataMemo, defaultColumn }, useFilters, usePagination);
+  } = useTable(
+    { columns: colsMemo, data: dataMemo, defaultColumn },
+    useFilters,
+    usePagination
+  );
+
+  const IndexFilter = (headerGroups) => {
+    // get columns
+    const cols = headerGroups?.headerGroups?.[0]?.headers;
+    if (cols == null) return null;
+    // get index column. return null if we do not find it
+    const indexCol = cols.find((elem) => elem.id == 'index');
+    if(indexCol == null) return null
+    
+    console.log(indexCol)
+
+    return (
+      <Center>
+        <Text>Wertebereich anzeigen von</Text>
+        <Box>{indexCol.render("Filter")}</Box>
+      </Center>
+    )
+
+  };
 
   return (
     <>
       {columns == undefined || data == undefined ? (
         <Spinner />
       ) : (
+
         <VStack>
-        <PureDataTable
-          getTableProps={getTableProps}
-          getTableBodyProps={getTableBodyProps}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-          page={page}
-        />
-        <PaginationToolbar
-          canPreviousPage={canPreviousPage}
-          canNextPage={canNextPage}
-          pageOptions={pageOptions}
-          pageCount={pageCount}
-          gotoPage={gotoPage}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          setPageSize={setPageSize}
-          state={{ pageIndex, pageSize }}
-        />
-      </VStack>
+          <IndexFilter headerGroups={headerGroups} />
+          <PureDataTable
+            getTableProps={getTableProps}
+            getTableBodyProps={getTableBodyProps}
+            headerGroups={headerGroups}
+            prepareRow={prepareRow}
+            page={page}
+          />
+          <PaginationToolbar
+            canPreviousPage={canPreviousPage}
+            canNextPage={canNextPage}
+            pageOptions={pageOptions}
+            pageCount={pageCount}
+            gotoPage={gotoPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            setPageSize={setPageSize}
+            state={{ pageIndex, pageSize }}
+          />
+        </VStack>
       )}
     </>
   );
@@ -135,10 +158,10 @@ const PureDataTable = ({
               <Th
                 key={column.header}
                 {...column.getHeaderProps()}
-                textAlign='center'
+                textAlign="center"
               >
                 {column.render("Header")}
-                <div>{column.canFilter && column.render("Filter")}</div>
+               {/*  <div>{column.canFilter && column.render("Filter")}</div> */}
               </Th>
             ))}
           </Tr>
@@ -148,13 +171,13 @@ const PureDataTable = ({
         {page.map((row) => {
           prepareRow(row);
           return (
-            <Tr {...row.getRowProps()} >
+            <Tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return(
-                  <Td {...cell.getCellProps()} textAlign='center'>
+                return (
+                  <Td {...cell.getCellProps()} textAlign="center">
                     {cell.render("Cell")}
                   </Td>
-                )  
+                );
               })}
             </Tr>
           );
@@ -163,7 +186,6 @@ const PureDataTable = ({
     </Table>
   );
 };
-
 
 const PaginationToolbar = ({
   canPreviousPage,
@@ -197,27 +219,27 @@ const PaginationToolbar = ({
       </Flex>
 
       <Flex alignItems="center">
-
-        <Text ml={2} flexShrink="0">Seite </Text>{" "}
-          <NumberInput
-            mx={2}
-            w={28}
-            min={1}
-            max={pageOptions.length}
-            onChange={(value) => {
-              const page = value ? value - 1 : 0;
-              gotoPage(page);
-            }}
-            defaultValue={pageIndex + 1}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+        <Text ml={2} flexShrink="0">
+          Seite{" "}
+        </Text>{" "}
+        <NumberInput
+          mx={2}
+          w={28}
+          min={1}
+          max={pageOptions.length}
+          onChange={(value) => {
+            const page = value ? value - 1 : 0;
+            gotoPage(page);
+          }}
+          defaultValue={pageIndex + 1}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
         <Text mr={8}>von {pageOptions.length}</Text>
-
         <Select
           w={32}
           mr={2}

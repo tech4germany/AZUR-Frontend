@@ -2,19 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Input } from "@chakra-ui/react";
 
-// This is a custom UI for our 'between' or number range
-// filter. It uses two number boxes and filters rows to
-// ones that have values between the two
 NumberRangeColumnFilter.propTypes = {
   column: PropTypes.object,
 };
 
-export default function NumberRangeColumnFilter({column}) {
-  console.log(column)
-
-  const { filterValue = [], preFilteredRows, setFilter } = column
-
-  const [min, max] = React.useMemo(() => [1, preFilteredRows.length], [preFilteredRows]);
+export default function NumberRangeColumnFilter({ column }) {
+  const { filterValue = [], preFilteredRows, setFilter } = column;
+  const [min, max] = React.useMemo(
+    () => [1, preFilteredRows.length],
+    [preFilteredRows]
+  );
 
   return (
     <Flex align="center">
