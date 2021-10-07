@@ -17,6 +17,7 @@ export function FieldArrayInput({
   fieldKey,
   fieldType,
   errors,
+  ...cssprops
 }) {
   return (
     <FieldInput
@@ -27,6 +28,7 @@ export function FieldArrayInput({
           : null
       }
       type={fieldType}
+      {...cssprops}
     />
   );
 }

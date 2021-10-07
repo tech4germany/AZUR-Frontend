@@ -21,7 +21,7 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
   const initialValues = {
     numSeats: 13,
     method: "schepers",
-    partyStrengths: bundestagMandatsverteilung.btw2021,
+    partyStrengths: bundestagMandatsverteilung[0].data,
   };
   const DEBOUNCE_DELAY = 300; // we wait for additional input for 700ms before  updating the input
 

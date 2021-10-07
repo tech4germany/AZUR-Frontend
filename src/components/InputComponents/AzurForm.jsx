@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Text } from "@chakra-ui/react";
+import { Center, Wrap, Heading, Text } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -37,40 +37,26 @@ export default function AzurForm({ ParentPropProvider }) {
       <Heading as="h3" size="xl">
         Aufteilen nach
       </Heading>
-      <Flex flexDirection={["column", "column", "column", "row"]}>
-        <PresetButton
-          activeValue={values.partyStrengths}
-          presetData={bundestagMandatsverteilung.btw2021}
-          attributeName={"partyStrengths"}
-          setFieldValue={setFieldValue}
-        >
-          Bundestagswahl 2021
-        </PresetButton>
-        <PresetButton
-          activeValue={values.partyStrengths}
-          presetData={bundestagMandatsverteilung.btw2017}
-          attributeName={"partyStrengths"}
-          setFieldValue={setFieldValue}
-        >
-          Bundestagswahl 2017
-        </PresetButton>
-      </Flex>
-      <Flex flexDirection={["column", "column", "column", "row"]}>
-        <PresetButton
-          activeValue={values.partyStrengths}
-          presetData={bundestagMandatsverteilung.weirdDemo}
-          attributeName={"partyStrengths"}
-          setFieldValue={setFieldValue}
-        >
-          Demo Preset
-        </PresetButton>
-      </Flex>
+      <Wrap shouldWrapChildren={true}>
+        {bundestagMandatsverteilung.map((mandatePreset) => 
+          <PresetButton
+            key={mandatePreset.key}
+            activeValue={values.partyStrengths}
+            presetData={mandatePreset.data}
+            attributeName={"partyStrengths"}
+            setFieldValue={setFieldValue}
+          >
+            {mandatePreset.title}
+          </PresetButton>
+        )}
+      </Wrap>
 
       {/* INPUT PARTY STRENGTHS */}
       <Heading as="h3" size="xl">
         Fraktionsstärken
       </Heading>
       <PartyStrengthsFieldArray
+        fieldArrayName="partyStrengths"
         values={values}
         errors={errors}
         MAX_FRACTIONS={MAX_FRACTIONS}
@@ -80,7 +66,7 @@ export default function AzurForm({ ParentPropProvider }) {
       <Heading as="h3" size="xl">
         Mathematische Verfahren
       </Heading>
-      <Flex flexDirection={["column", "column", "column", "row"]}>
+      <Wrap shouldWrapChildren={true} >
         {constants.azurMethods.map((method) => {
           return (
             <PresetButton
@@ -94,7 +80,7 @@ export default function AzurForm({ ParentPropProvider }) {
             </PresetButton>
           );
         })}
-      </Flex>
+      </Wrap>
       <ParentPropProvider />
     </Form>
   );

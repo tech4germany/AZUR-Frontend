@@ -21,6 +21,7 @@ function App() {
         backgroundColor="gray.50"
         height="100%"
         overflowY="auto"
+        width="80ex" // Todo proper width layout
         px="10"
         py="5"
       />

@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { Flex, Stack, Input, Button, Text } from "@chakra-ui/react";
 
 
-const PartyStrengthsFieldArray = ({ values, errors, MAX_FRACTIONS }) => {
+const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTIONS }) => {
   return (
     <FieldArray name="partyStrengths">
       {({ remove, push }) => (
@@ -32,17 +32,19 @@ const PartyStrengthsFieldArray = ({ values, errors, MAX_FRACTIONS }) => {
               <Flex key={index} flexDirection="row">
                 <FieldArrayInput
                   fieldKey="name"
-                  fieldArrayName="partyStrengths"
+                  fieldArrayName={fieldArrayName}
                   index={index}
                   fieldType="text"
                   errors={errors}
+                  width='30ex'
                 />
                 <FieldArrayInput
                   fieldKey="strength"
-                  fieldArrayName="partyStrengths"
+                  fieldArrayName={fieldArrayName}
                   index={index}
                   fieldType="number"
                   errors={errors}
+                  width='14ex'
                 />
                 <Button
                   variant="ghost"
@@ -78,8 +80,8 @@ const PartyStrengthsFieldArray = ({ values, errors, MAX_FRACTIONS }) => {
             onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
           >
             <Flex flexDirection="row" m={0} width={"100%"}>
-              <Input disabled variant="fakeInput" />
-              <Input disabled variant="fakeInput" />
+              <Input width='30ex' disabled variant="fakeInput" />
+              <Input width='14ex' disabled variant="fakeInput" />
               <Button as="span" variant="ghost" pointerEvents="none">
                 <Text color="blackAlpha.400">+</Text>
               </Button>
@@ -94,6 +96,7 @@ const PartyStrengthsFieldArray = ({ values, errors, MAX_FRACTIONS }) => {
 PartyStrengthsFieldArray.propTypes = {
     values: PropTypes.object,
     errors: PropTypes.object,
+    fieldArrayName: PropTypes.string,
     MAX_FRACTIONS: PropTypes.number,
   };
   

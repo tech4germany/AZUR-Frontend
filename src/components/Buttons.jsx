@@ -13,7 +13,7 @@ PresetButton.propTypes = {
   children: PropTypes.string,
 };
 
-export function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children }) {
+export function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children, ...cssprops }) {
   return (
     <Button
       variant={`${
@@ -22,9 +22,8 @@ export function PresetButton({ activeValue, presetData, attributeName, setFieldV
       onClick={() => {
         setFieldValue(attributeName, presetData);
       }}
-      flexGrow='1'
-      p={2}
-      py={6}
+      width="30ex"
+      {...cssprops}
     >
       {children}
     </Button>
