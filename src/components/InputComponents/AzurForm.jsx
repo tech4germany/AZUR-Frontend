@@ -1,12 +1,9 @@
-import { Center, Wrap, Heading, Text } from "@chakra-ui/react";
+import { Center, Text } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
-import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
-import constants from "../../constants/constants.json";
-import { PresetButton } from "../Buttons";
 import { FieldInput } from "./FieldArrayInput";
-import PartyStrengthsFieldArray from "./PartyStrengthsFieldArray";
+import DistributionSpecificInputs from "./DistributionSpecificInputs"
 
 AzurForm.propTypes = {
   ParentStateUpdater: PropTypes.func,
@@ -32,55 +29,14 @@ export default function AzurForm({ ParentStateUpdater }) {
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
-
-      {/* PARTY STRENGHTS PRESET BUTTONS*/}
-      <Heading as="h3" size="xl">
-        Aufteilen nach
-      </Heading>
-      <Wrap shouldWrapChildren={true}>
-        {bundestagMandatsverteilung.map((mandatePreset) => 
-          <PresetButton
-            key={mandatePreset.key}
-            activeValue={values.partyStrengths}
-            presetData={mandatePreset.data}
-            attributeName={"partyStrengths"}
-            setFieldValue={setFieldValue}
-          >
-            {mandatePreset.title}
-          </PresetButton>
-        )}
-      </Wrap>
-
-      {/* INPUT PARTY STRENGTHS */}
-      <Heading as="h3" size="xl">
-        Fraktionsstärken
-      </Heading>
-      <PartyStrengthsFieldArray
-        fieldArrayName="partyStrengths"
+      <DistributionSpecificInputs
         values={values}
         errors={errors}
+        setFieldValue={setFieldValue}
         MAX_FRACTIONS={MAX_FRACTIONS}
+        attributeKeyBase='' // key base in root in simple case
       />
 
-      {/* MATHEMATICAL METHODS */}
-      <Heading as="h3" size="xl">
-        Mathematische Verfahren
-      </Heading>
-      <Wrap shouldWrapChildren={true} >
-        {constants.azurMethods.map((method) => {
-          return (
-            <PresetButton
-              key={method.apiName}
-              activeValue={values.method}
-              presetData={method.apiName}
-              attributeName={"method"}
-              setFieldValue={setFieldValue}
-            >
-              {method.title}
-            </PresetButton>
-          );
-        })}
-      </Wrap>
       <ParentStateUpdater />
     </Form>
   );

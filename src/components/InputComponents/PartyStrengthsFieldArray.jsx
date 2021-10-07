@@ -6,29 +6,32 @@ import { FieldArrayInput } from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
 import { Flex, Stack, Input, Button, Text } from "@chakra-ui/react";
-
+import _ from "lodash";
 
 const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTIONS }) => {
+  const partyStrengths = _.get(values, fieldArrayName)
+  const errorsPartyStrengths = _.get(errors, fieldArrayName)
+
   return (
-    <FieldArray name="partyStrengths">
+    <FieldArray name={fieldArrayName}>
       {({ remove, push }) => (
         <Stack
           p={2}
           layerStyle={
-            errors?.partyStrengths != null &&
-            typeof errors.partyStrengths === "string"
+            errorsPartyStrengths != null &&
+            typeof errorsPartyStrengths === "string"
               ? "errorGlow"
               : ""
           }
           title={
-            errors?.partyStrengths != null &&
-            typeof errors.partyStrengths === "string"
-              ? errors.partyStrengths
+            errorsPartyStrengths != null &&
+            typeof errorsPartyStrengths === "string"
+              ? errorsPartyStrengths
               : "Fraktionsstärken"
           }
         >
-          {values.partyStrengths.length > 0 &&
-            values.partyStrengths.map((_, index) => (
+          {partyStrengths.length > 0 &&
+            partyStrengths.map((_, index) => (
               <Flex key={index} flexDirection="row">
                 <FieldArrayInput
                   fieldKey="name"
@@ -48,9 +51,9 @@ const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTION
                 />
                 <Button
                   variant="ghost"
-                  isDisabled={values.partyStrengths.length <= 1}
+                  isDisabled={partyStrengths.length <= 1}
                   title={
-                    values.partyStrengths.length > 1
+                    partyStrengths.length > 1
                       ? "Fraktion entfernen"
                       : "Fraktion kann nicht entfernt werden, da es mindestens eine Fraktion geben muss."
                   }
@@ -71,9 +74,9 @@ const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTION
             m={0}
             mt={1}
             width={"100%"}
-            isDisabled={values.partyStrengths.length >= MAX_FRACTIONS}
+            isDisabled={partyStrengths.length >= MAX_FRACTIONS}
             title={
-              values.partyStrengths.length < MAX_FRACTIONS
+              partyStrengths.length < MAX_FRACTIONS
                 ? "Fraktion hinzufügen"
                 : `Es können keine weiteren Fraktion hinzugefügt werden. Dieser Rechner unterstützt maximal ${MAX_FRACTIONS} Einträge für Fraktionen.`
             }
