@@ -48,6 +48,7 @@ export default function OutputTabs({ azurInput, azurResponse }) {
         </TabPanel>
         <TabPanel>
           <ReihenfolgeOutput
+            tableData={azurResponse.table}
             assignmentSequence={azurResponse.assignment_sequence}
           />
         </TabPanel>

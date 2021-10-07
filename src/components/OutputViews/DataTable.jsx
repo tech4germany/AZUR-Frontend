@@ -148,7 +148,12 @@ const PureDataTable = ({
 }) => {
   return (
     <Box>
-      <Table {...getTableProps()} display="block" overflow="auto" height="30rem">
+      <Table
+        {...getTableProps()}
+        display="block"
+        overflow="auto"
+        height="30rem"
+      >
         <Thead position="sticky" top="0" backgroundColor="white">
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -159,7 +164,6 @@ const PureDataTable = ({
                   textAlign="center"
                 >
                   {column.render("Header")}
-                  {/*  <div>{column.canFilter && column.render("Filter")}</div> */}
                 </Th>
               ))}
             </Tr>
@@ -171,18 +175,18 @@ const PureDataTable = ({
             return (
               <Tr
                 {...row.getRowProps()}
-                layerStyle={
-                  row?.original?.is_ambiguous
-                    ? "amiguityContainerHighlight"
-                    : ""
+                backgroundColor={
+                  row?.original?.is_ambiguous ? "brand.orangeAlpha.300" : ""
                 }
               >
                 {row.cells.map((cell) => {
                   return (
                     <Td
                       {...cell.getCellProps()}
-                      backgroundColor={
-                        Array.isArray(cell.value) ? "brand.orangeAlpha.300" : ""
+                      layerStyle={
+                        Array.isArray(cell.value)
+                          ? "amiguityContainerHighlight"
+                          : ""
                       }
                       textAlign="center"
                     >

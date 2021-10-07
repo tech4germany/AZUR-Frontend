@@ -1,26 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import ZugriffOutput from './ZugriffOutput'
+
 import DataTable from "./DataTable";
 
 ReihenfolgeOutput.propTypes = {
   assignmentSequence: PropTypes.array,
+  tableData: PropTypes.array,
 };
 
 
-export default function ReihenfolgeOutput({ assignmentSequence }) {
+export default function ReihenfolgeOutput({ assignmentSequence, tableData}) {
   const columns = [
     {
       Header: "Reihenfolge",
       accessor: "seat_goes_to", // accessor is the "key" in the data
       disableFilters: true, // TODO move to defaultColumn
-      Cell: ({ cell: { value } }) => {
-        if (Array.isArray(value)) {
-          return "Mehrdeutig! " + value.join(" oder ");
-        } else {
-          return value;
-        }
-      },
+      Cell: ({ cell }) => ZugriffOutput({cell, tableData}),
     },
   ];
 
