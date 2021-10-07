@@ -52,7 +52,10 @@ export default function OutputTabs({ azurInput, azurResponse }) {
           />
         </TabPanel>
         <TabPanel>
-          <TabellenOutput tableData={azurResponse.table} />
+          <TabellenOutput
+            tableData={azurResponse.table}
+            assignmentSequence={azurResponse.assignment_sequence}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
