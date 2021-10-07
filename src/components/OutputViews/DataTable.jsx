@@ -3,7 +3,7 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   ChevronLeftIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
 } from "@chakra-ui/icons";
 import {
   Flex,
@@ -42,18 +42,16 @@ const IndexFilter = (headerGroups) => {
   const cols = headerGroups?.headerGroups?.[0]?.headers;
   if (cols == null) return null;
   // get index column. return null if we do not find it
-  const indexCol = cols.find((elem) => elem.id == 'index');
-  if(indexCol == null) return null
+  const indexCol = cols.find((elem) => elem.id == "index");
+  if (indexCol == null) return null;
 
   return (
     <Center>
       <Text>Wertebereich anzeigen von</Text>
       <Box>{indexCol.render("Filter")}</Box>
     </Center>
-  )
-
+  );
 };
-
 
 export default function DataTable({ data, columns }) {
   const defaultColumn = React.useMemo(
@@ -115,7 +113,6 @@ export default function DataTable({ data, columns }) {
       {columns == undefined || data == undefined ? (
         <Spinner />
       ) : (
-
         <VStack>
           <IndexFilter headerGroups={headerGroups} />
           <PureDataTable
@@ -150,40 +147,55 @@ const PureDataTable = ({
   page,
 }) => {
   return (
-    <Table {...getTableProps()}>
-      <Thead>
-        {headerGroups.map((headerGroup) => (
-          <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th
-                key={column.header}
-                {...column.getHeaderProps()}
-                textAlign="center"
-              >
-                {column.render("Header")}
-               {/*  <div>{column.canFilter && column.render("Filter")}</div> */}
-              </Th>
-            ))}
-          </Tr>
-        ))}
-      </Thead>
-      <Tbody {...getTableBodyProps()}>
-        {page.map((row) => {
-          prepareRow(row);
-          return (
-            <Tr {...row.getRowProps()} layerStyle={row?.original?.is_ambiguous ? "amiguityContainerHighlight" : ""}>
-              {row.cells.map((cell) => {
-                return (
-                  <Td {...cell.getCellProps()}  backgroundColor={Array.isArray(cell.value) ? "brand.orangeAlpha.300" : ""} textAlign="center">
-                    {cell.render("Cell")}
-                  </Td>
-                );
-              })}
+    <Box>
+      <Table {...getTableProps()} display="block" overflow="auto" height="30rem">
+        <Thead position="sticky" top="0" backgroundColor="white">
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <Th
+                  key={column.header}
+                  {...column.getHeaderProps()}
+                  textAlign="center"
+                >
+                  {column.render("Header")}
+                  {/*  <div>{column.canFilter && column.render("Filter")}</div> */}
+                </Th>
+              ))}
             </Tr>
-          );
-        })}
-      </Tbody>
-    </Table>
+          ))}
+        </Thead>
+        <Tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <Tr
+                {...row.getRowProps()}
+                layerStyle={
+                  row?.original?.is_ambiguous
+                    ? "amiguityContainerHighlight"
+                    : ""
+                }
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <Td
+                      {...cell.getCellProps()}
+                      backgroundColor={
+                        Array.isArray(cell.value) ? "brand.orangeAlpha.300" : ""
+                      }
+                      textAlign="center"
+                    >
+                      {cell.render("Cell")}
+                    </Td>
+                  );
+                })}
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 
