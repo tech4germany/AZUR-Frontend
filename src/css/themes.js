@@ -109,6 +109,10 @@ export const bundestagTheme = extendTheme({
     errorGlow: {
       outline: "1px solid #E53E3E",
       boxShadow: "0 0 10px #E53E3E"
+    },
+    amiguityContainerHighlight: {
+      outline: "1px solid #FF7100",
+      boxShadow: "0 0 10px #FF7100"
     }
   }
 });

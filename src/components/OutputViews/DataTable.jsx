@@ -169,12 +169,13 @@ const PureDataTable = ({
       </Thead>
       <Tbody {...getTableBodyProps()}>
         {page.map((row) => {
+          console.log(row)
           prepareRow(row);
           return (
-            <Tr {...row.getRowProps()}>
+            <Tr {...row.getRowProps()} layerStyle={row.original.is_ambiguous ? "amiguityContainerHighlight" : ""}>
               {row.cells.map((cell) => {
                 return (
-                  <Td {...cell.getCellProps()} textAlign="center">
+                  <Td {...cell.getCellProps()}  backgroundColor={Array.isArray(cell.value) ? "brand.orangeAlpha.300" : ""} textAlign="center">
                     {cell.render("Cell")}
                   </Td>
                 );

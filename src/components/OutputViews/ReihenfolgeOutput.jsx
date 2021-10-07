@@ -12,7 +12,7 @@ export default function ReihenfolgeOutput({ assignmentSequence }) {
   const columns = [
     {
       Header: "Reihenfolge",
-      accessor: "assignmentSequence.seat_goes_to", // accessor is the "key" in the data
+      accessor: "seat_goes_to", // accessor is the "key" in the data
       disableFilters: true, // TODO move to defaultColumn
       Cell: ({ cell: { value } }) => {
         if (Array.isArray(value)) {
@@ -24,9 +24,5 @@ export default function ReihenfolgeOutput({ assignmentSequence }) {
     },
   ];
 
-  const data = assignmentSequence.map((partyName) => {
-    return { assignmentSequence: partyName };
-  });
-
-  return <DataTable data={data} columns={columns} />;
+  return <DataTable data={assignmentSequence} columns={columns} />;
 }
