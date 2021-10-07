@@ -9,10 +9,10 @@ import { FieldInput } from "./FieldArrayInput";
 import PartyStrengthsFieldArray from "./PartyStrengthsFieldArray";
 
 AzurForm.propTypes = {
-  ParentPropProvider: PropTypes.func,
+  ParentStateUpdater: PropTypes.func,
 };
 
-export default function AzurForm({ ParentPropProvider }) {
+export default function AzurForm({ ParentStateUpdater }) {
   const { values, errors, setFieldValue } = useFormikContext();
 
   const MAX_FRACTIONS = 15;
@@ -81,7 +81,7 @@ export default function AzurForm({ ParentPropProvider }) {
           );
         })}
       </Wrap>
-      <ParentPropProvider />
+      <ParentStateUpdater />
     </Form>
   );
 }
