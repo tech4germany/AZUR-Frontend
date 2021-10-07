@@ -1,42 +1,92 @@
 /* eslint-disable */
-import React from "react";
-
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
+import {
   Flex,
-  Tooltip,
+  Box,
+  Center,
   IconButton,
-  Text,
-  Select,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  Select,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
   VStack,
+  Spinner,
 } from "@chakra-ui/react";
-
-import {
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@chakra-ui/icons";
-import { useTable, usePagination } from "react-table";
-
 import PropTypes from "prop-types";
+import React from "react";
+import { useFilters, usePagination, useTable } from "react-table";
+import NumberRangeFilter from "./NumberRangeFilter";
 
 DataTable.propTypes = {
   data: PropTypes.array,
   columns: PropTypes.array,
 };
 
+const IndexFilter = (headerGroups) => {
+  // get columns
+  const cols = headerGroups?.headerGroups?.[0]?.headers;
+  if (cols == null) return null;
+  // get index column. return null if we do not find it
+  const indexCol = cols.find((elem) => elem.id == "index");
+  if (indexCol == null) return null;
+
+  return (
+    <Center>
+      <Text>Wertebereich anzeigen von</Text>
+      <Box>{indexCol.render("Filter")}</Box>
+    </Center>
+  );
+};
+
 export default function DataTable({ data, columns }) {
+  const defaultColumn = React.useMemo(
+    () => ({
+      disableFilters: true,
+    }),
+    []
+  );
+
+  const startHeaders = [
+    {
+      Header: "Position",
+      id: "index",
+      accessor: (_row, i) => i + 1,
+      disableFilters: false,
+      defaultCanFilter: true,
+      Filter: NumberRangeFilter,
+      filter: "between",
+    },
+  ];
+
+  const dataMemo = React.useMemo(() => {
+    if (data == null) {
+      return [];
+    }
+    return data;
+  }, [data]);
+
+  const colsMemo = React.useMemo(() => {
+    if (columns == null) {
+      return [];
+    }
+    return startHeaders.concat(columns);
+  }, [columns]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -52,7 +102,11 @@ export default function DataTable({ data, columns }) {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable({ columns, data }, usePagination);
+  } = useTable(
+    { columns: colsMemo, data: dataMemo, defaultColumn },
+    useFilters,
+    usePagination
+  );
 
   return (
     <>
@@ -60,25 +114,26 @@ export default function DataTable({ data, columns }) {
         <Spinner />
       ) : (
         <VStack>
-        <PureDataTable
-          getTableProps={getTableProps}
-          getTableBodyProps={getTableBodyProps}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-          page={page}
-        />
-        <PaginationToolbar
-          canPreviousPage={canPreviousPage}
-          canNextPage={canNextPage}
-          pageOptions={pageOptions}
-          pageCount={pageCount}
-          gotoPage={gotoPage}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          setPageSize={setPageSize}
-          state={{ pageIndex, pageSize }}
-        />
-      </VStack>
+          <IndexFilter headerGroups={headerGroups} />
+          <PureDataTable
+            getTableProps={getTableProps}
+            getTableBodyProps={getTableBodyProps}
+            headerGroups={headerGroups}
+            prepareRow={prepareRow}
+            page={page}
+          />
+          <PaginationToolbar
+            canPreviousPage={canPreviousPage}
+            canNextPage={canNextPage}
+            pageOptions={pageOptions}
+            pageCount={pageCount}
+            gotoPage={gotoPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            setPageSize={setPageSize}
+            state={{ pageIndex, pageSize }}
+          />
+        </VStack>
       )}
     </>
   );
@@ -92,42 +147,61 @@ const PureDataTable = ({
   page,
 }) => {
   return (
-    <Table {...getTableProps()}>
-      <Thead>
-        {headerGroups.map((headerGroup) => (
-          <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th
-                key={column.header}
-                {...column.getHeaderProps()}
-                textAlign='center'
-              >
-                {column.render("Header")}
-              </Th>
-            ))}
-          </Tr>
-        ))}
-      </Thead>
-      <Tbody {...getTableBodyProps()}>
-        {page.map((row) => {
-          prepareRow(row);
-          return (
-            <Tr {...row.getRowProps()} >
-              {row.cells.map((cell) => {
-                return(
-                  <Td {...cell.getCellProps()} textAlign='center'>
-                    {cell.render("Cell")}
-                  </Td>
-                )  
-              })}
+    <Box>
+      <Table
+        {...getTableProps()}
+        display="block"
+        overflow="auto"
+        height="30rem"
+      >
+        <Thead position="sticky" top="0" backgroundColor="white">
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <Th
+                  key={column.header}
+                  {...column.getHeaderProps()}
+                  textAlign="center"
+                >
+                  {column.render("Header")}
+                </Th>
+              ))}
             </Tr>
-          );
-        })}
-      </Tbody>
-    </Table>
+          ))}
+        </Thead>
+        <Tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <Tr
+                {...row.getRowProps()}
+                backgroundColor={
+                  row?.original?.is_ambiguous ? "brand.orangeAlpha.300" : ""
+                }
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <Td
+                      {...cell.getCellProps()}
+                      layerStyle={
+                        Array.isArray(cell.value)
+                          ? "amiguityContainerHighlight"
+                          : ""
+                      }
+                      textAlign="center"
+                    >
+                      {cell.render("Cell")}
+                    </Td>
+                  );
+                })}
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
-
 
 const PaginationToolbar = ({
   canPreviousPage,
@@ -161,27 +235,27 @@ const PaginationToolbar = ({
       </Flex>
 
       <Flex alignItems="center">
-
-        <Text ml={2} flexShrink="0">Seite </Text>{" "}
-          <NumberInput
-            mx={2}
-            w={28}
-            min={1}
-            max={pageOptions.length}
-            onChange={(value) => {
-              const page = value ? value - 1 : 0;
-              gotoPage(page);
-            }}
-            defaultValue={pageIndex + 1}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+        <Text ml={2} flexShrink="0">
+          Seite{" "}
+        </Text>{" "}
+        <NumberInput
+          mx={2}
+          w={28}
+          min={1}
+          max={pageOptions.length}
+          onChange={(value) => {
+            const page = value ? value - 1 : 0;
+            gotoPage(page);
+          }}
+          defaultValue={pageIndex + 1}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
         <Text mr={8}>von {pageOptions.length}</Text>
-
         <Select
           w={32}
           mr={2}

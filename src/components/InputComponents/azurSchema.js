@@ -7,8 +7,8 @@ const azurSchema = Yup.object().shape({
     .required("Dieses Feld muss ausgefüllt sein")
     .min(1, "Die Anzahl der Einheiten muss größer als 1 sein.")
     .max(
-      10_000_000,
-      "Berechnungen von mehr als 10 000 000 Einheiten wird nicht unterstützt"
+      100_000,
+      "Berechnungen von mehr als 100 000 Einheiten wird nicht unterstützt"
     ),
   partyStrengths: Yup.array()
     .of(

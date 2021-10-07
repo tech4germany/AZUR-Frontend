@@ -1,42 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import ZugriffOutput from './ZugriffOutput'
+
 import DataTable from "./DataTable";
 
 ReihenfolgeOutput.propTypes = {
   assignmentSequence: PropTypes.array,
+  tableData: PropTypes.array,
 };
 
-export default function ReihenfolgeOutput({ assignmentSequence }) {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Position",
-        id: "index",
-        Cell: ({ row }) => row.index + 1,
-      },
-      {
-        Header: "Reihenfolge",
-        accessor: "assignmentSequence.seat_goes_to", // accessor is the "key" in the data
-        Cell: ({ cell: { value } }) => {
-          if (Array.isArray(value)) {
-            return "Mehrdeutig! " + value.join(" oder ");
-          } else {
-            return value;
-          }
-        },
-      },
-    ],
-    []
-  );
 
-  const data = React.useMemo(
-    () =>
-      assignmentSequence.map((partyName) => {
-        return { assignmentSequence: partyName };
-      }),
-    []
-  );
+export default function ReihenfolgeOutput({ assignmentSequence, tableData}) {
+  const columns = [
+    {
+      Header: "Reihenfolge",
+      accessor: "seat_goes_to", // accessor is the "key" in the data
+      disableFilters: true, // TODO move to defaultColumn
+      Cell: ({ cell }) => ZugriffOutput({cell, tableData}),
+    },
+  ];
 
-  return <DataTable data={data} columns={columns} />;
+  return <DataTable data={assignmentSequence} columns={columns} />;
 }
