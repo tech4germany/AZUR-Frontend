@@ -1,32 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AzurCompareForm from "./InputComponents/AzurCompareForm";
-import azurSchema from "./InputComponents/azurSchema";
-import ParentStateUpdater from "./InputComponents/ParentStateUpdater";
+import AzurForm from "./AzurForm";
+import azurSchema from "./azurSchema";
+import ParentStateUpdater from "../../../components/forms/ParentStateUpdater";
 import { Box } from "@chakra-ui/react";
 
 import { useFormikContext, Formik } from "formik";
-import bundestagMandatsverteilung from "../constants/bundestagMandate.json";
+import bundestagMandatsverteilung from "utils/bundestagMandate.json";
 
-AzurCompareInputs.propTypes = {
+AzurInputs.propTypes = {
   azurInput: PropTypes.object,
   setAzurInput: PropTypes.func,
 };
 
-function AzurCompareInputs({ azurInput, setAzurInput, ...cssprops }) {
+function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
   // Initial Values
   const initialValues = {
     numSeats: 13,
-    distA: {
-        method: "schepers",
-        partyStrengths: bundestagMandatsverteilung[0].data,
-    },
-    distB: {
-        method: "hare",
-        partyStrengths: bundestagMandatsverteilung[1].data,
-    }
-
+    method: "schepers",
+    partyStrengths: bundestagMandatsverteilung[0].data,
   };
 
   // Validate is manually triggered in useEffect
@@ -34,11 +27,11 @@ function AzurCompareInputs({ azurInput, setAzurInput, ...cssprops }) {
     <Box {...cssprops}>
       <Formik
         initialValues={initialValues}
-        // validationSchema={azurSchema} TODO ADAPT VALIDATION SCHEME TO BE WORKING WITH BOTH
+        validationSchema={azurSchema}
         validateOnChange={false}
         validateOnBlur={false}
       >
-        <AzurCompareForm
+        <AzurForm
           ParentStateUpdater={() => {
             const { values, validateForm } = useFormikContext();
             return (
@@ -56,4 +49,4 @@ function AzurCompareInputs({ azurInput, setAzurInput, ...cssprops }) {
   );
 }
 
-export default AzurCompareInputs;
+export default AzurInputs;

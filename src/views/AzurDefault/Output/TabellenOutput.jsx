@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DataTable from "./DataTable";
+import DataTable from "../../../components/tables/DataTable";
 import ZugriffOutput from './ZugriffOutput'
 
 TabellenOutput.propTypes = {

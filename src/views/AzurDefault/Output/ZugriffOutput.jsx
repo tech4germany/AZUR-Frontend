@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { getPartyColor } from "../../utils/getPartyColor";
+import { getPartyColor } from "../../../utils/getPartyColor";
 import { Text, Flex } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
 

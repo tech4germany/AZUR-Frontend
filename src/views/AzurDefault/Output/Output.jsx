@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OutputTabs from "./OutputViews/OutputTabs";
+import OutputTabs from "./OutputTabs";
 import {
   Spinner,
   Heading,

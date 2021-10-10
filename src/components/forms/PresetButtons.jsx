@@ -12,7 +12,7 @@ PresetButton.propTypes = {
   children: PropTypes.string,
 };
 
-export function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children, ...cssprops }) {
+export default function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children, ...cssprops }) {
   return (
     <Button
       variant={`${

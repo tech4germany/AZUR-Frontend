@@ -1,7 +1,7 @@
 import React from "react";
-import AzurInputs from "./Input";
-import Output from "./Output";
-import useAzur from "../hooks/useAzur";
+import AzurInputs from "./Input/Input";
+import Output from "./Output/Output";
+import useAzur from "./hooks/useAzur";
 
 import { Flex } from "@chakra-ui/react";
 

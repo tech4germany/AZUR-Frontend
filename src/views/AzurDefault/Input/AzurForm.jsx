@@ -2,8 +2,8 @@ import { Center, Text } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
-import { FieldInput } from "./FieldArrayInput";
-import DistributionSpecificInputs from "./DistributionSpecificInputs"
+import { FieldInput } from "components/forms/FieldArrayInput";
+import DistributionSpecificInputs from "components/forms/DistributionSpecificInputs"
 
 AzurForm.propTypes = {
   ParentStateUpdater: PropTypes.func,

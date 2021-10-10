@@ -1,9 +1,9 @@
 import { Heading, Wrap } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
-import bundestagMandatsverteilung from "../../constants/bundestagMandate.json";
-import constants from "../../constants/constants.json";
-import { PresetButton } from "../Buttons";
+import bundestagMandatsverteilung from "utils/bundestagMandate.json";
+import constants from "utils/constants.json";
+import PresetButton from "./PresetButtons";
 import PartyStrengthsFieldArray from "./PartyStrengthsFieldArray";
 import _ from "lodash";
 

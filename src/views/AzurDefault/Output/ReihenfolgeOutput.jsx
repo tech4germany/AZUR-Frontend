@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import ZugriffOutput from './ZugriffOutput'
 
-import DataTable from "./DataTable";
+import DataTable from "../../../components/tables/DataTable";
 
 ReihenfolgeOutput.propTypes = {
   assignmentSequence: PropTypes.array,

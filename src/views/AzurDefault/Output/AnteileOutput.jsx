@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PieChart from "../PieChart";
+import PieChart from "../../../components/PieChart";
 import {
   Alert,
   AlertIcon,
