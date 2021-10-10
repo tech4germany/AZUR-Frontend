@@ -10,14 +10,21 @@ export default function AzurDefault() {
   const { data, loading, error } = useAzur(azurInput);
 
   return (
-    <Flex flexDirection={["column", "column", "column", "row"]} height="100vh">
+    <Flex
+      flexDirection={["column", "column", "column", "row"]}
+      height={["auto", "auto", "auto", "100vh"]}
+      width={["auto", "auto", "auto", "90vw"]}
+      margin={["0", "0", "0", "0 auto"]}
+    >
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
-        backgroundColor="gray.50"
-        height="100%"
+        backgroundColor="brand.backgroundGrey"
+        maxHeight="100%"
         overflowY="auto"
-        width="80ex" // Todo proper width layout
+        borderRadius="lg"
+        m={3}
+        width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
         px="10"
         py="5"
       />
@@ -26,10 +33,12 @@ export default function AzurDefault() {
         azurResponse={data}
         azurError={error}
         loading={loading}
-        height="100%"
-        px="10"
-        py="5"
-        flexGrow={1}
+        backgroundColor="brand.backgroundGrey"
+        borderRadius="lg"
+        m={3}
+        maxHeight="100%"
+        width={["100%", "100%", "100%", "65%"]}
+        p="10"
         overflowY="auto"
       />
     </Flex>

@@ -1,30 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Heading, Wrap } from "@chakra-ui/react";
+import React from "react";
+import PropTypes from "prop-types";
+import { Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import constants from "utils/constants.json";
-import PresetButton from "./PresetButtons";
+import PresetButton from "./PresetButton";
 import _ from "lodash";
 
-
 const MethodsInput = ({ values, attributeKey, setFieldValue }) => {
-
   return (
     <>
       <Heading as="h3" size="xl">
         Mathematische Verfahren
       </Heading>
-      <Wrap shouldWrapChildren={true}>
+      <Wrap>
         {constants.azurMethods.map((method) => {
           return (
-            <PresetButton
-              key={method.apiName}
-              activeValue={_.get(values, attributeKey, [])}
-              presetData={method.apiName}
-              attributeName={attributeKey}
-              setFieldValue={setFieldValue}
-            >
-              {method.title}
-            </PresetButton>
+            <WrapItem flexGrow="1" key={method.apiName}>
+              <PresetButton
+                activeValue={_.get(values, attributeKey, [])}
+                presetData={method.apiName}
+                attributeName={attributeKey}
+                setFieldValue={setFieldValue}
+                flexGrow="1"
+              >
+                {method.title}
+              </PresetButton>
+            </WrapItem>
           );
         })}
       </Wrap>
@@ -33,10 +33,9 @@ const MethodsInput = ({ values, attributeKey, setFieldValue }) => {
 };
 
 MethodsInput.propTypes = {
-    values: PropTypes.object,
-    attributeKey: PropTypes.string,
-    setFieldValue: PropTypes.func,
-}
+  values: PropTypes.object,
+  attributeKey: PropTypes.string,
+  setFieldValue: PropTypes.func,
+};
 
-
-export default MethodsInput
+export default MethodsInput;

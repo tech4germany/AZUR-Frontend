@@ -24,8 +24,12 @@ export default function AzurForm({ ParentStateUpdater }) {
           type="number"
           errorMsg={errors?.numSeats}
           fontSize="4xl"
+          fontWeight="bold"
           textAlign="center"
-          width="6ex"
+          color="brand.darkBlue"
+          width="6ex" /* have to limit for now as otherwise the html-size prop makes this field very wide */
+          p="1"
+          py="0"
           height="auto"
         />
         <Text fontSize="xl">Einheiten</Text>

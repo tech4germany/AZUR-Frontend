@@ -8,10 +8,15 @@ import PropTypes from "prop-types";
 import { Flex, Stack, Input, Button, Text } from "@chakra-ui/react";
 import _ from "lodash";
 
-const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTIONS }) => {
-  const partyStrengths = _.get(values, fieldArrayName)
-  const errorsPartyStrengths = _.get(errors, fieldArrayName)
-  
+const PartyStrengthsFieldArray = ({
+  values,
+  errors,
+  fieldArrayName,
+  MAX_FRACTIONS,
+}) => {
+  const partyStrengths = _.get(values, fieldArrayName);
+  const errorsPartyStrengths = _.get(errors, fieldArrayName);
+
   return (
     <FieldArray name={fieldArrayName}>
       {({ remove, push }) => (
@@ -39,15 +44,18 @@ const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTION
                   index={index}
                   fieldType="text"
                   errors={errors}
-                  width='30ex'
+                  flexGrow="3"
+                  width="0px" // TODO fix this awful solution against the html size prop
                 />
                 <FieldArrayInput
                   fieldKey="strength"
                   fieldArrayName={fieldArrayName}
                   index={index}
+                  width="0px" // TODO fix this awful solution against the html size prop
+                  flexGrow="1"
                   fieldType="number"
+                  textAlign="center"
                   errors={errors}
-                  width='14ex'
                 />
                 <Button
                   variant="ghost"
@@ -83,8 +91,18 @@ const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTION
             onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
           >
             <Flex flexDirection="row" m={0} width={"100%"}>
-              <Input width='30ex' disabled variant="fakeInput" />
-              <Input width='14ex' disabled variant="fakeInput" />
+              <Input
+                width="0px" // TODO fix this awful solution against the html size prop
+                flexGrow="3"
+                disabled
+                variant="fakeInput"
+              />
+              <Input
+                width="0px" // TODO fix this awful solution against the html size prop
+                flexGrow="1"
+                disabled
+                variant="fakeInput"
+              />
               <Button as="span" variant="ghost" pointerEvents="none">
                 <Text color="blackAlpha.400">+</Text>
               </Button>
@@ -97,11 +115,10 @@ const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTION
 };
 
 PartyStrengthsFieldArray.propTypes = {
-    values: PropTypes.object,
-    errors: PropTypes.object,
-    fieldArrayName: PropTypes.string,
-    MAX_FRACTIONS: PropTypes.number,
-  };
-  
+  values: PropTypes.object,
+  errors: PropTypes.object,
+  fieldArrayName: PropTypes.string,
+  MAX_FRACTIONS: PropTypes.number,
+};
 
-export default PartyStrengthsFieldArray
+export default PartyStrengthsFieldArray;

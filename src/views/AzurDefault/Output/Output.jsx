@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import OutputTabs from "./OutputTabs";
 import {
   Spinner,
-  Heading,
   Box,
   Text,
   Alert,
@@ -29,7 +28,6 @@ export default function Output({
 }) {
   return (
     <Box {...cssprops}>
-      <Heading size="2xl">Output</Heading>
       {loading ? (
         <Spinner color="brand.orange" />
       ) : azurInput.errors != null && !_.isEmpty(azurInput.errors) ? (
@@ -55,9 +53,11 @@ export default function Output({
                 ) : (
                   azurInput.errors.partyStrengths.map((errorEntry, index) => {
                     return errorEntry.strength ? (
-                      <Text key={index+'strengthError'}>{errorEntry.strength}</Text>
+                      <Text key={index + "strengthError"}>
+                        {errorEntry.strength}
+                      </Text>
                     ) : (
-                      <Text key={index+'nameError'}>{errorEntry.name}</Text>
+                      <Text key={index + "nameError"}>{errorEntry.name}</Text>
                     );
                   })
                 )}
@@ -76,7 +76,7 @@ export default function Output({
         </Alert>
       ) : (
         // everything went fine and we have results
-         <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
+        <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
       )}
     </Box>
   );

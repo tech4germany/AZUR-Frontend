@@ -1,9 +1,9 @@
-import { Heading, Wrap } from "@chakra-ui/react";
+import { Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import PartyStrengthsFieldArray from "components/forms/PartyStrengthsFieldArray";
 import _ from "lodash";
 import React from "react";
 import bundestagMandatsverteilung from "utils/bundestagMandate.json";
-import PresetButton from "./PresetButtons";
+import PresetButton from "./PresetButton";
 import PropTypes from "prop-types";
 
 const PartyStrengthsInput = ({
@@ -52,17 +52,19 @@ const PartyStrengthsPresetButtons = ({
   partyStrengthsKey,
 }) => {
   return (
-    <Wrap shouldWrapChildren={true}>
+    <Wrap>
       {bundestagMandatsverteilung.map((mandatePreset) => (
-        <PresetButton
-          key={mandatePreset.key}
-          activeValue={_.get(values, partyStrengthsKey, [])}
-          presetData={mandatePreset.data}
-          attributeName={partyStrengthsKey}
-          setFieldValue={setFieldValue}
-        >
-          {mandatePreset.title}
-        </PresetButton>
+        <WrapItem flexGrow="1" key={mandatePreset.key}>
+          <PresetButton
+            activeValue={_.get(values, partyStrengthsKey, [])}
+            presetData={mandatePreset.data}
+            attributeName={partyStrengthsKey}
+            setFieldValue={setFieldValue}
+            flexGrow="1"
+          >
+            {mandatePreset.title}
+          </PresetButton>
+        </WrapItem>
       ))}
     </Wrap>
   );

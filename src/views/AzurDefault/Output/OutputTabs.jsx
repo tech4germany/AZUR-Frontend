@@ -14,7 +14,7 @@ OutputTabs.propTypes = {
 
 export default function OutputTabs({ azurInput, azurResponse }) {
   return (
-    <Tabs>
+    <Tabs align="center">
       <TabList>
         <Tab>Anteile</Tab>
         <Tab
@@ -40,7 +40,7 @@ export default function OutputTabs({ azurInput, azurResponse }) {
       </TabList>
 
       <TabPanels>
-        <TabPanel>
+        <TabPanel variant="aa">
           <DistributionOutput
             isAmbiguous={azurResponse.distribution.is_ambiguous}
             seatSplit={azurResponse.distribution.seats}

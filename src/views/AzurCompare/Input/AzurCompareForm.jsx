@@ -25,6 +25,7 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
           errorMsg={errors?.numSeats}
           fontSize="4xl"
           textAlign="center"
+          color="brand.darkBlue"
           width="6ex"
           height="auto"
         />
