@@ -10,10 +10,7 @@ export default function AzurDefault() {
   const { data, loading, error } = useAzur(azurInput);
 
   return (
-    <Flex
-      flexDirection={["column", "column", "column", "row"]}
-      height="100vh"
-    >
+    <Flex flexDirection={["column", "column", "column", "row"]} height="100vh">
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
