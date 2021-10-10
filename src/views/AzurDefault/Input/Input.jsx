@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import AzurForm from "./AzurForm";
 import azurSchema from "./azurSchema";
-import ParentStateUpdater from "../../../components/forms/ParentStateUpdater";
+import ParentStateUpdater from "components/forms/ParentStateUpdater";
 import { Box } from "@chakra-ui/react";
 
 import { useFormikContext, Formik } from "formik";
@@ -38,8 +38,8 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
               <ParentStateUpdater
                 values={values}
                 validateForm={validateForm}
-                azurInput={azurInput}
-                setAzurInput={setAzurInput}
+                inputData={azurInput}
+                setInputData={setAzurInput}
               />
             );
           }}

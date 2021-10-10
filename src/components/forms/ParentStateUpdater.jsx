@@ -2,40 +2,39 @@ import React from "react";
 import _ from "lodash";
 import { useFormikContext } from "formik";
 
-const ParentStateUpdater = ({ azurInput, setAzurInput }) => {
+const ParentStateUpdater = ({ inputData, setInputData }) => {
   const DEBOUNCE_DELAY = 300; // we wait for additional input for 300ms before  updating the input
 
   const { values, validateForm } = useFormikContext();
   const debouncedSetAzur = React.useCallback(
-    _.debounce(async (values, validateForm, azurInput, setAzurInput) => {
+    _.debounce(async (values, validateForm, inputData, setInputData) => {
       // validate input changes for form
       const errors = await validateForm();
 
       if (_.isEmpty(errors)) {
         // Update to values and no error exists
         // rename numSeats for equality check -> TODO lets completely get rid of this thing by having consistent naming between backend/frontend
-        const { num_of_seats, ...otherInputs } = azurInput?.data;
+        const { num_of_seats, ...otherInputs } = inputData?.data;
         const inputCopy = { ...otherInputs, numSeats: num_of_seats };
 
         if (_.isEqual(inputCopy, values)) {
           return null;
         }
         // an actual value change occured ->  update the parent state
-        setAzurInput({
+        setInputData({
           errors: {},
           data: {
-            method: values.method,
-            num_of_seats: values.numSeats, // backend num seats naming
-            partyStrengths: values.partyStrengths,
+            ...values,
+            num_of_seats: values.numSeats
           },
         });
       } else {
         // There is an error in the form input
-        if (_.isEqual(azurInput.errors, errors)) {
+        if (_.isEqual(inputData.errors, errors)) {
           return null;
         }
         // an actual error change occured ->  update the parent state
-        setAzurInput({
+        setInputData({
           errors,
           data: {},
         });
@@ -45,7 +44,7 @@ const ParentStateUpdater = ({ azurInput, setAzurInput }) => {
   );
 
   React.useEffect(() => {
-    debouncedSetAzur(values, validateForm, azurInput, setAzurInput);
+    debouncedSetAzur(values, validateForm, inputData, setInputData);
   }, [values]);
   return null;
 };
