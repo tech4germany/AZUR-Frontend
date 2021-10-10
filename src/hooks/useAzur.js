@@ -17,7 +17,7 @@ export default function useAzur(azurInput){
       });
       
       // useEffect itself should not be async according to linter, so we work with an anonymous function
-      fetch("https://azur-api.herokuapp.com/azur", {
+      fetch("http://127.0.0.1:5000/azur", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
