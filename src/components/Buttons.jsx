@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { objectsEqual, arraysEqual } from '../utils/equalityChecks'
-
+import _ from "lodash";
 
 
 PresetButton.propTypes = {
@@ -17,7 +16,7 @@ export function PresetButton({ activeValue, presetData, attributeName, setFieldV
   return (
     <Button
       variant={`${
-        matchesPreset(activeValue, presetData) ? "active" : "outline"
+        _.isEqual(activeValue, presetData) ? "active" : "outline"
       }`}
       onClick={() => {
         setFieldValue(attributeName, presetData);
@@ -29,14 +28,3 @@ export function PresetButton({ activeValue, presetData, attributeName, setFieldV
     </Button>
   );
 }
-
-// CHECK FOR EQUALITY OF OBJECTS https://stackoverflow.com/questions/27030/comparing-arrays-of-objects-in-javascript
-
-const matchesPreset = (input, preset) => {
-  if (input === null) return false;
-  else if (Array.isArray(input)) return arraysEqual(input, preset);
-  else if (typeof yourVariable === 'object') return objectsEqual(input, preset)
-  else return input === preset
-
-};
-
