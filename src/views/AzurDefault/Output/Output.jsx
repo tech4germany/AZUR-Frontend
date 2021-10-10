@@ -76,7 +76,7 @@ export default function Output({
         </Alert>
       ) : (
         // everything went fine and we have results
-        <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
+         <OutputTabs azurResponse={azurResponse} azurInput={azurInput.data} />
       )}
     </Box>
   );

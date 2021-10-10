@@ -14,7 +14,7 @@ OutputTabs.propTypes = {
 
 export default function OutputTabs({ azurInput, azurResponse }) {
   return (
-    <Tabs defaultActiveKey="anteile">
+    <Tabs>
       <TabList>
         <Tab>Anteile</Tab>
         <Tab

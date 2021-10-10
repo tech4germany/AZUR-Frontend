@@ -56,13 +56,15 @@ export default function DistributionOutput({ isAmbiguous, seatSplit }) {
       </Center>
       <Center>
         {isAmbiguous ? (
-           <Alert status="warning">
+          <Alert status="warning">
             <AlertIcon />
             <AlertTitle mr={2}>Mehrdeutiges Ergebnis</AlertTitle>
             <AlertDescription>
-              Es lässt sich kein eindeutiges Ergebnis für diese Eingabe berechnen. Das heißt, dass die Einheiten
-              nicht eindeutig bestimmten Fraktionen zugewiesen werden können. Es kann helfen eine andere mathematische
-              Methode zu wählen, oder diese Verteilungsgröße zu vermeiden.
+              Es lässt sich kein eindeutiges Ergebnis für diese Eingabe
+              berechnen. Das heißt, dass die Einheiten nicht eindeutig
+              bestimmten Fraktionen zugewiesen werden können. Es kann helfen
+              eine andere mathematische Methode zu wählen, oder diese
+              Verteilungsgröße zu vermeiden.
             </AlertDescription>
           </Alert>
         ) : (
