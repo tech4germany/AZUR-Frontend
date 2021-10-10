@@ -2,6 +2,7 @@ import { Field } from "formik";
 import { Input } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
+import _ from "lodash";
 
 FieldArrayInput.propTypes = {
   fieldArrayName: PropTypes.string,
@@ -24,7 +25,7 @@ export function FieldArrayInput({
       name={`${fieldArrayName}.${index}.${fieldKey}`}
       errorMsg={
         errorForFieldExists(errors?.[fieldArrayName], index, fieldKey)
-          ? errors[fieldArrayName][index][fieldKey]
+          ? _.get(errors[fieldArrayName][index], fieldKey)
           : null
       }
       type={fieldType}
@@ -57,7 +58,7 @@ const errorForFieldExists = (arrayErrors, index, fieldKey) => {
     arrayErrors != null &&
     Array.isArray(arrayErrors) &&
     Object.prototype.hasOwnProperty.call(arrayErrors, index) &&
-    arrayErrors[index][fieldKey] != null
+    _.get(arrayErrors[index], fieldKey) != null
   ) {
     return true;
   } else {

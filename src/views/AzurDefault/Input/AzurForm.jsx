@@ -3,7 +3,8 @@ import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
 import { FieldInput } from "components/forms/FieldArrayInput";
-import DistributionSpecificInputs from "components/forms/DistributionSpecificInputs"
+import PartyStrengthsInput from "components/forms/PartyStrengthsInput";
+import MethodsInput from "components/forms/MethodsInput";
 
 AzurForm.propTypes = {
   ParentStateUpdater: PropTypes.func,
@@ -29,14 +30,18 @@ export default function AzurForm({ ParentStateUpdater }) {
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
-      <DistributionSpecificInputs
-        values={values}
-        errors={errors}
-        setFieldValue={setFieldValue}
-        MAX_FRACTIONS={MAX_FRACTIONS}
-        attributeKeyBase='' // key base in root in simple case
+      <PartyStrengthsInput
+          values={values}
+          errors={errors}
+          setFieldValue={setFieldValue}
+          MAX_FRACTIONS={MAX_FRACTIONS}
+          attributeKey='partyStrengths'
       />
-
+      <MethodsInput
+        values={values}
+        setFieldValue={setFieldValue}
+        attributeKey='method'
+      />
       <ParentStateUpdater />
     </Form>
   );

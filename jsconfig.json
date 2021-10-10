@@ -1,5 +1,5 @@
 {
-    "typeAcquisition": { // dotenv bug?
+    "typeAcquisition": {
         "exclude": [ "dotenv" ]
     },
     "compilerOptions": {
