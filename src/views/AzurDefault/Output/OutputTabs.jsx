@@ -1,7 +1,7 @@
 import React from "react";
-import AnteileOutput from "./AnteileOutput";
-import ReihenfolgeOutput from "./ReihenfolgeOutput";
-import TabellenOutput from "./TabellenOutput";
+import DistributionOutput from "./DistributionOutput";
+import AssignmentSeq from "./AssignmentSeq";
+import TableOutput from "./TableOutput";
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
@@ -41,19 +41,19 @@ export default function OutputTabs({ azurInput, azurResponse }) {
 
       <TabPanels>
         <TabPanel>
-          <AnteileOutput
+          <DistributionOutput
             isAmbiguous={azurResponse.distribution.is_ambiguous}
             seatSplit={azurResponse.distribution.seats}
           />
         </TabPanel>
         <TabPanel>
-          <ReihenfolgeOutput
+          <AssignmentSeq
             tableData={azurResponse.table}
             assignmentSequence={azurResponse.assignment_sequence}
           />
         </TabPanel>
         <TabPanel>
-          <TabellenOutput
+          <TableOutput
             tableData={azurResponse.table}
             assignmentSequence={azurResponse.assignment_sequence}
           />

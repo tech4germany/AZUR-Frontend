@@ -5,13 +5,13 @@ import ZugriffOutput from './ZugriffOutput'
 
 import DataTable from "../../../components/tables/DataTable";
 
-ReihenfolgeOutput.propTypes = {
+AssignmentSeq.propTypes = {
   assignmentSequence: PropTypes.array,
   tableData: PropTypes.array,
 };
 
 
-export default function ReihenfolgeOutput({ assignmentSequence, tableData}) {
+export default function AssignmentSeq({ assignmentSequence, tableData}) {
   const columns = [
     {
       Header: "Reihenfolge",

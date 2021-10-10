@@ -18,12 +18,12 @@ import {
 
 import { useTheme } from "@chakra-ui/react";
 
-AnteileOutput.propTypes = {
+DistributionOutput.propTypes = {
   seatSplit: PropTypes.object,
   isAmbiguous: PropTypes.bool,
 };
 
-export default function AnteileOutput({ isAmbiguous, seatSplit }) {
+export default function DistributionOutput({ isAmbiguous, seatSplit }) {
   const sizes = useTheme().sizes;
   const innerWidthPx = convertRemToPixels(sizes[20]);
   const outerWidthPx = convertRemToPixels(sizes[56]);

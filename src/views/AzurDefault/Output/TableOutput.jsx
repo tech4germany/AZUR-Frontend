@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import DataTable from "../../../components/tables/DataTable";
 import ZugriffOutput from './ZugriffOutput'
 
-TabellenOutput.propTypes = {
+TableOutput.propTypes = {
   tableData: PropTypes.array,
   assignmentSequence: PropTypes.array,
 };
 
-export default function TabellenOutput({ tableData, assignmentSequence }) {
+export default function TableOutput({ tableData, assignmentSequence }) {
   let columns = [];
   let data = [];
 
