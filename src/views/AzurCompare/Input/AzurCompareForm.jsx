@@ -1,4 +1,4 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Center, Text, Flex, VStack } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -6,11 +6,11 @@ import { FieldInput } from "components/forms/FieldArrayInput";
 import PartyStrengthsInput from "components/forms/PartyStrengthsInput";
 import MethodsInput from "components/forms/MethodsInput";
 
-AzurForm.propTypes = {
+AzurCompareForm.propTypes = {
   ParentStateUpdater: PropTypes.func,
 };
 
-export default function AzurForm({ ParentStateUpdater }) {
+export default function AzurCompareForm({ ParentStateUpdater }) {
   const { values, errors, setFieldValue } = useFormikContext();
 
   const MAX_FRACTIONS = 15;
@@ -30,18 +30,25 @@ export default function AzurForm({ ParentStateUpdater }) {
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
-      <PartyStrengthsInput
-        values={values}
-        errors={errors}
-        setFieldValue={setFieldValue}
-        MAX_FRACTIONS={MAX_FRACTIONS}
-        attributeKey="partyStrengths"
-      />
-      <MethodsInput
-        values={values}
-        setFieldValue={setFieldValue}
-        attributeKey="method"
-      />
+      <Flex>
+        {["distA", "distB"].map((attributeKeyBase) => (
+          <VStack key={attributeKeyBase}>
+            <PartyStrengthsInput
+              values={values}
+              errors={errors}
+              setFieldValue={setFieldValue}
+              MAX_FRACTIONS={MAX_FRACTIONS}
+              attributeKey={`${attributeKeyBase}.partyStrengths`}
+            />
+            <MethodsInput
+              values={values}
+              setFieldValue={setFieldValue}
+              attributeKey={`${attributeKeyBase}.method`}
+            />
+          </VStack>
+        ))}
+      </Flex>
+
       <ParentStateUpdater />
     </Form>
   );

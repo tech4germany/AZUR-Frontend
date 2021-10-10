@@ -1,13 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-import AzurForm from "./AzurForm";
-import azurSchema from "./azurSchema";
-import ParentStateUpdater from "components/forms/ParentStateUpdater";
 import { Box } from "@chakra-ui/react";
-
-import { useFormikContext, Formik } from "formik";
+import ParentStateUpdater from "components/forms/ParentStateUpdater";
+import { Formik, useFormikContext } from "formik";
+import PropTypes from "prop-types";
+import React from "react";
 import bundestagMandatsverteilung from "utils/bundestagMandate.json";
+import {
+  methodSchema,
+  numSeatsSchema,
+  partyStrengthsSchema,
+} from "utils/inputValidationSchemes";
+import * as Yup from "yup";
+import AzurForm from "./AzurForm";
 
 AzurInputs.propTypes = {
   azurInput: PropTypes.object,
@@ -22,12 +25,18 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
     partyStrengths: bundestagMandatsverteilung[0].data,
   };
 
+  const schema = Yup.object().shape({
+    numSeats: numSeatsSchema,
+    partyStrengths: partyStrengthsSchema,
+    method: methodSchema,
+  });
+
   // Validate is manually triggered in useEffect
   return (
     <Box {...cssprops}>
       <Formik
         initialValues={initialValues}
-        validationSchema={azurSchema}
+        validationSchema={schema}
         validateOnChange={false}
         validateOnBlur={false}
       >

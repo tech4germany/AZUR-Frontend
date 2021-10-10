@@ -11,7 +11,7 @@ import _ from "lodash";
 const PartyStrengthsFieldArray = ({ values, errors, fieldArrayName, MAX_FRACTIONS }) => {
   const partyStrengths = _.get(values, fieldArrayName)
   const errorsPartyStrengths = _.get(errors, fieldArrayName)
-
+  
   return (
     <FieldArray name={fieldArrayName}>
       {({ remove, push }) => (
