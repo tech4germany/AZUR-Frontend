@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { fontSizes, fonts } from "./fonts";
 
 const colors = {
   brand: {
@@ -28,22 +29,6 @@ const colors = {
     },
     backgroundGrey: "#F6F6FA",
   },
-};
-
-const fonts = {
-  heading: "Open Sans",
-  body: "Open Sans",
-};
-
-const fontSizes = {
-  xs: "0.6rem",
-  sm: "0.8rem",
-  md: "1rem", // 12px normal text
-  xl: "1.6rem", // 20px heading 3
-  "2xl": "2rem", // 24px heading 2
-  "3xl": "2.3rem", // 28px heading 1
-  "4xl": "3rem", // custom very large
-  "5xl": "4rem", // custom very large
 };
 
 const Button = {

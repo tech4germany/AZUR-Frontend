@@ -12,7 +12,6 @@ import {
   TabPanel,
   Spinner,
   Flex,
-  Box,
 } from "@chakra-ui/react";
 
 import PropTypes from "prop-types";
