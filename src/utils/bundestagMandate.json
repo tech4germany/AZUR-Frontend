@@ -58,27 +58,5 @@
         "strength": 39
       }
     ]
-  },
-  {
-    "key": "backendDemoCase",
-    "title": "Edge Case",
-    "data": [
-      {
-        "name": "SPD",
-        "strength": 1000000
-      },
-      {
-        "name": "CDU",
-        "strength": 300000
-      },
-      {
-        "name": "GRÜNE",
-        "strength": 100000
-      },
-      {
-        "name": "LINKE",
-        "strength": 5000
-      }
-    ]
   }
 ]

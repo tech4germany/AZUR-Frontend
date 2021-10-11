@@ -26,7 +26,7 @@ export default function AzurDefault() {
         m={3}
         width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
         px="10"
-        py="5"
+        py="2"
       />
       <Output
         azurInput={azurInput}
@@ -39,6 +39,7 @@ export default function AzurDefault() {
         maxHeight="100%"
         width={["100%", "100%", "100%", "65%"]}
         p="10"
+        py="2"
         overflowY="auto"
       />
     </Flex>

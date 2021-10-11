@@ -34,7 +34,10 @@ const fonts = {
   heading: "Open Sans",
   body: "Open Sans",
 };
+
 const fontSizes = {
+  xs: "0.6rem",
+  sm: "0.8rem",
   md: "1rem", // 12px normal text
   xl: "1.6rem", // 20px heading 3
   "2xl": "2rem", // 24px heading 2
@@ -49,12 +52,14 @@ const Button = {
     whiteSpace: "normal", // necessary to allow for line breaks
     wordWrap: "break-word",
     borderRadius: "none",
+    fontWeight: "normal",
   },
   variants: {
     active: {
       backgroundColor: "brand.orangeAlpha.600",
       border: "1px solid",
       borderColor: "brand.orange",
+      fontWeight: "bold",
     },
   },
 };
@@ -64,14 +69,13 @@ const Tabs = {
   baseStyle: {
     tabpanel: {
       bg: "white",
-      m: 5,
-      mt: 10,
+      my: 1,
       borderRadius: "lg",
     },
     tab: {
       bg: "white",
       p: 3,
-      fontSize: "xl",
+      fontSize: "md",
       _selected: {
         color: "brand.darkBlue",
       },
@@ -107,16 +111,25 @@ const Input = {
 };
 
 const Heading = {
+  baseStyle: {
+    color: "brand.darkBlue",
+  },
   sizes: {
+    lg: {
+      fontSize: "lg",
+      color: "black",
+      mt: "5",
+      mb: "1",
+    },
     xl: {
-      color: "brand.darkBlue",
       fontSize: "xl",
       mt: "7",
       mb: "3",
     },
     "2xl": {
       fontSize: "2xl",
-      mb: "7",
+      mt: "7",
+      mb: "3",
     },
   },
 };

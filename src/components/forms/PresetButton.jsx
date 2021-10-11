@@ -3,7 +3,6 @@ import { Button } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-
 PresetButton.propTypes = {
   setFieldValue: PropTypes.func,
   activeValue: PropTypes.any,
@@ -12,16 +11,21 @@ PresetButton.propTypes = {
   children: PropTypes.string,
 };
 
-export default function PresetButton({ activeValue, presetData, attributeName, setFieldValue,  children, ...cssprops }) {
+export default function PresetButton({
+  activeValue,
+  presetData,
+  attributeName,
+  setFieldValue,
+  children,
+  ...cssprops
+}) {
   return (
     <Button
-      variant={`${
-        _.isEqual(activeValue, presetData) ? "active" : "outline"
-      }`}
+      variant={`${_.isEqual(activeValue, presetData) ? "active" : "outline"}`}
       onClick={() => {
         setFieldValue(attributeName, presetData);
       }}
-      width="30ex"
+      width="20ex"
       {...cssprops}
     >
       {children}

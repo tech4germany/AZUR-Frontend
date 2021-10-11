@@ -16,16 +16,14 @@ const PartyStrengthsInput = ({
   return (
     <>
       <Heading as="h3" size="xl">
-        Aufteilen nach
+        Fraktionsstärken
       </Heading>
       <PartyStrengthsPresetButtons
         values={values}
         setFieldValue={setFieldValue}
         partyStrengthsKey={attributeKey}
       />
-      <Heading as="h3" size="xl">
-        Fraktionsstärken
-      </Heading>
+
       <PartyStrengthsFieldArray
         fieldArrayName={attributeKey}
         values={values}
