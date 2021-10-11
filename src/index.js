@@ -9,7 +9,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider theme={bundestagTheme}>
+    <ChakraProvider resetCSS={true} theme={bundestagTheme}>
       <FontFaces />
       <App />
     </ChakraProvider>

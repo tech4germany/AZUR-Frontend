@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const IndexFilter = (headerGroups) => {
   // get columns
@@ -10,12 +10,7 @@ const IndexFilter = (headerGroups) => {
   const indexCol = cols.find((elem) => elem.id == "index");
   if (indexCol == null) return null;
 
-  return (
-    <Center>
-      <Text>Wertebereich anzeigen von</Text>
-      <Box>{indexCol.render("Filter")}</Box>
-    </Center>
-  );
+  return <Box>{indexCol.render("Filter")}</Box>;
 };
 
 export default IndexFilter;

@@ -2,13 +2,21 @@
 
 //TODO REMOVE ESLINT DISABLE
 
-import { Circle, Flex, Spinner, Text, VStack } from "@chakra-ui/react";
+import {
+  Circle,
+  Flex,
+  Center,
+  Spinner,
+  Text,
+  VStack,
+  HStack,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFilters, usePagination, useTable } from "react-table";
 import NumberRangeFilter from "./NumberRangeFilter";
 import RawTable from "./RawTable";
-import PaginationToolbar from "./PaginationToolbar";
+import { PageSelect, SelectPageLength } from "./Pagination";
 import IndexFilter from "./IndexFilter";
 
 DataTable.propTypes = {
@@ -68,7 +76,6 @@ export default function DataTable({ data, columns }) {
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageCount,
     gotoPage,
     nextPage,
     previousPage,
@@ -86,25 +93,34 @@ export default function DataTable({ data, columns }) {
         <Spinner />
       ) : (
         <VStack>
-          <IndexFilter headerGroups={headerGroups} />
-          <RawTable
-            getTableProps={getTableProps}
-            getTableBodyProps={getTableBodyProps}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-            page={page}
-          />
-          <PaginationToolbar
-            canPreviousPage={canPreviousPage}
-            canNextPage={canNextPage}
-            pageOptions={pageOptions}
-            pageCount={pageCount}
-            gotoPage={gotoPage}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            setPageSize={setPageSize}
-            state={{ pageIndex, pageSize }}
-          />
+          <Center>
+            <Flex alignItems="center" mr="2ex">
+              Anzeigen von
+            </Flex>
+            <IndexFilter headerGroups={headerGroups} />
+          </Center>
+          <HStack>
+            <RawTable
+              getTableProps={getTableProps}
+              getTableBodyProps={getTableBodyProps}
+              headerGroups={headerGroups}
+              prepareRow={prepareRow}
+              page={page}
+            />
+          </HStack>
+
+          <HStack alignItems="center" spacing="3ex">
+            <PageSelect
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
+              pageOptions={pageOptions}
+              gotoPage={gotoPage}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              state={{ pageIndex, pageSize }}
+            />
+            <SelectPageLength pageSize={pageSize} setPageSize={setPageSize} />
+          </HStack>
         </VStack>
       )}
     </>
