@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "App";
+import "@fontsource/open-sans/400.css";
 import "@fontsource/open-sans/700.css";
 import FontFaces from "./theme/fonts";
 import { bundestagTheme } from "./theme/themes.js";

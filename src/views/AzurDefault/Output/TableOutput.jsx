@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "../../../components/tables/DataTable";
-import ZugriffOutput from './ZugriffOutput'
 
 TableOutput.propTypes = {
   tableData: PropTypes.array,
@@ -12,7 +11,6 @@ export default function TableOutput({ tableData, assignmentSequence }) {
   let columns = [];
   let data = [];
 
-  
   if (tableData != null && Array.isArray(tableData) && tableData.length >= 1) {
     // set up columns
     const partyNames = Object.keys(tableData[0].seats);
@@ -30,16 +28,6 @@ export default function TableOutput({ tableData, assignmentSequence }) {
         },
       };
     });
-
-    const assignmentCol = [
-      {
-        Header: "Zugriff",
-        accessor: "seat_goes_to",
-        Cell: ({ cell }) => ZugriffOutput({cell, tableData}),
-      },
-    ];
-    columns = assignmentCol.concat(columns);
-    // set up data: zip together tableData and assignmentSequence
 
     data = tableData.map((tableRow, i) => {
       return { seat_goes_to: assignmentSequence[i].seat_goes_to, ...tableRow };

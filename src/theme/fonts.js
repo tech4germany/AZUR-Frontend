@@ -20,15 +20,12 @@ export const fontSizes = {
 const FontFaces = () => (
   <Global
     styles={`
-
-
       @font-face {
         font-family: 'BundesSans';
         font-weight: 'normal';
         font-style: 'italic';
         src: url('fonts/BundesSansOffice-Italic.ttf');
       }
-
       @font-face {
         font-family: 'BundesSans';
         font-weight: 'normal';

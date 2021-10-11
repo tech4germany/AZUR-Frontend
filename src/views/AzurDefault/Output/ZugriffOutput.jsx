@@ -26,10 +26,10 @@ export default function ZugriffOutput({ cell, tableData }) {
 
     return (
       <Flex align="center">
-        <CircleIcon color={partyColor} mr={2} boxSize={12} />
         <Text flex={1} textAlign="center">
           {value}
         </Text>
+        <CircleIcon color={partyColor} mr={2} boxSize={12} />
       </Flex>
     );
   }

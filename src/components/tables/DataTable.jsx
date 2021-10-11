@@ -9,6 +9,7 @@ import {
   Flex,
   Box,
   Center,
+  Circle,
   IconButton,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -63,9 +64,18 @@ export default function DataTable({ data, columns }) {
 
   const startHeaders = [
     {
-      Header: "Position",
+      Header: "",
       id: "index",
       accessor: (_row, i) => i + 1,
+      Cell: ({ cell }) => {
+        return (
+          <Flex justifyContent="center">
+            <Circle size="3ex" bg="brand.backgroundGrey" color="black">
+              <Text fontWeight="bold">{cell.value}</Text>
+            </Circle>
+          </Flex>
+        );
+      },
       disableFilters: false,
       defaultCanFilter: true,
       Filter: NumberRangeFilter,
@@ -188,6 +198,7 @@ const PureDataTable = ({
                           ? "amiguityContainerHighlight"
                           : ""
                       }
+                      fontWeight="normal"
                       textAlign="center"
                     >
                       {cell.render("Cell")}
