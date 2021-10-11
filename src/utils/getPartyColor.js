@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import constants from '../constants/constants.json'
+import constants from '../utils/constants.json'
 
 
 export function getPartyColor(partyName, index, partyArrayLength){
