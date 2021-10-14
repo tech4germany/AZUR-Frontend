@@ -25,23 +25,23 @@ function AzurCompareInputs({
   // Initial Values
   const initialValues = {
     numSeats: 13,
-    distA: {
+    dist_A: {
       method: "schepers",
-      partyStrengths: bundestagMandatsverteilung[0].data,
+      partyStrengths: bundestagMandatsverteilung[2].data,
     },
-    distB: {
-      method: "hare",
-      partyStrengths: bundestagMandatsverteilung[1].data,
+    dist_B: {
+      method: "schepers",
+      partyStrengths: bundestagMandatsverteilung[3].data,
     },
   };
   // Validation Schema
   const schema = Yup.object().shape({
     numSeats: numSeatsSchema,
-    distA: Yup.object().shape({
+    dist_A: Yup.object().shape({
       partyStrengths: partyStrengthsSchema,
       method: methodSchema,
     }),
-    distB: Yup.object().shape({
+    dist_B: Yup.object().shape({
       partyStrengths: partyStrengthsSchema,
       method: methodSchema,
     }),

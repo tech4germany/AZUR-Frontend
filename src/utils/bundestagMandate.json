@@ -58,5 +58,49 @@
         "strength": 39
       }
     ]
+  },
+  {
+    "key": "compareDemoA",
+    "title": "CMPDEMO-A",
+    "data": [
+      {
+        "name": "SPD",
+        "strength": 1
+      },
+      {
+        "name": "CDU/CSU",
+        "strength": 2
+      },
+      {
+        "name": "Bündnis 90/Die Grünen",
+        "strength": 3
+      },
+      {
+        "name": "FDP",
+        "strength": 40
+      }
+    ]
+  },
+  {
+    "key": "compareDemoB",
+    "title": "CMPDEMO-B",
+    "data": [
+      {
+        "name": "SPD",
+        "strength": 1
+      },
+      {
+        "name": "CDU/CSU",
+        "strength": 2
+      },
+      {
+        "name": "Bündnis 90/Die Grünen",
+        "strength": 3
+      },
+      {
+        "name": "FDP",
+        "strength": 41
+      }
+    ]
   }
 ]

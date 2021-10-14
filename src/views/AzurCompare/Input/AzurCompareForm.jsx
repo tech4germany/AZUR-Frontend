@@ -33,7 +33,7 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
         <Text fontSize="xl">Einheiten</Text>
       </Center>
       <Flex>
-        {["distA", "distB"].map((attributeKeyBase) => (
+        {["dist_A", "dist_B"].map((attributeKeyBase) => (
           <Card
             key={attributeKeyBase}
             p="2"
