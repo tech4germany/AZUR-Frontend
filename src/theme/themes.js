@@ -49,6 +49,17 @@ const Button = {
   },
 };
 
+const Card = {
+  baseStyle: {
+    backgroundColor: "brand.backgroundGrey",
+    borderRadius: "lg",
+    m: 3,
+    p: "10",
+    py: "2",
+    overflowY: "auto",
+  },
+};
+
 const Tabs = {
   parts: ["tabpanel", "tab"],
   baseStyle: {
@@ -125,6 +136,7 @@ export const bundestagTheme = extendTheme({
     Input,
     Heading,
     Tabs,
+    Card,
   },
   colors,
   fonts,

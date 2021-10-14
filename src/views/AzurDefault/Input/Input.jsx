@@ -1,4 +1,5 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
+import Card from "theme/Card";
 import ParentStateUpdater from "components/forms/ParentStateUpdater";
 import { Formik, useFormikContext } from "formik";
 import PropTypes from "prop-types";
@@ -33,7 +34,7 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
 
   // Validate is manually triggered in useEffect
   return (
-    <Box {...cssprops}>
+    <Card {...cssprops}>
       <Flex>
         <Heading size="2xl">Filter</Heading>
       </Flex>
@@ -57,7 +58,7 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
           }}
         />
       </Formik>
-    </Box>
+    </Card>
   );
 }
 

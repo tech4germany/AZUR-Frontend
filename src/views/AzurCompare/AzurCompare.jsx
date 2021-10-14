@@ -8,7 +8,12 @@ export default function AzurDefault() {
     errors: {},
   });
   return (
-    <Flex flexDirection={["column", "column", "column", "row"]} height="100vh">
+    <Flex
+      flexDirection={["column", "column", "column", "row"]}
+      height={["auto", "auto", "auto", "100vh"]}
+      width="100vw"
+      margin="0"
+    >
       <AzurCompareInput
         azurCompareInput={azurCompareInput}
         setAzurCompareInput={setAzurCompareInput}
