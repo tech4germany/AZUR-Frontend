@@ -1,4 +1,5 @@
-import { Center, Text, Flex, VStack } from "@chakra-ui/react";
+import { Center, Text, Flex } from "@chakra-ui/react";
+import Card from "theme/Card";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -33,7 +34,12 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
       </Center>
       <Flex>
         {["distA", "distB"].map((attributeKeyBase) => (
-          <VStack key={attributeKeyBase}>
+          <Card
+            key={attributeKeyBase}
+            p="2"
+            border="1px solid"
+            borderColor="brand.darkBlue"
+          >
             <PartyStrengthsInput
               values={values}
               errors={errors}
@@ -46,7 +52,7 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
               setFieldValue={setFieldValue}
               attributeKey={`${attributeKeyBase}.method`}
             />
-          </VStack>
+          </Card>
         ))}
       </Flex>
 

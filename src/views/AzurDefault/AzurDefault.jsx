@@ -19,7 +19,6 @@ export default function AzurDefault() {
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
-        backgroundColor="brand.backgroundGrey"
         maxHeight="100%"
         width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
       />

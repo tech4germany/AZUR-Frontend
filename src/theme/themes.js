@@ -58,6 +58,11 @@ const Card = {
     py: "2",
     overflowY: "auto",
   },
+  variants: {
+    ghost: {
+      backgroundColor: "transparent",
+    },
+  },
 };
 
 const Tabs = {

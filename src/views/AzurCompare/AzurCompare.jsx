@@ -1,12 +1,16 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import AzurCompareInput from "./Input/AzurCompareInput";
+import Output from "./Output/Output";
 
 export default function AzurDefault() {
   const [azurCompareInput, setAzurCompareInput] = React.useState({
     data: {},
     errors: {},
   });
+
+  
+
   return (
     <Flex
       flexDirection={["column", "column", "column", "row"]}
@@ -17,11 +21,9 @@ export default function AzurDefault() {
       <AzurCompareInput
         azurCompareInput={azurCompareInput}
         setAzurCompareInput={setAzurCompareInput}
+        width={["100%", "100%", "100%", "50%"]} // Todo proper width layout
       />
-      <Box flex={1}>
-        <Heading size="3xl">Ergebniss</Heading>
-        {JSON.stringify(azurCompareInput)}
-      </Box>
+      <Output maxHeight="100%" width={["100%", "100%", "100%", "50%"]} />
     </Flex>
   );
 }
