@@ -9,7 +9,6 @@ export default function useAzurCompare(azurInput) {
   //*** FETCHING AZUR OUTPUTS
   const fetchAzurCompare = async (azurInputUpdate) => {
     setLoading(true);
-    console.log(azurInputUpdate);
     // Parse Form Input into a form digestable for the API
     const inputForApi = {
       num_of_seats: azurInputUpdate.num_of_seats,
@@ -18,7 +17,6 @@ export default function useAzurCompare(azurInput) {
     };
     ["dist_A", "dist_B"].forEach((distributionName) => {
       azurInputUpdate?.[distributionName]?.partyStrengths.forEach((entry) => {
-        console.log(entry);
         inputForApi[distributionName]["votes"][entry.name] = entry.strength;
       });
     });

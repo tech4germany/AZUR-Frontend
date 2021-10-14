@@ -7,8 +7,10 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Box,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import ComparisonTable from "./ComparisonTable";
 import _ from "lodash";
 
 const Output = ({ data, error, loading, ...cssprops }) => {
@@ -18,22 +20,20 @@ const Output = ({ data, error, loading, ...cssprops }) => {
       {loading ? (
         <Spinner color="brand.orange" />
       ) : (
-        <>
+        <Box bg="white">
           {_.isEmpty(error) ? (
-            <>
-              <Heading size="xl">Data</Heading>
-              {JSON.stringify(data)}
-            </>
+            <ComparisonTable
+              tableData={data?.table}
+              assignmentSequence={data?.assignment_sequence}
+            />
           ) : (
-            <>
-              <Alert status="error">
-                <AlertIcon />
-                <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
-                <AlertDescription>{error.message}</AlertDescription>
-              </Alert>
-            </>
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
+              <AlertDescription>{error.message}</AlertDescription>
+            </Alert>
           )}
-        </>
+        </Box>
       )}
     </Card>
   );
