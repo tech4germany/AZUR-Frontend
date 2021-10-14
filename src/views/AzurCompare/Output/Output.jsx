@@ -1,18 +1,40 @@
 import React from "react";
 import Card from "theme/Card";
-import { Heading } from "@chakra-ui/react";
+import {
+  Heading,
+  Spinner,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import _ from "lodash";
 
 const Output = ({ data, error, loading, ...cssprops }) => {
   return (
     <Card {...cssprops}>
       <Heading size="2xl">Ergebniss</Heading>
-      <Heading size="xl">Data</Heading>
-      {JSON.stringify(data)}
-      <Heading size="xl">Errors</Heading>
-      {JSON.stringify(error)}
-      <Heading size="xl">Loading</Heading>
-      {JSON.stringify(loading)}
+      {loading ? (
+        <Spinner color="brand.orange" />
+      ) : (
+        <>
+          {_.isEmpty(error) ? (
+            <>
+              <Heading size="xl">Data</Heading>
+              {JSON.stringify(data)}
+            </>
+          ) : (
+            <>
+              <Alert status="error">
+                <AlertIcon />
+                <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
+                <AlertDescription>{error.message}</AlertDescription>
+              </Alert>
+            </>
+          )}
+        </>
+      )}
     </Card>
   );
 };
