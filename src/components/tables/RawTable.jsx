@@ -37,21 +37,11 @@ const RawTable = ({
           {page.map((row) => {
             prepareRow(row);
             return (
-              <Tr
-                {...row.getRowProps(getRowProps(row))}
-                backgroundColor={
-                  row?.original?.is_ambiguous ? "brand.orangeAlpha.300" : ""
-                }
-              >
+              <Tr {...row.getRowProps(getRowProps(row))}>
                 {row.cells.map((cell) => {
                   return (
                     <Td
                       {...cell.getCellProps()}
-                      layerStyle={
-                        Array.isArray(cell.value)
-                          ? "amiguityContainerHighlight"
-                          : ""
-                      }
                       fontWeight="normal"
                       textAlign="center"
                     >
