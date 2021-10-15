@@ -15,7 +15,6 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
   const { values, errors, setFieldValue } = useFormikContext();
 
   const MAX_FRACTIONS = 15;
-
   return (
     <Form>
       {/* NUM SEATS */}

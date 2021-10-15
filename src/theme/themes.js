@@ -155,5 +155,9 @@ export const bundestagTheme = extendTheme({
       outline: "1px solid #FF7100",
       boxShadow: "0 0 10px #FF7100",
     },
+    changedRowHighlight: {
+      outline: "1px solid #FF7100",
+      boxShadow: "0 0 10px #FF7100",
+    },
   },
 });

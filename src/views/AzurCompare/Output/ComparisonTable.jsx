@@ -53,5 +53,17 @@ export default function ComparisonTable({ tableData, assignmentSequence }) {
     data = tableData;
   }
 
-  return <DataTable data={data} columns={columns} />;
+  return (
+    <DataTable
+      data={data}
+      columns={columns}
+      getRowProps={(row) => {
+        if (row?.original?.is_identical) {
+          return {};
+        } else {
+          return { layerStyle: "changedRowHighlight" };
+        }
+      }}
+    />
+  );
 }

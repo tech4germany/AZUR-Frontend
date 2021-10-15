@@ -13,15 +13,11 @@ const RawTable = ({
   headerGroups,
   prepareRow,
   page,
+  getRowProps = () => ({}),
 }) => {
   return (
     <Box>
-      <Table
-        {...getTableProps()}
-        display="block"
-        overflow="auto"
-        height="30rem"
-      >
+      <Table {...getTableProps()} overflow="auto" height="30rem">
         <Thead position="sticky" top="0" backgroundColor="white">
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -42,7 +38,7 @@ const RawTable = ({
             prepareRow(row);
             return (
               <Tr
-                {...row.getRowProps()}
+                {...row.getRowProps(getRowProps(row))}
                 backgroundColor={
                   row?.original?.is_ambiguous ? "brand.orangeAlpha.300" : ""
                 }
