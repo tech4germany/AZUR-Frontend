@@ -4,10 +4,9 @@ import DataTable from "components/tables/DataTable";
 
 ComparisonTable.propTypes = {
   tableData: PropTypes.array,
-  assignmentSequence: PropTypes.array,
 };
 
-export default function ComparisonTable({ tableData, assignmentSequence }) {
+export default function ComparisonTable({ tableData }) {
   let columns = [];
   let data = [];
 
