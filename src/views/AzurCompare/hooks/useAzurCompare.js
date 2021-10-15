@@ -21,8 +21,6 @@ export default function useAzurCompare(azurInput) {
       });
     });
 
-    console.log(inputForApi);
-
     fetch("http://127.0.0.1:5000/azur_compare", {
       method: "POST",
       headers: {
@@ -33,7 +31,6 @@ export default function useAzurCompare(azurInput) {
       .then(async (resp) => {
         if (resp.ok) return resp.json();
         else {
-          console.log("RETURN CODE WAS 500");
           // error handling
           let errorMessage = "";
           try {
@@ -54,7 +51,6 @@ export default function useAzurCompare(azurInput) {
       })
       .then((azurResponse) => {
         setError(null);
-        console.log(azurResponse);
         setData(azurResponse);
       })
       .catch((fetchingError) => {
@@ -70,7 +66,6 @@ export default function useAzurCompare(azurInput) {
   React.useEffect(() => {
     if (_.isEmpty(azurInput?.errors)) {
       if (_.has(azurInput, "data.dist_A.partyStrengths")) {
-        // TODO we probably want a check that makes sure that the two input distributions are not the same (an endpoint call would be unncessary in that call)
         fetchAzurCompare(azurInput.data);
       }
     }

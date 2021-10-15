@@ -21,7 +21,7 @@ PositionCell.propTypes = {
 export function AssignmentCell({ cell, tableData }) {
   const value = cell?.value;
   if (Array.isArray(value)) {
-    return "Mehrdeutig! " + value.join(" oder ");
+    return "Mehrdeutig! " + parseSeatCountOutput(value);
   } else {
     const partyNames = Object.keys(tableData[0].seats);
     const totalPartyCount = partyNames.length;
@@ -53,11 +53,19 @@ AssignmentCell.propTypes = {
 };
 
 export const SeatCountCell = ({ cell: { value } }) => {
+  return <SeatCountCellBase value={value} />;
+};
+
+SeatCountCell.propTypes = {
+  cell: PropTypes.object,
+};
+
+const SeatCountCellBase = ({ value }) => {
   if (Array.isArray(value)) {
     return (
       <Box p={4} layerStyle="ambiguityContainerHighlight">
         <Text color="brand.orange">Mehrdeutig!</Text>
-        <Text>{value.join(" oder ")}</Text>
+        <Text>{parseSeatCountOutput(value)}</Text>
       </Box>
     );
   } else {
@@ -65,6 +73,34 @@ export const SeatCountCell = ({ cell: { value } }) => {
   }
 };
 
-SeatCountCell.propTypes = {
+SeatCountCellBase.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+};
+
+const parseSeatCountOutput = (value) => {
+  if (Array.isArray(value)) {
+    return value.join(" oder ");
+  }
+  return value;
+};
+
+export const ComparisonCell = ({ cell, row }) => {
+  const partyName = cell?.column?.partyName;
+  if (row.original.is_identical) {
+    return <SeatCountCellBase value={cell?.value} />;
+  } else {
+    let valueA = row.original.dist_A.seats?.[partyName] || 0;
+    let valueB = row.original.dist_B.seats?.[partyName] || 0;
+
+    if (valueA != valueB) {
+      return `${parseSeatCountOutput(valueA)}/${parseSeatCountOutput(valueB)}`;
+    } else {
+      return valueA;
+    }
+  }
+};
+
+ComparisonCell.propTypes = {
   cell: PropTypes.object,
+  row: PropTypes.object,
 };

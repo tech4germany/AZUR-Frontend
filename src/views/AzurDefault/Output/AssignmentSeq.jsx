@@ -15,7 +15,7 @@ export default function AssignmentSeq({ assignmentSequence, tableData }) {
     {
       Header: "Reihenfolge",
       accessor: "seat_goes_to", // accessor is the "key" in the data
-      disableFilters: true, // TODO move to defaultColumn
+      disableFilters: true,
       Cell: ({ cell }) => AssignmentCell({ cell, tableData }),
     },
   ];
