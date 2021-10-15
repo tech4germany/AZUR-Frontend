@@ -1,27 +1,17 @@
-/* eslint-disable */
-
-//TODO REMOVE ESLINT DISABLE
-
-import {
-  Circle,
-  Flex,
-  Center,
-  Spinner,
-  Text,
-  VStack,
-  HStack,
-} from "@chakra-ui/react";
+import { Center, Flex, HStack, Spinner, VStack } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFilters, usePagination, useTable } from "react-table";
-import NumberRangeFilter from "./NumberRangeFilter";
-import RawTable from "./RawTable";
-import { PageSelect, SelectPageLength } from "./Pagination";
 import IndexFilter from "./IndexFilter";
+import NumberRangeFilter from "./NumberRangeFilter";
+import { PageSelect, SelectPageLength } from "./Pagination";
+import RawTable from "./RawTable";
+import { PositionCell } from "./CellRenders";
 
 DataTable.propTypes = {
   data: PropTypes.array,
   columns: PropTypes.array,
+  getRowProps: PropTypes.func,
 };
 
 export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
@@ -37,15 +27,7 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
       Header: "",
       id: "index",
       accessor: (_row, i) => i + 1,
-      Cell: ({ cell }) => {
-        return (
-          <Flex justifyContent="center">
-            <Circle size="3ex" bg="brand.backgroundGrey" color="black">
-              <Text fontWeight="bold">{cell.value}</Text>
-            </Circle>
-          </Flex>
-        );
-      },
+      Cell: PositionCell,
       disableFilters: false,
       defaultCanFilter: true,
       Filter: NumberRangeFilter,
