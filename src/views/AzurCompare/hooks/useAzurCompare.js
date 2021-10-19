@@ -21,7 +21,7 @@ export default function useAzurCompare(azurInput) {
       });
     });
 
-    fetch("http://127.0.0.1:5000/azur_compare", {
+    fetch("https://azur-api.herokuapp.com/azur_compare", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
