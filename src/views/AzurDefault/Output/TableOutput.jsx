@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DataTable from "../../../components/tables/DataTable";
-import { Text, Box } from "@chakra-ui/react";
+import DataTable from "components/tables/DataTable";
+import _ from "lodash";
+
+import { SeatCountCell } from "components/tables/CellRenders";
 TableOutput.propTypes = {
   tableData: PropTypes.array,
   assignmentSequence: PropTypes.array,
@@ -19,13 +21,20 @@ export default function TableOutput({ tableData, assignmentSequence }) {
         Header: partyName,
         accessor: "seats." + partyName, // we want to access the seats subitem
         isNumeric: true,
-        Cell: CellOutput,
+        Cell: SeatCountCell,
       };
     });
 
-    data = tableData.map((tableRow, i) => {
-      return { seat_goes_to: assignmentSequence[i].seat_goes_to, ...tableRow };
-    });
+    if (_.isEmpty(assignmentSequence)) {
+      data = tableData;
+    } else {
+      data = tableData.map((tableRow, i) => {
+        return {
+          seat_goes_to: assignmentSequence[i].seat_goes_to,
+          ...tableRow,
+        };
+      });
+    }
   }
 
   return (
@@ -40,20 +49,3 @@ export default function TableOutput({ tableData, assignmentSequence }) {
     />
   );
 }
-
-function CellOutput({ cell: { value } }) {
-  if (Array.isArray(value)) {
-    return (
-      <Box p={4} layerStyle="ambiguityContainerHighlight">
-        <Text color="brand.orange">Mehrdeutig!</Text>
-        <Text>{value.join(" oder ")}</Text>
-      </Box>
-    );
-  } else {
-    return value;
-  }
-}
-
-CellOutput.propTypes = {
-  cell: PropTypes.object,
-};

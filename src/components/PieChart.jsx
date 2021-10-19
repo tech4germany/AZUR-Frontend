@@ -25,15 +25,16 @@ function PieChart({ data, outerRadius, innerRadius }) {
   }, [data]);
 
   function drawChart() {
-    // Remove the old svg
-    // TODO: Do not selecet by ID to make this component reusable (or go for a more complex id)
+
     const parsedData = Object.entries(data).map(([key, value]) => {
       return {
         label: key,
         value: value,
       };
     });
-
+    
+    // Remove the old svg
+    // TODO: Do not selecet by ID to make this component reusable (or go for a more complex id)
     d3.select("#pie-container").select("svg").remove(); // Create new svg
     const svg = d3
       .select("#pie-container")

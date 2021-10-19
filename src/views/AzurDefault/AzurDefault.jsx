@@ -12,7 +12,7 @@ export default function AzurDefault() {
   return (
     <Flex
       flexDirection={["column", "column", "column", "row"]}
-      height={["auto", "auto", "auto", "100vh"]}
+      height={["auto", "auto", "auto", "100%"]}
       width={["auto", "auto", "auto", "90vw"]}
       margin={["0", "0", "0", "0 auto"]}
     >

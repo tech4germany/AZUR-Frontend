@@ -10,6 +10,7 @@ export const fontSizes = {
   xs: "0.6rem",
   sm: "0.8rem",
   md: "1rem", // 12px normal text
+  lg: "1rem",
   xl: "1.6rem", // 20px heading 3
   "2xl": "2rem", // 24px heading 2
   "3xl": "2.3rem", // 28px heading 1

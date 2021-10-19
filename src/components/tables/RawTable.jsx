@@ -1,7 +1,3 @@
-/* eslint-disable */
-
-//TODO REMOVE ESLINT DISABLE
-
 import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 
@@ -16,17 +12,16 @@ const RawTable = ({
   getRowProps = () => ({}),
 }) => {
   return (
-    <Box>
-      <Table {...getTableProps()} overflow="auto" height="30rem">
-        <Thead position="sticky" top="0" backgroundColor="white">
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
+    <Box maxWidth="100%">
+      <Table {...getTableProps()}>
+        <Thead>
+          {headerGroups.map((headerGroup, index) => (
+            <Tr
+              key={`headerGroup:${index}`}
+              {...headerGroup.getHeaderGroupProps()}
+            >
               {headerGroup.headers.map((column) => (
-                <Th
-                  key={column.header}
-                  {...column.getHeaderProps()}
-                  textAlign="center"
-                >
+                <Th key={column.header} {...column.getHeaderProps()}>
                   {column.render("Header")}
                 </Th>
               ))}
@@ -37,18 +32,12 @@ const RawTable = ({
           {page.map((row) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps(getRowProps(row))}>
-                {row.cells.map((cell) => {
-                  return (
-                    <Td
-                      {...cell.getCellProps()}
-                      fontWeight="normal"
-                      textAlign="center"
-                    >
-                      {cell.render("Cell")}
-                    </Td>
-                  );
-                })}
+              <Tr key={row?.id} {...row.getRowProps(getRowProps(row))}>
+                {row.cells.map((cell) => (
+                  <Td {...cell.getCellProps()} key={cell?.column?.id + row?.id}>
+                    {cell.render("Cell")}
+                  </Td>
+                ))}
               </Tr>
             );
           })}
@@ -64,6 +53,7 @@ RawTable.propTypes = {
   headerGroups: PropTypes.array,
   prepareRow: PropTypes.func,
   page: PropTypes.array,
+  getRowProps: PropTypes.func,
 };
 
 export default RawTable;

@@ -17,15 +17,21 @@ import _ from "lodash";
 
 const Output = ({ data, error, loading, ...cssprops }) => {
   let changedRowCount = "unbekannt";
+  let tableLength = "unbekannt";
+  let unchangedRowsCount = "unbekannt";
   if (data?.table != undefined) {
     changedRowCount = data.table.filter((row) => !row.is_identical).length;
+    tableLength = data?.table.length;
+    unchangedRowsCount = tableLength - changedRowCount;
   }
 
   return (
     <Card {...cssprops}>
       <Heading size="2xl">Ergebnis</Heading>
       {loading ? (
-        <Spinner color="brand.orange" />
+        <Center minHeight="40em">
+          <Spinner size="xl" color="brand.orange" />
+        </Center>
       ) : (
         <Box bg="white">
           {_.isEmpty(error) ? (
@@ -36,11 +42,11 @@ const Output = ({ data, error, loading, ...cssprops }) => {
                 </Text>{" "}
                 von{" "}
                 <Text d="inline" fontWeight="bold">
-                  {data?.table.length || "unbekant"}
+                  {tableLength}
                 </Text>{" "}
                 Zeilen haben sich geändert,{" "}
                 <Text d="inline" fontWeight="bold">
-                  {data?.table.length - changedRowCount || "unbekant"}
+                  {unchangedRowsCount}
                 </Text>{" "}
                 sind gleich geblieben.
               </Box>
@@ -63,8 +69,8 @@ const Output = ({ data, error, loading, ...cssprops }) => {
 };
 
 Output.propTypes = {
-  data: PropTypes.object, // TODO check these prop types
-  error: PropTypes.object, // TODO check these prop types
+  data: PropTypes.object,
+  error: PropTypes.object,
   loading: PropTypes.bool,
 };
 

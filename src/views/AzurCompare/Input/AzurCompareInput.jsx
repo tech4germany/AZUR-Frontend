@@ -27,11 +27,11 @@ function AzurCompareInputs({
     numSeats: 13,
     dist_A: {
       method: "schepers",
-      partyStrengths: bundestagMandatsverteilung[2].data,
+      partyStrengths: bundestagMandatsverteilung[0].data,
     },
     dist_B: {
       method: "schepers",
-      partyStrengths: bundestagMandatsverteilung[3].data,
+      partyStrengths: bundestagMandatsverteilung[1].data,
     },
   };
   // Validation Schema

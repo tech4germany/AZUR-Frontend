@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useFormikContext } from "formik";
 
 const ParentStateUpdater = ({ inputData, setInputData }) => {
-  const DEBOUNCE_DELAY = 300; // we wait for additional input for 300ms before  updating the input
+  const DEBOUNCE_DELAY = 550; // we wait for additional input for 300ms before  updating the input
 
   const { values, validateForm } = useFormikContext();
   const debouncedSetAzur = React.useCallback(
@@ -13,7 +13,7 @@ const ParentStateUpdater = ({ inputData, setInputData }) => {
 
       if (_.isEmpty(errors)) {
         // Update to values and no error exists
-        // rename numSeats for equality check -> TODO lets completely get rid of this thing by having consistent naming between backend/frontend
+        // rename numSeats for equality check
         const { num_of_seats, ...otherInputs } = inputData?.data;
         const inputCopy = { ...otherInputs, numSeats: num_of_seats };
 
@@ -25,7 +25,7 @@ const ParentStateUpdater = ({ inputData, setInputData }) => {
           errors: {},
           data: {
             ...values,
-            num_of_seats: values.numSeats
+            num_of_seats: values.numSeats,
           },
         });
       } else {

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Heading, Wrap, WrapItem } from "@chakra-ui/react";
+import { Heading, Grid, GridItem } from "@chakra-ui/react";
 import constants from "utils/constants.json";
 import PresetButton from "./PresetButton";
 import _ from "lodash";
@@ -11,23 +11,23 @@ const MethodsInput = ({ values, attributeKey, setFieldValue }) => {
       <Heading as="h3" size="xl">
         Mathematische Verfahren
       </Heading>
-      <Wrap>
+      <Grid columnGap={3} templateColumns="repeat(auto-fit, minmax(15ex, 1fr))">
         {constants.azurMethods.map((method) => {
           return (
-            <WrapItem flexGrow="1" key={method.apiName}>
+            <GridItem key={method.apiName}>
               <PresetButton
                 activeValue={_.get(values, attributeKey, [])}
                 presetData={method.apiName}
                 attributeName={attributeKey}
                 setFieldValue={setFieldValue}
-                flexGrow="1"
+                width="100%"
               >
                 {method.title}
               </PresetButton>
-            </WrapItem>
+            </GridItem>
           );
         })}
-      </Wrap>
+      </Grid>
     </>
   );
 };
