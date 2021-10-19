@@ -29,7 +29,9 @@ const Output = ({ data, error, loading, ...cssprops }) => {
     <Card {...cssprops}>
       <Heading size="2xl">Ergebnis</Heading>
       {loading ? (
-        <Spinner color="brand.orange" />
+        <Center minHeight="40em">
+          <Spinner size="xl" color="brand.orange" />
+        </Center>
       ) : (
         <Box bg="white">
           {_.isEmpty(error) ? (

@@ -11,6 +11,7 @@ import {
   Tab,
   TabPanel,
   Spinner,
+  Center,
   Flex,
 } from "@chakra-ui/react";
 
@@ -53,7 +54,9 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
       </Flex>
 
       {loading ? (
-        <Spinner color="brand.orange" />
+        <Center minHeight="40em">
+          <Spinner size="xl" color="brand.orange" />
+        </Center>
       ) : (
         <TabPanels>
           <TabPanel>
