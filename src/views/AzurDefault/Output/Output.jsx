@@ -3,7 +3,6 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Box,
   Flex,
   Heading,
   Text,
@@ -12,6 +11,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import OutputTabs from "./OutputTabs";
+import Card from "theme/Card";
 
 Output.propTypes = {
   azurInput: PropTypes.object,
@@ -28,7 +28,7 @@ export default function Output({
   ...cssprops
 }) {
   return (
-    <Box {...cssprops}>
+    <Card {...cssprops} variant="organismWrapper">
       <Heading size="2xl">Verteilung</Heading>
       <Flex flexDirection="column">
         {!_.isEmpty(azurInput.errors) ? (
@@ -84,6 +84,6 @@ export default function Output({
           />
         )}
       </Flex>
-    </Box>
+    </Card>
   );
 }

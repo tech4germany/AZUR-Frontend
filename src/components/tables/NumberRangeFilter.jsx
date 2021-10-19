@@ -25,8 +25,8 @@ export default function NumberRangeColumnFilter({ column }) {
             old[1],
           ]);
         }}
-        placeholder={`Min (${min})`}
-        width="15ex"
+        placeholder={`${min}`}
+        width="8ex"
         mr="1ex"
       />
       bis
@@ -40,8 +40,8 @@ export default function NumberRangeColumnFilter({ column }) {
             val ? parseInt(val, 10) : undefined,
           ]);
         }}
-        placeholder={`Max (${max})`}
-        width="15ex"
+        placeholder={`${max}`}
+        width="8ex"
         ml="1ex"
       />
     </Flex>

@@ -12,35 +12,23 @@ export default function AzurDefault() {
   return (
     <Flex
       flexDirection={["column", "column", "column", "row"]}
-      height={["auto", "auto", "auto", "100vh"]}
+      height={["auto", "auto", "auto", "100%"]}
       width={["auto", "auto", "auto", "90vw"]}
       margin={["0", "0", "0", "0 auto"]}
     >
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
-        backgroundColor="brand.backgroundGrey"
         maxHeight="100%"
-        overflowY="auto"
-        borderRadius="lg"
-        m={3}
         width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
-        px="10"
-        py="2"
       />
       <Output
         azurInput={azurInput}
         azurResponse={data}
         azurError={error}
         loading={loading}
-        backgroundColor="brand.backgroundGrey"
-        borderRadius="lg"
-        m={3}
         maxHeight="100%"
         width={["100%", "100%", "100%", "65%"]}
-        p="10"
-        py="2"
-        overflowY="auto"
       />
     </Flex>
   );

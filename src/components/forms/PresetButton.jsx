@@ -25,7 +25,6 @@ export default function PresetButton({
       onClick={() => {
         setFieldValue(attributeName, presetData);
       }}
-      width="20ex"
       {...cssprops}
     >
       {children}

@@ -45,13 +45,13 @@ const PartyStrengthsFieldArray = ({
                   fieldType="text"
                   errors={errors}
                   flexGrow="3"
-                  width="0px" // TODO fix this awful solution against the html size prop
+                  width="0px" //overwrites default size=20 prop from html (min length of 20 chars)
                 />
                 <FieldArrayInput
                   fieldKey="strength"
                   fieldArrayName={fieldArrayName}
                   index={index}
-                  width="0px" // TODO fix this awful solution against the html size prop
+                  width="0px"
                   flexGrow="1"
                   fieldType="number"
                   textAlign="center"
@@ -91,18 +91,8 @@ const PartyStrengthsFieldArray = ({
             onClick={() => push({ name: "Fraktion XYZ", strength: 0 })}
           >
             <Flex flexDirection="row" m={0} width={"100%"}>
-              <Input
-                width="0px" // TODO fix this awful solution against the html size prop
-                flexGrow="3"
-                disabled
-                variant="fakeInput"
-              />
-              <Input
-                width="0px" // TODO fix this awful solution against the html size prop
-                flexGrow="1"
-                disabled
-                variant="fakeInput"
-              />
+              <Input width="0px" flexGrow="3" disabled variant="fakeInput" />
+              <Input width="0px" flexGrow="1" disabled variant="fakeInput" />
               <Button as="span" variant="ghost" pointerEvents="none">
                 <Text color="blackAlpha.400">+</Text>
               </Button>

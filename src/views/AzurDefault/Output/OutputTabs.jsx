@@ -11,6 +11,7 @@ import {
   Tab,
   TabPanel,
   Spinner,
+  Center,
   Flex,
 } from "@chakra-ui/react";
 
@@ -23,8 +24,20 @@ OutputTabs.propTypes = {
 };
 
 export default function OutputTabs({ azurInput, azurResponse, loading }) {
+  React.useEffect(() => {
+    if (azurInput.method === "hare") {
+      setTabIndex(0);
+    }
+  }, [azurInput]);
+
+  const [tabIndex, setTabIndex] = React.useState(0);
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+  };
+
   return (
-    <Tabs mt="10" align="left">
+    <Tabs mt="10" align="left" index={tabIndex} onChange={handleTabsChange}>
       <Flex justifyContent="space-between" alignItems="end">
         <TabList>
           <Tab>Anteile</Tab>
@@ -53,7 +66,9 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
       </Flex>
 
       {loading ? (
-        <Spinner color="brand.orange" />
+        <Center minHeight="40em">
+          <Spinner size="xl" color="brand.orange" />
+        </Center>
       ) : (
         <TabPanels>
           <TabPanel>

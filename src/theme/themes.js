@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { fontSizes, fonts } from "./fonts";
+import Table from "./Table";
 
 const colors = {
   brand: {
@@ -34,6 +35,7 @@ const colors = {
 const Button = {
   baseStyle: {
     margin: "1",
+    padding: "1.5em",
     whiteSpace: "normal", // necessary to allow for line breaks
     wordWrap: "break-word",
     borderRadius: "none",
@@ -45,6 +47,22 @@ const Button = {
       border: "1px solid",
       borderColor: "brand.orange",
       fontWeight: "bold",
+    },
+  },
+};
+
+const Card = {
+  baseStyle: {
+    backgroundColor: "brand.backgroundGrey",
+    borderRadius: "lg",
+    m: 3,
+    p: "10",
+    py: "2",
+    overflowY: "auto",
+  },
+  variants: {
+    ghost: {
+      backgroundColor: "transparent",
     },
   },
 };
@@ -67,7 +85,6 @@ const Tabs = {
     },
   },
   variants: {},
-  defaultProps: { size: "", variant: "" },
 };
 
 const Input = {
@@ -125,6 +142,8 @@ export const bundestagTheme = extendTheme({
     Input,
     Heading,
     Tabs,
+    Card,
+    Table,
   },
   colors,
   fonts,
@@ -134,9 +153,16 @@ export const bundestagTheme = extendTheme({
       outline: "1px solid #E53E3E",
       boxShadow: "0 0 10px #E53E3E",
     },
-    amiguityContainerHighlight: {
+    ambiguityContainerHighlight: {
+      /*       outline: "1px solid #FF7100",
+      boxShadow: "0 0 10px #FF7100", */
+    },
+    changedRowHighlight: {
       outline: "1px solid #FF7100",
       boxShadow: "0 0 10px #FF7100",
+    },
+    ambigousRowHighlight: {
+      backgroundColor: "brand.orangeAlpha.300",
     },
   },
 });
