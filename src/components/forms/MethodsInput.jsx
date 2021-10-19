@@ -11,10 +11,7 @@ const MethodsInput = ({ values, attributeKey, setFieldValue }) => {
       <Heading as="h3" size="xl">
         Mathematische Verfahren
       </Heading>
-      <Grid
-        columnGap={3}
-        templateColumns="repeat(auto-fill, minmax(15ex, 1fr))"
-      >
+      <Grid columnGap={3} templateColumns="repeat(auto-fit, minmax(15ex, 1fr))">
         {constants.azurMethods.map((method) => {
           return (
             <GridItem key={method.apiName}>

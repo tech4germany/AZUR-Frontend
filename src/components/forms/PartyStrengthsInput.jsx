@@ -50,7 +50,7 @@ const PartyStrengthsPresetButtons = ({
   partyStrengthsKey,
 }) => {
   return (
-    <Grid columnGap={3} templateColumns="repeat(auto-fill, minmax(15ex, 1fr))">
+    <Grid columnGap={3} templateColumns="repeat(auto-fit, minmax(15ex, 1fr))">
       {bundestagMandatsverteilung.map((mandatePreset) => (
         <GridItem key={mandatePreset.key}>
           <PresetButton

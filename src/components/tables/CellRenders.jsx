@@ -63,7 +63,7 @@ SeatCountCell.propTypes = {
 const SeatCountCellBase = ({ value }) => {
   if (Array.isArray(value)) {
     return (
-      <Box p={4} layerStyle="ambiguityContainerHighlight">
+      <Box layerStyle="ambiguityContainerHighlight">
         <Text color="brand.orange">Mehrdeutig!</Text>
         <Text>{parseSeatCountOutput(value)}</Text>
       </Box>

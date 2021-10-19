@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { fontSizes, fonts } from "./fonts";
+import Table from "./Table";
 
 const colors = {
   brand: {
@@ -143,6 +144,7 @@ export const bundestagTheme = extendTheme({
     Heading,
     Tabs,
     Card,
+    Table,
   },
   colors,
   fonts,
@@ -153,8 +155,8 @@ export const bundestagTheme = extendTheme({
       boxShadow: "0 0 10px #E53E3E",
     },
     ambiguityContainerHighlight: {
-      outline: "1px solid #FF7100",
-      boxShadow: "0 0 10px #FF7100",
+/*       outline: "1px solid #FF7100",
+      boxShadow: "0 0 10px #FF7100", */
     },
     changedRowHighlight: {
       outline: "1px solid #FF7100",

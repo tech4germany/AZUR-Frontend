@@ -80,7 +80,7 @@ export const SelectPageLength = ({ pageSize, setPageSize }) => {
           setPageSize(Number(e.target.value));
         }}
       >
-        {[10, 20, 50, 100].map((pageSize) => (
+        {[6, 10, 20, 50, 100].map((pageSize) => (
           <option key={pageSize} value={pageSize}>
             {pageSize} pro Seite
           </option>

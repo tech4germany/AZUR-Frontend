@@ -31,7 +31,7 @@ export default function DistributionOutput({ isAmbiguous, seatSplit }) {
   return (
     <Flex flexDirection="column">
       <Center my="10">
-        <Table>
+        <Table size="lg">
           <Thead>
             <Tr>
               {Object.keys(seatSplit).map((fractionName) => (

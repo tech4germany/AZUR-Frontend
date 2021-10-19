@@ -74,14 +74,14 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
       {columns == undefined || data == undefined ? (
         <Spinner />
       ) : (
-        <VStack>
+        <VStack maxWidth="100%">
           <Center>
             <Flex alignItems="center" mr="2ex">
               Anzeigen von
             </Flex>
             <IndexFilter headerGroups={headerGroups} />
           </Center>
-          <HStack>
+          <HStack maxWidth="100%">
             <RawTable
               getTableProps={getTableProps}
               getTableBodyProps={getTableBodyProps}

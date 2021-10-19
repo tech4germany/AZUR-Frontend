@@ -12,20 +12,16 @@ const RawTable = ({
   getRowProps = () => ({}),
 }) => {
   return (
-    <Box>
-      <Table {...getTableProps()} overflow="auto" height="30rem">
-        <Thead position="sticky" top="0" backgroundColor="white">
+    <Box width="100%">
+      <Table {...getTableProps()}>
+        <Thead>
           {headerGroups.map((headerGroup, index) => (
             <Tr
               key={`headerGroup:${index}`}
               {...headerGroup.getHeaderGroupProps()}
             >
               {headerGroup.headers.map((column) => (
-                <Th
-                  key={column.header}
-                  {...column.getHeaderProps()}
-                  textAlign="center"
-                >
+                <Th key={column.header} {...column.getHeaderProps()}>
                   {column.render("Header")}
                 </Th>
               ))}
@@ -38,12 +34,7 @@ const RawTable = ({
             return (
               <Tr key={row?.id} {...row.getRowProps(getRowProps(row))}>
                 {row.cells.map((cell) => (
-                  <Td
-                    {...cell.getCellProps()}
-                    key={cell?.column?.id + row?.id}
-                    fontWeight="normal"
-                    textAlign="center"
-                  >
+                  <Td {...cell.getCellProps()} key={cell?.column?.id + row?.id}>
                     {cell.render("Cell")}
                   </Td>
                 ))}
