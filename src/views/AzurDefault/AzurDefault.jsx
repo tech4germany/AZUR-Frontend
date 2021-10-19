@@ -19,28 +19,16 @@ export default function AzurDefault() {
       <AzurInputs
         azurInput={azurInput}
         setAzurInput={setAzurInput}
-        backgroundColor="brand.backgroundGrey"
         maxHeight="100%"
-        overflowY="auto"
-        borderRadius="lg"
-        m={3}
         width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
-        px="10"
-        py="2"
       />
       <Output
         azurInput={azurInput}
         azurResponse={data}
         azurError={error}
         loading={loading}
-        backgroundColor="brand.backgroundGrey"
-        borderRadius="lg"
-        m={3}
         maxHeight="100%"
         width={["100%", "100%", "100%", "65%"]}
-        p="10"
-        py="2"
-        overflowY="auto"
       />
     </Flex>
   );

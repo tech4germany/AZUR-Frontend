@@ -49,6 +49,22 @@ const Button = {
   },
 };
 
+const Card = {
+  baseStyle: {
+    backgroundColor: "brand.backgroundGrey",
+    borderRadius: "lg",
+    m: 3,
+    p: "10",
+    py: "2",
+    overflowY: "auto",
+  },
+  variants: {
+    ghost: {
+      backgroundColor: "transparent",
+    },
+  },
+};
+
 const Tabs = {
   parts: ["tabpanel", "tab"],
   baseStyle: {
@@ -125,6 +141,7 @@ export const bundestagTheme = extendTheme({
     Input,
     Heading,
     Tabs,
+    Card,
   },
   colors,
   fonts,
@@ -134,9 +151,16 @@ export const bundestagTheme = extendTheme({
       outline: "1px solid #E53E3E",
       boxShadow: "0 0 10px #E53E3E",
     },
-    amiguityContainerHighlight: {
+    ambiguityContainerHighlight: {
       outline: "1px solid #FF7100",
       boxShadow: "0 0 10px #FF7100",
+    },
+    changedRowHighlight: {
+      outline: "1px solid #FF7100",
+      boxShadow: "0 0 10px #FF7100",
+    },
+    ambigousRowHighlight: {
+      backgroundColor: "brand.orangeAlpha.300",
     },
   },
 });

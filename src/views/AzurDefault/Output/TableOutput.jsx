@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "../../../components/tables/DataTable";
-
+import { Text, Box } from "@chakra-ui/react";
 TableOutput.propTypes = {
   tableData: PropTypes.array,
   assignmentSequence: PropTypes.array,
@@ -19,13 +19,7 @@ export default function TableOutput({ tableData, assignmentSequence }) {
         Header: partyName,
         accessor: "seats." + partyName, // we want to access the seats subitem
         isNumeric: true,
-        Cell: ({ cell: { value } }) => {
-          if (Array.isArray(value)) {
-            return "Mehrdeutig! " + value.join(" oder ");
-          } else {
-            return value;
-          }
-        },
+        Cell: CellOutput,
       };
     });
 
@@ -34,5 +28,32 @@ export default function TableOutput({ tableData, assignmentSequence }) {
     });
   }
 
-  return <DataTable data={data} columns={columns} />;
+  return (
+    <DataTable
+      data={data}
+      columns={columns}
+      getRowProps={(row) => {
+        return {
+          layerStyle: row?.original?.is_ambiguous ? "ambigousRowHighlight" : "",
+        };
+      }}
+    />
+  );
 }
+
+function CellOutput({ cell: { value } }) {
+  if (Array.isArray(value)) {
+    return (
+      <Box p={4} layerStyle="ambiguityContainerHighlight">
+        <Text color="brand.orange">Mehrdeutig!</Text>
+        <Text>{value.join(" oder ")}</Text>
+      </Box>
+    );
+  } else {
+    return value;
+  }
+}
+
+CellOutput.propTypes = {
+  cell: PropTypes.object,
+};

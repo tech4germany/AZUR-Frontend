@@ -24,7 +24,7 @@ DataTable.propTypes = {
   columns: PropTypes.array,
 };
 
-export default function DataTable({ data, columns }) {
+export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
   const defaultColumn = React.useMemo(
     () => ({
       disableFilters: true,
@@ -106,6 +106,7 @@ export default function DataTable({ data, columns }) {
               headerGroups={headerGroups}
               prepareRow={prepareRow}
               page={page}
+              getRowProps={getRowProps}
             />
           </HStack>
 
