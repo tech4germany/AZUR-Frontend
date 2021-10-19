@@ -1,4 +1,4 @@
-import { Center, Flex, HStack, Spinner, VStack } from "@chakra-ui/react";
+import { Text, HStack, Spinner, VStack } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFilters, usePagination, useTable } from "react-table";
@@ -81,12 +81,10 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
         <Spinner />
       ) : (
         <VStack maxWidth="100%">
-          <Center>
-            <Flex alignItems="center" mr="2ex">
-              Anzeigen von
-            </Flex>
+          <HStack>
+            <Text mr="2ex">Anzeigen von</Text>
             <IndexFilter headerGroups={headerGroups} />
-          </Center>
+          </HStack>
           <HStack maxWidth="100%">
             <RawTable
               getTableProps={getTableProps}

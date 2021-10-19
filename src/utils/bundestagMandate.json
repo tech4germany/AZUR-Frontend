@@ -1,35 +1,5 @@
 [
   {
-    "key": "btw2017",
-    "title": "Bundestagswahl 2017",
-    "data": [
-      {
-        "name": "CDU/CSU",
-        "strength": 246
-      },
-      {
-        "name": "SPD",
-        "strength": 153
-      },
-      {
-        "name": "AfD",
-        "strength": 94
-      },
-      {
-        "name": "FDP",
-        "strength": 80
-      },
-      {
-        "name": "Die Linke",
-        "strength": 69
-      },
-      {
-        "name": "Bündnis 90/Die Grünen",
-        "strength": 67
-      }
-    ]
-  },
-  {
     "key": "btw2021",
     "title": "Bundestagswahl 2021",
     "data": [
@@ -60,46 +30,32 @@
     ]
   },
   {
-    "key": "compareDemoA",
-    "title": "CMPDEMO-A",
+    "key": "btw2017",
+    "title": "Bundestagswahl 2017",
     "data": [
       {
-        "name": "SPD",
-        "strength": 1
-      },
-      {
         "name": "CDU/CSU",
-        "strength": 2
+        "strength": 246
       },
       {
-        "name": "Bündnis 90/Die Grünen",
-        "strength": 3
+        "name": "SPD",
+        "strength": 153
+      },
+      {
+        "name": "AfD",
+        "strength": 94
       },
       {
         "name": "FDP",
-        "strength": 40
-      }
-    ]
-  },
-  {
-    "key": "compareDemoB",
-    "title": "CMPDEMO-B",
-    "data": [
-      {
-        "name": "SPD",
-        "strength": 1
+        "strength": 80
       },
       {
-        "name": "CDU/CSU",
-        "strength": 2
+        "name": "Die Linke",
+        "strength": 69
       },
       {
         "name": "Bündnis 90/Die Grünen",
-        "strength": 3
-      },
-      {
-        "name": "FDP",
-        "strength": 60
+        "strength": 67
       }
     ]
   }

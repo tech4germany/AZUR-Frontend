@@ -8,6 +8,7 @@ const Table = {
     },
     th: {
       textAlign: "center",
+      textTransform: "none",
     },
     td: {
       textAlign: "center",
@@ -19,9 +20,21 @@ const Table = {
       table: {
         fontSize: "md",
       },
+      td: {
+        fontSize: "md",
+      },
+      th: {
+        fontSize: "md",
+      },
     },
     lg: {
       table: {
+        fontSize: "lg",
+      },
+      td: {
+        fontSize: "lg",
+      },
+      th: {
         fontSize: "lg",
       },
     },
