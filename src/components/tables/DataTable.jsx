@@ -14,6 +14,8 @@ DataTable.propTypes = {
   getRowProps: PropTypes.func,
 };
 
+const DEFAULT_PAGE_SIZE = 8;
+
 export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
   const defaultColumn = React.useMemo(
     () => ({
@@ -69,6 +71,10 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
     usePagination
   );
 
+  React.useEffect(() => {
+    // sets the default page size for the table
+    setPageSize(DEFAULT_PAGE_SIZE);
+  }, []);
   return (
     <>
       {columns == undefined || data == undefined ? (

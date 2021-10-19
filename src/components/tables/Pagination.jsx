@@ -1,40 +1,29 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Flex,
-  IconButton,
   NumberInput,
   NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
   Select,
   Text,
-  Tooltip,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
 export const PageSelect = ({
-  canPreviousPage,
-  canNextPage,
   pageOptions,
   gotoPage,
-  nextPage,
-  previousPage,
   state: { pageIndex },
   ...cssprops
 }) => {
   return (
     <Flex alignItems="center" {...cssprops}>
-      <Tooltip label="Previous Page">
-        <IconButton
-          onClick={previousPage}
-          isDisabled={!canPreviousPage}
-          icon={<ChevronLeftIcon h={6} w={6} />}
-        />
-      </Tooltip>
       <Text ml={2} flexShrink="0">
         Seite
       </Text>
       <NumberInput
-        w="8ex"
+        w="10.5ex"
         p={0}
         mx={2}
         min={1}
@@ -46,15 +35,12 @@ export const PageSelect = ({
         defaultValue={pageIndex + 1}
       >
         <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
       </NumberInput>
       <Text mr={2}>von {pageOptions.length}</Text>
-      <Tooltip label="Next Page">
-        <IconButton
-          onClick={nextPage}
-          isDisabled={!canNextPage}
-          icon={<ChevronRightIcon h={6} w={6} />}
-        />
-      </Tooltip>
     </Flex>
   );
 };
@@ -80,7 +66,7 @@ export const SelectPageLength = ({ pageSize, setPageSize }) => {
           setPageSize(Number(e.target.value));
         }}
       >
-        {[6, 10, 20, 50, 100].map((pageSize) => (
+        {[8, 10, 20, 50, 100].map((pageSize) => (
           <option key={pageSize} value={pageSize}>
             {pageSize} pro Seite
           </option>
