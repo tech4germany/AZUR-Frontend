@@ -34,6 +34,7 @@ const colors = {
 const Button = {
   baseStyle: {
     margin: "1",
+    padding: "1.5em",
     whiteSpace: "normal", // necessary to allow for line breaks
     wordWrap: "break-word",
     borderRadius: "none",

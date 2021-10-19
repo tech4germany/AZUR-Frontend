@@ -1,4 +1,4 @@
-import { Heading, Wrap, WrapItem } from "@chakra-ui/react";
+import { Heading, Grid, GridItem } from "@chakra-ui/react";
 import PartyStrengthsFieldArray from "components/forms/PartyStrengthsFieldArray";
 import _ from "lodash";
 import React from "react";
@@ -50,21 +50,21 @@ const PartyStrengthsPresetButtons = ({
   partyStrengthsKey,
 }) => {
   return (
-    <Wrap>
+    <Grid columnGap={3} templateColumns="repeat(auto-fill, minmax(15ex, 1fr))">
       {bundestagMandatsverteilung.map((mandatePreset) => (
-        <WrapItem flexGrow="1" key={mandatePreset.key}>
+        <GridItem key={mandatePreset.key}>
           <PresetButton
             activeValue={_.get(values, partyStrengthsKey, [])}
             presetData={mandatePreset.data}
             attributeName={partyStrengthsKey}
             setFieldValue={setFieldValue}
-            flexGrow="1"
+            width="100%"
           >
             {mandatePreset.title}
           </PresetButton>
-        </WrapItem>
+        </GridItem>
       ))}
-    </Wrap>
+    </Grid>
   );
 };
 
