@@ -57,12 +57,8 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
     headerGroups,
     prepareRow,
     page, //  page only has the rows for the active page (used instead of 'rows')
-    canPreviousPage,
-    canNextPage,
     pageOptions,
     gotoPage,
-    nextPage,
-    previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
   } = useTable(
@@ -98,12 +94,8 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
 
           <HStack alignItems="center" spacing="3ex">
             <PageSelect
-              canPreviousPage={canPreviousPage}
-              canNextPage={canNextPage}
               pageOptions={pageOptions}
               gotoPage={gotoPage}
-              nextPage={nextPage}
-              previousPage={previousPage}
               state={{ pageIndex, pageSize }}
             />
             <SelectPageLength pageSize={pageSize} setPageSize={setPageSize} />

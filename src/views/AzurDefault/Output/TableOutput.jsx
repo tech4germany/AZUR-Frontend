@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "components/tables/DataTable";
+import _ from "lodash";
+
 import { SeatCountCell } from "components/tables/CellRenders";
 TableOutput.propTypes = {
   tableData: PropTypes.array,
@@ -23,9 +25,16 @@ export default function TableOutput({ tableData, assignmentSequence }) {
       };
     });
 
-    data = tableData.map((tableRow, i) => {
-      return { seat_goes_to: assignmentSequence[i].seat_goes_to, ...tableRow };
-    });
+    if (_.isEmpty(assignmentSequence)) {
+      data = tableData;
+    } else {
+      data = tableData.map((tableRow, i) => {
+        return {
+          seat_goes_to: assignmentSequence[i].seat_goes_to,
+          ...tableRow,
+        };
+      });
+    }
   }
 
   return (

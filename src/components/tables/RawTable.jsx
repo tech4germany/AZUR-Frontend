@@ -12,7 +12,7 @@ const RawTable = ({
   getRowProps = () => ({}),
 }) => {
   return (
-    <Box width="100%">
+    <Box maxWidth="100%">
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup, index) => (

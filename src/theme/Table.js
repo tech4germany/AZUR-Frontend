@@ -2,7 +2,8 @@ const Table = {
   baseStyle: {
     table: {
       display: "inline-block",
-      width: "100%",
+      maxWidth: "100%",
+      width: "auto",
       overflowX: "scroll",
       borderCollapse: "collapse",
     },

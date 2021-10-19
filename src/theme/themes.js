@@ -85,7 +85,6 @@ const Tabs = {
     },
   },
   variants: {},
-  defaultProps: { size: "", variant: "" },
 };
 
 const Input = {
@@ -155,7 +154,7 @@ export const bundestagTheme = extendTheme({
       boxShadow: "0 0 10px #E53E3E",
     },
     ambiguityContainerHighlight: {
-/*       outline: "1px solid #FF7100",
+      /*       outline: "1px solid #FF7100",
       boxShadow: "0 0 10px #FF7100", */
     },
     changedRowHighlight: {

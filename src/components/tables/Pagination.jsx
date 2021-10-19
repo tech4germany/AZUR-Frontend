@@ -46,12 +46,8 @@ export const PageSelect = ({
 };
 
 PageSelect.propTypes = {
-  canPreviousPage: PropTypes.bool,
-  canNextPage: PropTypes.bool,
   pageOptions: PropTypes.array,
   gotoPage: PropTypes.func,
-  nextPage: PropTypes.func,
-  previousPage: PropTypes.func,
   state: PropTypes.object,
 };
 
