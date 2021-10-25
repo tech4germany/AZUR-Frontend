@@ -33,7 +33,7 @@ export default function AzurForm({ ParentStateUpdater }) {
           py="0"
           height="auto"
         />
-        <Tooltip label="z.B. Zahl der Sitze, Redeminuten oder Räume, die sie verteilen möchten">
+        <Tooltip label="z.B. Zahl der Sitze, Redeminuten oder Räume, die Sie verteilen möchten">
           <HStack alignItems="center" spacing="1ex">
             <Text fontSize="xl">Einheiten</Text>
             <FaInfoCircle fontSize="1.2rem" />

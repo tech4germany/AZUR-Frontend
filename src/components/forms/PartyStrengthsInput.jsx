@@ -1,4 +1,4 @@
-import { Heading, Grid, GridItem } from "@chakra-ui/react";
+import { Heading, Grid, GridItem, Tooltip } from "@chakra-ui/react";
 import PartyStrengthsFieldArray from "components/forms/PartyStrengthsFieldArray";
 import _ from "lodash";
 import React from "react";
@@ -64,6 +64,11 @@ const PartyStrengthsPresetButtons = ({
             setFieldValue={setFieldValue}
             width="100%"
             m={0}
+            title={
+              mandatePreset?.label != null
+                ? mandatePreset.label
+                : "Voreinstellung für Fraktionsstärken - Klicken um zu aktivieren"
+            }
           >
             {mandatePreset.title}
           </PresetButton>
