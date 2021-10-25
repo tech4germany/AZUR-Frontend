@@ -1,4 +1,4 @@
-import { Center, Text, Tooltip, HStack } from "@chakra-ui/react";
+import { Center, Text, Tooltip, HStack, Heading } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -40,6 +40,9 @@ export default function AzurForm({ ParentStateUpdater }) {
           </HStack>
         </Tooltip>
       </Center>
+      <Heading as="h3" size="xl">
+        Fraktionsstärken
+      </Heading>
       <PartyStrengthsInput
         values={values}
         errors={errors}

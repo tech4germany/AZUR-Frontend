@@ -1,4 +1,4 @@
-import { Heading, Grid, GridItem } from "@chakra-ui/react";
+import { Heading, Grid, GridItem, Box } from "@chakra-ui/react";
 import PartyStrengthsFieldArray from "components/forms/PartyStrengthsFieldArray";
 import _ from "lodash";
 import React from "react";
@@ -14,10 +14,7 @@ const PartyStrengthsInput = ({
   attributeKey,
 }) => {
   return (
-    <>
-      <Heading as="h3" size="xl">
-        Fraktionsstärken
-      </Heading>
+    <Box>
       <Heading as="h4" size="lg">
         Voreinstellungen
       </Heading>
@@ -35,7 +32,7 @@ const PartyStrengthsInput = ({
         errors={errors}
         MAX_FRACTIONS={MAX_FRACTIONS}
       />
-    </>
+    </Box>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Center, Text, Flex } from "@chakra-ui/react";
+import { Center, Text, Flex, Heading } from "@chakra-ui/react";
 import Card from "theme/Card";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
@@ -32,27 +32,30 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
         <Text fontSize="xl">Einheiten</Text>
       </Center>
       <Flex>
-        {["dist_A", "dist_B"].map((attributeKeyBase) => (
-          <Card
-            key={attributeKeyBase}
-            p="2"
-            border="1px solid"
-            borderColor="brand.darkBlue"
-          >
-            <PartyStrengthsInput
-              values={values}
-              errors={errors}
-              setFieldValue={setFieldValue}
-              MAX_FRACTIONS={MAX_FRACTIONS}
-              attributeKey={`${attributeKeyBase}.partyStrengths`}
-            />
-            <MethodsInput
-              values={values}
-              setFieldValue={setFieldValue}
-              attributeKey={`${attributeKeyBase}.method`}
-            />
-          </Card>
-        ))}
+        <Center flexDirection="row">
+          {["dist_A", "dist_B"].map((attributeKeyBase) => (
+            <Card key={attributeKeyBase} p="2">
+              <Heading size="xl">
+                {attributeKeyBase === "dist_A"
+                  ? "Ausgangsverteilung"
+                  : "Vergleichsverteilung"}
+              </Heading>
+
+              <PartyStrengthsInput
+                values={values}
+                errors={errors}
+                setFieldValue={setFieldValue}
+                MAX_FRACTIONS={MAX_FRACTIONS}
+                attributeKey={`${attributeKeyBase}.partyStrengths`}
+              />
+              <MethodsInput
+                values={values}
+                setFieldValue={setFieldValue}
+                attributeKey={`${attributeKeyBase}.method`}
+              />
+            </Card>
+          ))}
+        </Center>
       </Flex>
 
       <ParentStateUpdater />

@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
-import { Box, HStack, Text, Button } from "@chakra-ui/react";
+import React from "react";
+import { HStack, Text, Button } from "@chakra-ui/react";
 import { FaPrint } from "react-icons/fa";
-import PropTypes from "prop-types";
 
 const ExportIcons = () => {
   return (

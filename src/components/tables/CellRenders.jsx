@@ -62,10 +62,10 @@ SeatCountCell.propTypes = {
 };
 
 const SeatCountCellBase = ({ cell }) => {
-  const value = cell.value;
-  if (value == null) {
+  if (cell?.value == null) {
     return "loading...";
   }
+  const value = cell.value;
 
   if (Array.isArray(value)) {
     return (
@@ -102,13 +102,15 @@ const parseSeatCountOutput = (value) => {
 export const ComparisonCell = ({ cell, row }) => {
   const partyName = cell?.column?.partyName;
   if (row.original.is_identical) {
-    return <SeatCountCellBase value={cell?.value} />;
+    return <SeatCountCellBase cell={cell} />;
   } else {
     let valueA = row.original.dist_A.seats?.[partyName] || 0;
     let valueB = row.original.dist_B.seats?.[partyName] || 0;
 
     if (valueA != valueB) {
-      return `${parseSeatCountOutput(valueA)}/${parseSeatCountOutput(valueB)}`;
+      return `${parseSeatCountOutput(valueA)} -> ${parseSeatCountOutput(
+        valueB
+      )}`;
     } else {
       return valueA;
     }
