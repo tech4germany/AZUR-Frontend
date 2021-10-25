@@ -28,7 +28,7 @@ const colors = {
       700: "rgba(51, 150, 182, 0.64)",
       800: "rgba(51, 150, 182, 0.80)",
     },
-    backgroundGrey: "#F6F6FA",
+    backgroundGrey: "#EDF2F7", // "#F6F6FA",
   },
 };
 
@@ -120,7 +120,6 @@ const Heading = {
   sizes: {
     lg: {
       fontSize: "lg",
-      color: "black",
       mt: "5",
       mb: "1",
     },

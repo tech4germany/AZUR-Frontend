@@ -1,4 +1,4 @@
-import { Heading, Grid, GridItem, Tooltip } from "@chakra-ui/react";
+import { Heading, Grid, GridItem } from "@chakra-ui/react";
 import PartyStrengthsFieldArray from "components/forms/PartyStrengthsFieldArray";
 import _ from "lodash";
 import React from "react";
@@ -18,12 +18,17 @@ const PartyStrengthsInput = ({
       <Heading as="h3" size="xl">
         Fraktionsstärken
       </Heading>
+      <Heading as="h4" size="lg">
+        Voreinstellungen
+      </Heading>
       <PartyStrengthsPresetButtons
         values={values}
         setFieldValue={setFieldValue}
         partyStrengthsKey={attributeKey}
       />
-
+      <Heading as="h4" size="lg">
+        Manuelle Eingabe
+      </Heading>
       <PartyStrengthsFieldArray
         fieldArrayName={attributeKey}
         values={values}
@@ -53,7 +58,7 @@ const PartyStrengthsPresetButtons = ({
     <Grid
       columnGap={3}
       rowGap={3}
-      templateColumns="repeat(auto-fit, minmax(15ex, 1fr))"
+      templateColumns="repeat(auto-fit, minmax(30ex, 1fr))" // TODO back to minmax( 15ex or have them always take full width)
     >
       {bundestagMandatsverteilung.map((mandatePreset) => (
         <GridItem key={mandatePreset.key}>

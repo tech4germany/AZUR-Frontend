@@ -44,7 +44,7 @@ export default function DistributionOutput({
   return (
     <Flex flexDirection="column">
       <Center my="10">
-        <Table size="lg">
+        <Table size="md">
           <Thead>
             <Tr>
               {Object.keys(seatSplitSorted).map((fractionName) => (

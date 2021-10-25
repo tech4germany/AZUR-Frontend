@@ -5,7 +5,15 @@ import { IoMdRemove } from "react-icons/io";
 import { FieldArrayInput } from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
-import { Box, Flex, Stack, Input, Button, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  VStack,
+  Stack,
+  Input,
+  Button,
+  Text,
+} from "@chakra-ui/react";
 import _ from "lodash";
 
 const PartyStrengthsFieldArray = ({
@@ -18,11 +26,10 @@ const PartyStrengthsFieldArray = ({
   const errorsPartyStrengths = _.get(errors, fieldArrayName);
 
   return (
-    <Box py={3}>
+    <Box>
       <FieldArray name={fieldArrayName}>
         {({ remove, push }) => (
           <Stack
-            py={2}
             layerStyle={
               errorsPartyStrengths != null &&
               typeof errorsPartyStrengths === "string"
