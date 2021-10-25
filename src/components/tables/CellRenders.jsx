@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { getPartyColor } from "utils/getPartyColor";
 import _ from "lodash";
-import { unstable_batchedUpdates } from "react-dom";
 
 export const PositionCell = ({ cell }) => {
   return (

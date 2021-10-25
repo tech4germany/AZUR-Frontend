@@ -5,15 +5,7 @@ import { IoMdRemove } from "react-icons/io";
 import { FieldArrayInput } from "./FieldArrayInput";
 import PropTypes from "prop-types";
 
-import {
-  Box,
-  Flex,
-  VStack,
-  Stack,
-  Input,
-  Button,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Stack, Input, Button, Text } from "@chakra-ui/react";
 import _ from "lodash";
 
 const PartyStrengthsFieldArray = ({
