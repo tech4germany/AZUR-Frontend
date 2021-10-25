@@ -1,10 +1,11 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Center, Text, Tooltip, HStack } from "@chakra-ui/react";
 import { Form, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
 import { FieldInput } from "components/forms/FieldArrayInput";
 import PartyStrengthsInput from "components/forms/PartyStrengthsInput";
 import MethodsInput from "components/forms/MethodsInput";
+import { FaInfoCircle } from "react-icons/fa";
 
 AzurForm.propTypes = {
   ParentStateUpdater: PropTypes.func,
@@ -32,7 +33,12 @@ export default function AzurForm({ ParentStateUpdater }) {
           py="0"
           height="auto"
         />
-        <Text fontSize="xl">Einheiten</Text>
+        <Tooltip label="z.B. Zahl der Sitze, Redeminuten oder Räume, die sie verteilen möchten">
+          <HStack alignItems="center" spacing="1ex">
+            <Text fontSize="xl">Einheiten</Text>
+            <FaInfoCircle fontSize="1.2rem" />
+          </HStack>
+        </Tooltip>
       </Center>
       <PartyStrengthsInput
         values={values}
