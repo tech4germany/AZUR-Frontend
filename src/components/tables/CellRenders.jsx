@@ -3,6 +3,8 @@ import { Circle, Flex, Text, Box } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { getPartyColor } from "utils/getPartyColor";
+import _ from "lodash";
+import { unstable_batchedUpdates } from "react-dom";
 
 export const PositionCell = ({ cell }) => {
   return (
@@ -52,15 +54,16 @@ AssignmentCell.propTypes = {
   tableData: PropTypes.array,
 };
 
-export const SeatCountCell = ({ cell: { value } }) => {
-  return <SeatCountCellBase value={value} />;
+export const SeatCountCell = ({ cell }) => {
+  return <SeatCountCellBase cell={cell} />;
 };
 
 SeatCountCell.propTypes = {
   cell: PropTypes.object,
 };
 
-const SeatCountCellBase = ({ value }) => {
+const SeatCountCellBase = ({ cell }) => {
+  const value = cell.value;
   if (value == null) {
     return "loading...";
   }
@@ -73,12 +76,21 @@ const SeatCountCellBase = ({ value }) => {
       </Box>
     );
   } else {
+    if (
+      _.has(cell, "row.original.seat_goes_to") &&
+      _.has(cell, "column.Header")
+    ) {
+      if (cell.row.original.seat_goes_to == cell.column.Header) {
+        return <Text fontWeight="bold">{value}</Text>;
+      }
+    }
+
     return value;
   }
 };
 
 SeatCountCellBase.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+  cell: PropTypes.object,
 };
 
 const parseSeatCountOutput = (value) => {
