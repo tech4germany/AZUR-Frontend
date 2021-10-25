@@ -4,7 +4,7 @@ const Table = {
       display: "inline-block",
       maxWidth: "100%",
       width: "auto",
-      overflowX: "scroll",
+      overflowX: "auto",
       borderCollapse: "collapse",
     },
     th: {
