@@ -92,8 +92,9 @@ const Input = {
   baseStyle: {
     field: {
       margin: "1",
-      p: "2",
-      backgroundColor: "whiteAlpha.700",
+      py: "2",
+      px: "4",
+      backgroundColor: "white",
       outline: "1px solid",
       outlineColor: "brand.darkBlueAlpha.200",
       border: "none",
