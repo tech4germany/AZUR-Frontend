@@ -61,6 +61,10 @@ SeatCountCell.propTypes = {
 };
 
 const SeatCountCellBase = ({ value }) => {
+  if (value == null) {
+    return "loading...";
+  }
+
   if (Array.isArray(value)) {
     return (
       <Box layerStyle="ambiguityContainerHighlight">

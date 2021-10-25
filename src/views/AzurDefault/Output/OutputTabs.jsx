@@ -75,6 +75,7 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             <DistributionOutput
               isAmbiguous={azurResponse.distribution.is_ambiguous}
               seatSplit={azurResponse.distribution.seats}
+              azurInput={azurInput}
             />
           </TabPanel>
           <TabPanel>
@@ -87,6 +88,7 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             <TableOutput
               tableData={azurResponse.table}
               assignmentSequence={azurResponse.assignment_sequence}
+              azurInput={azurInput}
             />
           </TabPanel>
         </TabPanels>
