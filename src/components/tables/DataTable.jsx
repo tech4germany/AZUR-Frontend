@@ -14,7 +14,7 @@ DataTable.propTypes = {
   getRowProps: PropTypes.func,
 };
 
-const DEFAULT_PAGE_SIZE = 8;
+const DEFAULT_PAGE_SIZE = 20;
 
 export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
   const defaultColumn = React.useMemo(

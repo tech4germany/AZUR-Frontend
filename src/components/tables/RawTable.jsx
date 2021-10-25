@@ -13,7 +13,7 @@ const RawTable = ({
 }) => {
   return (
     <Box maxWidth="100%">
-      <Table {...getTableProps()}>
+      <Table {...getTableProps()} variant="stickyHeader">
         <Thead>
           {headerGroups.map((headerGroup, index) => (
             <Tr
