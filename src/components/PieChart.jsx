@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3";
 import PropTypes from "prop-types";
-import {getPartyColor} from "../utils/getPartyColor";
+import { Box } from "@chakra-ui/layout";
+import { getPartyColor } from "../utils/getPartyColor";
 
 PieChart.propTypes = {
   data: PropTypes.object,
@@ -10,29 +11,21 @@ PieChart.propTypes = {
 };
 
 function PieChart({ data, outerRadius, innerRadius }) {
-  const margin = {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50,
-  };
-
-  const width = 2 * outerRadius + margin.left + margin.right;
-  const height = 2 * outerRadius + margin.top + margin.bottom;
+  const width = 2 * outerRadius;
+  const height = 2 * outerRadius;
 
   useEffect(() => {
     drawChart();
   }, [data]);
 
   function drawChart() {
-
     const parsedData = Object.entries(data).map(([key, value]) => {
       return {
         label: key,
         value: value,
       };
     });
-    
+
     // Remove the old svg
     // TODO: Do not selecet by ID to make this component reusable (or go for a more complex id)
     d3.select("#pie-container").select("svg").remove(); // Create new svg
@@ -84,12 +77,7 @@ function PieChart({ data, outerRadius, innerRadius }) {
     */
   }
 
-  return (
-    <div
-      id="pie-container"
-      style={{ display: "inline-block", width: "auto" }}
-    />
-  );
+  return <Box id="pie-container" display="inline-block" width="auto" m={1} />;
 }
 
 export default PieChart;
