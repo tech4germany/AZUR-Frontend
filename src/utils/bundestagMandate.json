@@ -1,8 +1,8 @@
 [
   {
-    "key": "btw2021",
-    "title": "Bundestagswahl 2021",
-    "label": "letzte Aktualisierung am 25.10.2021",
+    "key": "btwCurrent",
+    "title": "Aktueller Bundestag",
+    "label": "Die aktuelle Sitzverteilung im Bundestag -letzte Aktualisierung am 25.10.2021",
     "data": [
       {
         "name": "SPD",
