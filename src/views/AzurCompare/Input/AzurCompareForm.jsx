@@ -31,31 +31,29 @@ export default function AzurCompareForm({ ParentStateUpdater }) {
         />
         <Text fontSize="xl">Einheiten</Text>
       </Center>
-      <Flex>
-        <Center flexDirection="row">
-          {["dist_A", "dist_B"].map((attributeKeyBase) => (
-            <Card key={attributeKeyBase} p="2">
-              <Heading size="xl">
-                {attributeKeyBase === "dist_A"
-                  ? "Ausgangsverteilung"
-                  : "Vergleichsverteilung"}
-              </Heading>
+      <Flex justifyContent="center">
+        {["dist_A", "dist_B"].map((attributeKeyBase) => (
+          <Card key={attributeKeyBase} p="2">
+            <Heading size="xl">
+              {attributeKeyBase === "dist_A"
+                ? "Ausgangsverteilung"
+                : "Vergleichsverteilung"}
+            </Heading>
 
-              <PartyStrengthsInput
-                values={values}
-                errors={errors}
-                setFieldValue={setFieldValue}
-                MAX_FRACTIONS={MAX_FRACTIONS}
-                attributeKey={`${attributeKeyBase}.partyStrengths`}
-              />
-              <MethodsInput
-                values={values}
-                setFieldValue={setFieldValue}
-                attributeKey={`${attributeKeyBase}.method`}
-              />
-            </Card>
-          ))}
-        </Center>
+            <PartyStrengthsInput
+              values={values}
+              errors={errors}
+              setFieldValue={setFieldValue}
+              MAX_FRACTIONS={MAX_FRACTIONS}
+              attributeKey={`${attributeKeyBase}.partyStrengths`}
+            />
+            <MethodsInput
+              values={values}
+              setFieldValue={setFieldValue}
+              attributeKey={`${attributeKeyBase}.method`}
+            />
+          </Card>
+        ))}
       </Flex>
 
       <ParentStateUpdater />
