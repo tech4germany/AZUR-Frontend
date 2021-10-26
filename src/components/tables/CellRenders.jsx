@@ -92,7 +92,7 @@ SeatCountCellBase.propTypes = {
   cell: PropTypes.object,
 };
 
-const parseSeatCountOutput = (value) => {
+export const parseSeatCountOutput = (value) => {
   if (Array.isArray(value)) {
     return value.join(" oder ");
   }

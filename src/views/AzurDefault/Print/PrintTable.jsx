@@ -7,10 +7,13 @@ import {
   Thead,
   Tr,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 
 import PropTypes from "prop-types";
+
+import { parseSeatCountOutput } from "components/tables/CellRenders";
 
 // TODO PRINT ONLY MAX 500 ROWS
 const PrintTable = ({ tableData }) => {
@@ -39,7 +42,14 @@ const PrintTable = ({ tableData }) => {
                 {Object.values(row.seats).map((entry, colIndex) => {
                   return (
                     <Td key={`tablePrintRow${rowIndex}_${colIndex}`}>
-                      {entry}
+                      {Array.isArray(entry) ? (
+                        <Box layerStyle="ambiguityContainerHighlight">
+                          <Text color="brand.orange">Mehrdeutig!</Text>
+                          <Text>{parseSeatCountOutput(entry)}</Text>
+                        </Box>
+                      ) : (
+                        <Box>{entry}</Box>
+                      )}
                     </Td>
                   );
                 })}
