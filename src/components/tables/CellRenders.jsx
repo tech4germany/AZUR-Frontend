@@ -108,7 +108,7 @@ export const ComparisonCell = ({ cell, row }) => {
     let valueB = row.original.dist_B.seats?.[partyName] || 0;
 
     if (valueA != valueB) {
-      return `${parseSeatCountOutput(valueA)} -> ${parseSeatCountOutput(
+      return `${parseSeatCountOutput(valueA)} &rarr; ${parseSeatCountOutput(
         valueB
       )}`;
     } else {

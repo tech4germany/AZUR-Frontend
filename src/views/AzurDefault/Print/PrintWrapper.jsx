@@ -1,16 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Heading,
-  Text,
-  Table,
-  Tr,
-  Th,
-  Td,
-  Thead,
-  Tbody,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, Table, Tr, Th, Td, Tbody } from "@chakra-ui/react";
 
 import constants from "utils/constants.json";
 import PrintTable from "../Print/PrintTable";
