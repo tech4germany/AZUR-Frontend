@@ -6,6 +6,7 @@ import Output from "./Output/Output";
 
 export default function AzurDefault() {
   const [azurInput, setAzurInput] = React.useState({ data: {}, errors: {} });
+  // TODO move hook to output child?
   const { data, loading, error } = useAzur(azurInput);
 
   return (

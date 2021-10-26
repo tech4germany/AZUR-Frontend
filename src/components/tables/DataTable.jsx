@@ -77,10 +77,10 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
         <Spinner />
       ) : (
         <VStack maxWidth="100%">
-          <HStack>
+          {/*<HStack> // filter rows with this filter
             <Text mr="2ex">Anzeigen von</Text>
             <IndexFilter headerGroups={headerGroups} />
-          </HStack>
+          </HStack> */}
           <HStack maxWidth="100%">
             <RawTable
               getTableProps={getTableProps}
