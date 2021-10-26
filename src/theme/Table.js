@@ -8,6 +8,7 @@ const Table = {
       borderCollapse: "collapse",
     },
     th: {
+      color: "brand.primary",
       textAlign: "center",
       textTransform: "none",
     },

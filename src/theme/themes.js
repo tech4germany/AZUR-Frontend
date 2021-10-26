@@ -29,6 +29,7 @@ const colors = {
       800: "rgba(51, 150, 182, 0.80)",
     },
     backgroundGrey: "#EDF2F7", // "#F6F6FA",
+    primary: "gray.600",
   },
 };
 
@@ -113,7 +114,8 @@ const Input = {
 
 const Heading = {
   baseStyle: {
-    color: "brand.darkBlue",
+    color: "brand.primary",
+    fontWeight: "regular",
   },
   sizes: {
     lg: {
@@ -130,6 +132,7 @@ const Heading = {
       fontSize: "2xl",
       mt: "7",
       mb: "3",
+      color: "brand.darkBlue",
     },
   },
 };
