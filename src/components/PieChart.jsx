@@ -63,18 +63,16 @@ function PieChart({ data, outerRadius, innerRadius }) {
       .style("stroke", "#ffffff")
       .style("stroke-width", 0); // Append text labels
 
-    /* Text label that always shows
-    arc
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr('alignment-baseline', 'middle')
+    /* arc
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("alignment-baseline", "middle")
       .text((d) => d.data.label)
-      .style('fill', '#ffffff')
-      .attr('transform', (d) => {
+      .style("fill", "#ffffff")
+      .attr("transform", (d) => {
         const [x, y] = arcGenerator.centroid(d);
         return `translate(${x}, ${y})`;
-      });
-    */
+      }); */
   }
 
   return <Box id="pie-container" display="inline-block" width="auto" m={1} />;

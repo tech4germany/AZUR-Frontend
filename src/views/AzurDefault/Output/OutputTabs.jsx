@@ -39,13 +39,23 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
     setTabIndex(index);
   };
 
+  const selectedStyle = {
+    color: "brand.darkBlue",
+    boderColor: "brand.darkBlue",
+    border: "1px solid",
+    borderBottom: "none",
+    boxShadow: "0px 2px 0px -1px white",
+  };
   return (
     <Tabs mt="10" align="left" index={tabIndex} onChange={handleTabsChange}>
       <Flex justifyContent="space-between" alignItems="end">
         <TabList>
-          <Tab _selected={{ color: "brand.darkBlue" }}>Anteile</Tab>
+          <Tab fontSize="lg" _selected={selectedStyle}>
+            Anteile
+          </Tab>
           <Tab
-            _selected={{ color: "brand.darkBlue" }}
+            fontSize="lg"
+            _selected={selectedStyle}
             title={
               azurInput.method === "hare"
                 ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine Zugriffsreihenfolge. Probieren Sie eine andere Methode.`
@@ -56,7 +66,8 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             Reihenfolge
           </Tab>
           <Tab
-            _selected={{ color: "brand.darkBlue" }}
+            fontSize="lg"
+            _selected={selectedStyle}
             title={`Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`}
           >
             Tabelle

@@ -4,6 +4,7 @@ import Table from "./Table";
 
 const colors = {
   brand: {
+    primary: "#4A5568",
     orange: "#FF7100",
     orangeAlpha: {
       50: "rgba(255, 133, 0, 0.02)",
@@ -29,7 +30,6 @@ const colors = {
       800: "rgba(51, 150, 182, 0.80)",
     },
     backgroundGrey: "#EDF2F7", // "#F6F6FA",
-    primary: "gray.600",
   },
 };
 
@@ -73,14 +73,13 @@ const Tabs = {
   baseStyle: {
     tabpanel: {
       bg: "white",
-      my: 1,
-      borderRadius: "lg",
+      my: 0,
+      border: "1px solid",
+      borderColor: "brand.darkBlue",
     },
     tab: {
       bg: "white",
       p: 3,
-      fontSize: "md",
-      _selected: { color: "brand.darkBlue" }, // does not work for some reason (manually assign to tabs)
     },
   },
   variants: {},
@@ -91,7 +90,8 @@ const Input = {
   baseStyle: {
     field: {
       margin: "1",
-      py: "2",
+      my: 0,
+      py: "1",
       px: "4",
       backgroundColor: "white",
       outline: "1px solid",
@@ -121,12 +121,13 @@ const Heading = {
     lg: {
       fontSize: "lg",
       mt: "5",
-      mb: "1",
+      mb: "3",
     },
     xl: {
       fontSize: "xl",
       mt: "7",
       mb: "3",
+      color: "brand.darkBlue",
     },
     "2xl": {
       fontSize: "2xl",

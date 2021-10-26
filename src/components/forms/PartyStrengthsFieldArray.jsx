@@ -83,7 +83,6 @@ const PartyStrengthsFieldArray = ({
               }}
               px={0}
               m={0}
-              mt={1}
               width={"100%"}
               isDisabled={partyStrengths.length >= MAX_FRACTIONS}
               title={
