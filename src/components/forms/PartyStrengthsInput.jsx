@@ -55,7 +55,7 @@ const PartyStrengthsPresetButtons = ({
     <Grid
       columnGap={3}
       rowGap={3}
-      templateColumns="repeat(auto-fit, minmax(30ex, 1fr))" // TODO back to minmax( 15ex or have them always take full width)
+      templateColumns="repeat(auto-fit, minmax(15ex, 1fr))" // TODO back to minmax( 15ex or have them always take full width)
     >
       {bundestagMandatsverteilung.map((mandatePreset) => (
         <GridItem key={mandatePreset.key}>
