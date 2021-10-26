@@ -1,12 +1,11 @@
-import { Text, HStack, Spinner, VStack } from "@chakra-ui/react";
+import { HStack, Spinner, VStack } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFilters, usePagination, useTable } from "react-table";
-import IndexFilter from "./IndexFilter";
+import { PositionCell } from "./CellRenders";
 import NumberRangeFilter from "./NumberRangeFilter";
 import { PageSelect, SelectPageLength } from "./Pagination";
 import RawTable from "./RawTable";
-import { PositionCell } from "./CellRenders";
 
 DataTable.propTypes = {
   data: PropTypes.array,

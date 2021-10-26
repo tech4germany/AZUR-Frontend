@@ -26,7 +26,10 @@ OutputTabs.propTypes = {
 export default function OutputTabs({ azurInput, azurResponse, loading }) {
   React.useEffect(() => {
     if (azurInput.method === "hare") {
-      setTabIndex(0);
+      // if we are on assignmentSequence we should switch tabs as it does not exist for Hare
+      if (tabIndex === 1) {
+        setTabIndex(0);
+      }
     }
   }, [azurInput]);
 
@@ -52,12 +55,7 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             Liste
           </Tab>
           <Tab
-            isDisabled={azurInput.method === "hare"}
-            title={
-              azurInput.method === "hare"
-                ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine tabellarische Übersicht. Probieren Sie eine andere Methode.`
-                : `Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`
-            }
+            title={`Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`}
           >
             Tabelle
           </Tab>
