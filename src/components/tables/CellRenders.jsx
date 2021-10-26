@@ -3,6 +3,7 @@ import { Circle, Flex, Text, Box } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { getPartyColor } from "utils/getPartyColor";
+import _ from "lodash";
 
 export const PositionCell = ({ cell }) => {
   return (
@@ -52,15 +53,20 @@ AssignmentCell.propTypes = {
   tableData: PropTypes.array,
 };
 
-export const SeatCountCell = ({ cell: { value } }) => {
-  return <SeatCountCellBase value={value} />;
+export const SeatCountCell = ({ cell }) => {
+  return <SeatCountCellBase cell={cell} />;
 };
 
 SeatCountCell.propTypes = {
   cell: PropTypes.object,
 };
 
-const SeatCountCellBase = ({ value }) => {
+const SeatCountCellBase = ({ cell }) => {
+  if (cell?.value == null) {
+    return "loading...";
+  }
+  const value = cell.value;
+
   if (Array.isArray(value)) {
     return (
       <Box layerStyle="ambiguityContainerHighlight">
@@ -69,15 +75,24 @@ const SeatCountCellBase = ({ value }) => {
       </Box>
     );
   } else {
+    if (
+      _.has(cell, "row.original.seat_goes_to") &&
+      _.has(cell, "column.Header")
+    ) {
+      if (cell.row.original.seat_goes_to == cell.column.Header) {
+        return <Box fontWeight="bold">{value}</Box>;
+      }
+    }
+
     return value;
   }
 };
 
 SeatCountCellBase.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+  cell: PropTypes.object,
 };
 
-const parseSeatCountOutput = (value) => {
+export const parseSeatCountOutput = (value) => {
   if (Array.isArray(value)) {
     return value.join(" oder ");
   }
@@ -87,13 +102,15 @@ const parseSeatCountOutput = (value) => {
 export const ComparisonCell = ({ cell, row }) => {
   const partyName = cell?.column?.partyName;
   if (row.original.is_identical) {
-    return <SeatCountCellBase value={cell?.value} />;
+    return <SeatCountCellBase cell={cell} />;
   } else {
     let valueA = row.original.dist_A.seats?.[partyName] || 0;
     let valueB = row.original.dist_B.seats?.[partyName] || 0;
 
     if (valueA != valueB) {
-      return `${parseSeatCountOutput(valueA)}/${parseSeatCountOutput(valueB)}`;
+      return `${parseSeatCountOutput(valueA)} \u2192 ${parseSeatCountOutput(
+        valueB
+      )}`;
     } else {
       return valueA;
     }

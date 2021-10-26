@@ -4,10 +4,11 @@ const Table = {
       display: "inline-block",
       maxWidth: "100%",
       width: "auto",
-      overflowX: "scroll",
+      overflowX: "auto",
       borderCollapse: "collapse",
     },
     th: {
+      color: "brand.primary",
       textAlign: "center",
       textTransform: "none",
     },
@@ -42,6 +43,10 @@ const Table = {
   },
   variants: {
     stickyHeader: {
+      table: {
+        height: "55vh",
+        overflow: "auto",
+      },
       thead: {
         position: "sticky",
         top: "0",

@@ -1,7 +1,8 @@
 [
   {
-    "key": "btw2021",
-    "title": "Bundestagswahl 2021",
+    "key": "btwCurrent",
+    "title": "Aktueller Bundestag",
+    "label": "Die aktuelle Sitzverteilung im Bundestag -letzte Aktualisierung am 25.10.2021",
     "data": [
       {
         "name": "SPD",
@@ -9,7 +10,7 @@
       },
       {
         "name": "CDU/CSU",
-        "strength": 196
+        "strength": 197
       },
       {
         "name": "Bündnis 90/Die Grünen",
@@ -21,7 +22,7 @@
       },
       {
         "name": "AfD",
-        "strength": 83
+        "strength": 82
       },
       {
         "name": "Die Linke",

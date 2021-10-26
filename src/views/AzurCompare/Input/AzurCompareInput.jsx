@@ -24,7 +24,7 @@ function AzurCompareInputs({
 }) {
   // Initial Values
   const initialValues = {
-    numSeats: 13,
+    numSeats: 60,
     dist_A: {
       method: "schepers",
       partyStrengths: bundestagMandatsverteilung[0].data,

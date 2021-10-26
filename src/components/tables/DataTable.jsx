@@ -1,12 +1,11 @@
-import { Text, HStack, Spinner, VStack } from "@chakra-ui/react";
+import { HStack, Spinner, VStack } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFilters, usePagination, useTable } from "react-table";
-import IndexFilter from "./IndexFilter";
+import { PositionCell } from "./CellRenders";
 import NumberRangeFilter from "./NumberRangeFilter";
 import { PageSelect, SelectPageLength } from "./Pagination";
 import RawTable from "./RawTable";
-import { PositionCell } from "./CellRenders";
 
 DataTable.propTypes = {
   data: PropTypes.array,
@@ -14,7 +13,7 @@ DataTable.propTypes = {
   getRowProps: PropTypes.func,
 };
 
-const DEFAULT_PAGE_SIZE = 8;
+const DEFAULT_PAGE_SIZE = 20;
 
 export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
   const defaultColumn = React.useMemo(
@@ -77,10 +76,10 @@ export default function DataTable({ data, columns, getRowProps = () => ({}) }) {
         <Spinner />
       ) : (
         <VStack maxWidth="100%">
-          <HStack>
+          {/*<HStack> // filter rows with this filter
             <Text mr="2ex">Anzeigen von</Text>
             <IndexFilter headerGroups={headerGroups} />
-          </HStack>
+          </HStack> */}
           <HStack maxWidth="100%">
             <RawTable
               getTableProps={getTableProps}

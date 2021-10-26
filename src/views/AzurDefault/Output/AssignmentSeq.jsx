@@ -13,7 +13,7 @@ AssignmentSeq.propTypes = {
 export default function AssignmentSeq({ assignmentSequence, tableData }) {
   const columns = [
     {
-      Header: "Reihenfolge",
+      Header: "Zugriff",
       accessor: "seat_goes_to", // accessor is the "key" in the data
       disableFilters: true,
       Cell: ({ cell }) => AssignmentCell({ cell, tableData }),

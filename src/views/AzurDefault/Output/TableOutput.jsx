@@ -7,15 +7,22 @@ import { SeatCountCell } from "components/tables/CellRenders";
 TableOutput.propTypes = {
   tableData: PropTypes.array,
   assignmentSequence: PropTypes.array,
+  azurInput: PropTypes.object,
 };
 
-export default function TableOutput({ tableData, assignmentSequence }) {
+export default function TableOutput({
+  tableData,
+  assignmentSequence,
+  azurInput,
+}) {
   let columns = [];
   let data = [];
 
   if (tableData != null && Array.isArray(tableData) && tableData.length >= 1) {
     // set up columns
-    const partyNames = Object.keys(tableData[0].seats);
+
+    // pull partyNames from input so output has same order as input
+    const partyNames = azurInput?.partyStrengths.map((entry) => entry.name);
     columns = partyNames.map((partyName) => {
       return {
         Header: partyName,
@@ -36,7 +43,6 @@ export default function TableOutput({ tableData, assignmentSequence }) {
       });
     }
   }
-
   return (
     <DataTable
       data={data}

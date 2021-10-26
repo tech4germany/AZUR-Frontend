@@ -40,7 +40,7 @@ export default function useAzur(azurInput) {
           throw new Error(errorMessage);
         }
       })
-      .then((azurResponse) => {
+      .then((azurResponse) => { // TODO should not set states if requests props are no longer valid/ have been overwritten
         setError(null);
         setData(azurResponse);
       })
