@@ -43,8 +43,9 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
     <Tabs mt="10" align="left" index={tabIndex} onChange={handleTabsChange}>
       <Flex justifyContent="space-between" alignItems="end">
         <TabList>
-          <Tab>Anteile</Tab>
+          <Tab _selected={{ color: "brand.darkBlue" }}>Anteile</Tab>
           <Tab
+            _selected={{ color: "brand.darkBlue" }}
             title={
               azurInput.method === "hare"
                 ? `Bei der mathematischen Berechnungsmethode Hare/Niemeyer entsteht keine Zugriffsreihenfolge. Probieren Sie eine andere Methode.`
@@ -52,9 +53,10 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             }
             isDisabled={azurInput.method === "hare"}
           >
-            Liste
+            Reihenfolge
           </Tab>
           <Tab
+            _selected={{ color: "brand.darkBlue" }}
             title={`Tabellarische Übersicht für die Verteilmassen von 1 bis ${azurInput.numSeats}`}
           >
             Tabelle

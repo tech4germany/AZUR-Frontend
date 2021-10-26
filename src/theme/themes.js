@@ -79,9 +79,7 @@ const Tabs = {
       bg: "white",
       p: 3,
       fontSize: "md",
-      _selected: {
-        color: "brand.darkBlue",
-      },
+      _selected: { color: "brand.darkBlue" }, // does not work for some reason (manually assign to tabs)
     },
   },
   variants: {},
