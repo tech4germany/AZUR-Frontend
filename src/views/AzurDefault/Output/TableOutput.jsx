@@ -43,7 +43,6 @@ export default function TableOutput({
       });
     }
   }
-
   return (
     <DataTable
       data={data}

@@ -43,7 +43,7 @@ const Table = {
   variants: {
     stickyHeader: {
       table: {
-        height: "42rem",
+        height: "55vh",
         overflow: "auto",
       },
       thead: {

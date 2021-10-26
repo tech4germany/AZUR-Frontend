@@ -1,9 +1,8 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
+import useAzur from "./hooks/useAzur";
 import AzurInputs from "./Input/Input";
 import Output from "./Output/Output";
-import useAzur from "./hooks/useAzur";
-
-import { Flex } from "@chakra-ui/react";
 
 export default function AzurDefault() {
   const [azurInput, setAzurInput] = React.useState({ data: {}, errors: {} });

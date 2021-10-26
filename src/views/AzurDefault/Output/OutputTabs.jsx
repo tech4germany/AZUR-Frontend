@@ -62,7 +62,7 @@ export default function OutputTabs({ azurInput, azurResponse, loading }) {
             Tabelle
           </Tab>
         </TabList>
-        <ExportIcons />
+        <ExportIcons azurResponse={azurResponse} azurInput={azurInput} />
       </Flex>
 
       {loading ? (

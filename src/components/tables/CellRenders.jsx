@@ -80,7 +80,7 @@ const SeatCountCellBase = ({ cell }) => {
       _.has(cell, "column.Header")
     ) {
       if (cell.row.original.seat_goes_to == cell.column.Header) {
-        return <Text fontWeight="bold">{value}</Text>;
+        return <Box fontWeight="bold">{value}</Box>;
       }
     }
 
