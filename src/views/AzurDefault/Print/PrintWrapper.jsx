@@ -12,6 +12,7 @@ import {
   Tbody,
 } from "@chakra-ui/react";
 
+import constants from "utils/constants.json";
 import PrintTable from "../Print/PrintTable";
 
 const PrintWrapper = React.forwardRef(function PrintRef(
@@ -20,35 +21,43 @@ const PrintWrapper = React.forwardRef(function PrintRef(
 ) {
   const tableData = azurResponse?.table;
 
+  let methodUsed = "";
+  if (azurInput?.method != null) {
+    const methodTitle = constants.azurMethods.find(
+      (method) => method?.apiName == azurInput?.method
+    )?.title;
+    if (methodTitle != null) methodUsed = methodTitle;
+  }
+
   return (
-    <Box ref={ref}>
-      <Heading>Eingabe</Heading>
+    <Box p={3} ref={ref}>
+      <Heading size="xl">Eingabe</Heading>
       <Box>
-        <Text>Anzahl Sitze: {azurInput?.numSeats} </Text>
-        <Text>Methode:{azurInput?.method} </Text>
-        <Text size="md">Fraktionsstärken</Text>
+        <Heading size="lg">Verteilmasse</Heading>
+        <Text>{azurInput?.numSeats}</Text>
+        <Heading size="lg">Methode</Heading>
+        <Text>{methodUsed} </Text>
+        <Heading size="lg">Fraktionsstärken</Heading>
         {azurInput.partyStrengths != null && (
           <Table>
-            <Thead>
+            <Tbody>
               <Tr>
                 <Th>Name</Th>
-                <Th>Sitze</Th>
+                {azurInput?.partyStrengths.map((row) => (
+                  <Td key={`Name_${row.name}`}>{row.name}</Td>
+                ))}
               </Tr>
-            </Thead>
-            <Tbody>
-              {azurInput?.partyStrengths.map((row) => {
-                return (
-                  <Tr key={row.name}>
-                    <Td>{row.name}</Td>
-                    <Td>{row.strength}</Td>
-                  </Tr>
-                );
-              })}
+              <Tr>
+                <Th>Stärke</Th>
+                {azurInput?.partyStrengths.map((row) => (
+                  <Td key={`Stärke_${row.strength}`}>{row.strength}</Td>
+                ))}
+              </Tr>
             </Tbody>
           </Table>
         )}
       </Box>
-      <Heading>Ausgabetabelle</Heading>
+      <Heading size="xl">Ausgabetabelle</Heading>
       <Box>
         <PrintTable tableData={tableData} />
       </Box>
@@ -57,7 +66,7 @@ const PrintWrapper = React.forwardRef(function PrintRef(
 });
 
 PrintWrapper.propTypes = {
-  azurResponse: PropTypes.array,
+  azurResponse: PropTypes.object,
   azurInput: PropTypes.object,
 };
 

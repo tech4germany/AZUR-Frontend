@@ -46,7 +46,7 @@ const ExportIcons = ({ azurResponse, azurInput }) => {
 };
 
 ExportIcons.propTypes = {
-  azurResponse: PropTypes.array,
+  azurResponse: PropTypes.object,
   azurInput: PropTypes.object,
 };
 
