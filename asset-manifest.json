@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/AZUR-Frontend/static/js/main.247e9a2c.chunk.js",
-    "main.js.map": "/AZUR-Frontend/static/js/main.247e9a2c.chunk.js.map",
+    "main.js": "/AZUR-Frontend/static/js/main.d1cae0d9.chunk.js",
+    "main.js.map": "/AZUR-Frontend/static/js/main.d1cae0d9.chunk.js.map",
     "runtime-main.js": "/AZUR-Frontend/static/js/runtime-main.d620a634.js",
     "runtime-main.js.map": "/AZUR-Frontend/static/js/runtime-main.d620a634.js.map",
     "static/css/2.e238613f.chunk.css": "/AZUR-Frontend/static/css/2.e238613f.chunk.css",
-    "static/js/2.03eea9fb.chunk.js": "/AZUR-Frontend/static/js/2.03eea9fb.chunk.js",
-    "static/js/2.03eea9fb.chunk.js.map": "/AZUR-Frontend/static/js/2.03eea9fb.chunk.js.map",
+    "static/js/2.7f82c7de.chunk.js": "/AZUR-Frontend/static/js/2.7f82c7de.chunk.js",
+    "static/js/2.7f82c7de.chunk.js.map": "/AZUR-Frontend/static/js/2.7f82c7de.chunk.js.map",
     "index.html": "/AZUR-Frontend/index.html",
     "static/css/2.e238613f.chunk.css.map": "/AZUR-Frontend/static/css/2.e238613f.chunk.css.map",
-    "static/js/2.03eea9fb.chunk.js.LICENSE.txt": "/AZUR-Frontend/static/js/2.03eea9fb.chunk.js.LICENSE.txt",
+    "static/js/2.7f82c7de.chunk.js.LICENSE.txt": "/AZUR-Frontend/static/js/2.7f82c7de.chunk.js.LICENSE.txt",
     "static/media/400.css": "/AZUR-Frontend/static/media/open-sans-vietnamese-400-normal.aeac061a.woff2",
     "static/media/700.css": "/AZUR-Frontend/static/media/open-sans-vietnamese-700-normal.45191036.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.d620a634.js",
     "static/css/2.e238613f.chunk.css",
-    "static/js/2.03eea9fb.chunk.js",
-    "static/js/main.247e9a2c.chunk.js"
+    "static/js/2.7f82c7de.chunk.js",
+    "static/js/main.d1cae0d9.chunk.js"
   ]
 }
