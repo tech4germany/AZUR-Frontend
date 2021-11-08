@@ -12,6 +12,7 @@ import OutputTabs from "./OutputTabs";
 import React, { useContext } from "react";
 import { AzurContext } from "context/AzurContext";
 import Card from "theme/Card";
+import InputErrorFeedback from "./InputErrorFeedback";
 
 export default function Output({ ...cssprops }) {
   const { azurResponse, azurInput } = useContext(AzurContext);
@@ -20,40 +21,7 @@ export default function Output({ ...cssprops }) {
       <Heading size="2xl">Verteilung</Heading>
       <Flex flexDirection="column">
         {!_.isEmpty(azurInput.errors) ? (
-          <Alert status="error">
-            <AlertIcon />
-            <AlertTitle mr={2}>Ungültige Eingabe!</AlertTitle>
-            <AlertDescription>
-              {azurInput.errors.numSeats != null && (
-                <>
-                  <Text mt={3} fontWeight="bold">
-                    Fehler bei der Eingabe der Einheiten
-                  </Text>
-                  <Text>{azurInput.errors.numSeats}</Text>
-                </>
-              )}
-              {azurInput.errors.partyStrengths != null && (
-                <>
-                  <Text mt={3} fontWeight="bold">
-                    Fehler bei der Eingabe der Fraktionsstärken
-                  </Text>
-                  {typeof azurInput.errors.partyStrengths === "string" ? ( // Errors that are on FieldArray Level
-                    <Text>{azurInput.errors.partyStrengths}</Text>
-                  ) : (
-                    azurInput.errors.partyStrengths.map((errorEntry, index) => {
-                      return errorEntry.strength ? (
-                        <Text key={index + "strengthError"}>
-                          {errorEntry.strength}
-                        </Text>
-                      ) : (
-                        <Text key={index + "nameError"}>{errorEntry.name}</Text>
-                      );
-                    })
-                  )}
-                </>
-              )}
-            </AlertDescription>
-          </Alert>
+          <InputErrorFeedback inputErrors={azurInput.errors} />
         ) : azurResponse.error != null ? (
           <Alert status="error">
             <AlertIcon />
