@@ -9,8 +9,8 @@ export const AzurContextWrapper = ({ children }) => {
   const { data, loading, error } = useAzur(azurInput);
 
   React.useEffect(() => {
-    console.log(azurInput);
-  }, [azurInput]);
+    console.log(data);
+  }, [data]);
 
   return (
     <AzurContext.Provider
