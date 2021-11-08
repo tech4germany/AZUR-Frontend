@@ -3,25 +3,29 @@ import React from "react";
 import AzurInputs from "./Input/Input";
 import Output from "./Output/Output";
 import { AzurContextWrapper } from "context/AzurContext";
-
+import { usePrint } from "utils/usePrint";
+import PrintWrapper from "./Print/PrintWrapper";
 export default function AzurDefault() {
+  const { isPrinting } = usePrint();
+
   return (
     <AzurContextWrapper>
-      <Flex
-        flexDirection={["column", "column", "column", "row"]}
-        height={["auto", "auto", "auto", "100%"]}
-        width={["auto", "auto", "auto", "90vw"]}
-        margin={["0", "0", "0", "0 auto"]}
-      >
-        <AzurInputs
-          maxHeight="100%"
-          width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
-        />
-        <Output
-          maxHeight="100%"
-          width={["100%", "100%", "100%", "65%"]}
-        />
-      </Flex>
+      {isPrinting ? (
+        <PrintWrapper />
+      ) : (
+        <Flex
+          flexDirection={["column", "column", "column", "row"]}
+          height={["auto", "auto", "auto", "100%"]}
+          width={["auto", "auto", "auto", "90vw"]}
+          margin={["0", "0", "0", "0 auto"]}
+        >
+          <AzurInputs
+            maxHeight="100%"
+            width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
+          />
+          <Output maxHeight="100%" width={["100%", "100%", "100%", "65%"]} />
+        </Flex>
+      )}
     </AzurContextWrapper>
   );
 }
