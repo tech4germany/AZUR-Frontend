@@ -9,13 +9,9 @@ function App() {
   return (
     <Box className="App">
       <PrototypeDisclaimer />
-      <Box height="100vh">
-        <AzurDefault />
-      </Box>
-      {/* <BrowserRouter>  */}
-      {/* NAV */}
-      {/*
-      <Flex justifyContent="end" mx="10" height="5vh">
+      <BrowserRouter>
+        {/* NAV */}
+        {/*<Flex justifyContent="end" mx="10" height="5vh">
           <Link to="/">
             <Button>Azur Default</Button>
           </Link>
@@ -24,18 +20,18 @@ function App() {
           </Link>
         </Flex> */}
 
-      {/* APP */}
-      {/*       <Box height="100vh">
-        <Switch>
+        {/* APP */}
+        <Box height="100vh">
+          <Switch>
             <Route exact={true} path="/">
-        <AzurDefault />
-        </Route>
+              <AzurDefault />
+            </Route>
             <Route exact={true} path="/compare">
               <AzurCompare />
             </Route>
           </Switch>
-      </Box>
-    </BrowserRouter> */}
+        </Box>
+      </BrowserRouter>
     </Box>
   );
 }

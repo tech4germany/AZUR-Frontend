@@ -2,7 +2,7 @@
   "name": "azur_frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dev.tech4germany.org/AZUR-Frontend/",
+  "homepage": ".",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
     "@chakra-ui/react": "^1.6.7",
