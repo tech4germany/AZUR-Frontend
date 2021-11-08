@@ -2,8 +2,8 @@ import { Flex, Heading } from "@chakra-ui/react";
 import Card from "theme/Card";
 import ParentStateUpdater from "components/forms/ParentStateUpdater";
 import { Formik, useFormikContext } from "formik";
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
+import { AzurContext } from "context/AzurContext";
 import bundestagMandatsverteilung from "utils/bundestagMandate.json";
 import {
   methodSchema,
@@ -13,12 +13,7 @@ import {
 import * as Yup from "yup";
 import AzurForm from "./AzurForm";
 
-AzurInputs.propTypes = {
-  azurInput: PropTypes.object,
-  setAzurInput: PropTypes.func,
-};
-
-function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
+function AzurInputs({ ...cssprops }) {
   // Initial Values
   const initialValues = {
     numSeats: 60,
@@ -26,6 +21,7 @@ function AzurInputs({ azurInput, setAzurInput, ...cssprops }) {
     partyStrengths: bundestagMandatsverteilung[0].data,
   };
 
+  const { azurInput, setAzurInput } = useContext(AzurContext);
   const schema = Yup.object().shape({
     numSeats: numSeatsSchema,
     partyStrengths: partyStrengthsSchema,
