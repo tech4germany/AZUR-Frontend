@@ -5,7 +5,6 @@ import {
   AlertTitle,
   Flex,
   Heading,
-  Text,
 } from "@chakra-ui/react";
 import _ from "lodash";
 import OutputTabs from "./OutputTabs";

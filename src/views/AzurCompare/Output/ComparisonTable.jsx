@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "components/tables/DataTable";
 import { ComparisonCell } from "components/tables/CellRenders";
