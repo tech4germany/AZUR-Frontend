@@ -21,7 +21,7 @@ export default function AzurDefault() {
       <AzurCompareInput
         azurCompareInput={azurCompareInput}
         setAzurCompareInput={setAzurCompareInput}
-        width={["100%", "100%", "100%", "50%"]} // Todo proper width layout
+        width={["100%", "100%", "100%", "50%"]}
       />
       <Output
         data={data}

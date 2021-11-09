@@ -21,7 +21,7 @@ export default function AzurDefault() {
         >
           <AzurInputs
             maxHeight="100%"
-            width={["100%", "100%", "100%", "35%"]} // Todo proper width layout
+            width={["100%", "100%", "100%", "35%"]}
           />
           <Output maxHeight="100%" width={["100%", "100%", "100%", "65%"]} />
         </Flex>
