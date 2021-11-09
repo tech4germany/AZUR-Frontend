@@ -19,14 +19,14 @@
     "SPD": "#E3000F",
     "AfD": "#0489DB",
     "FDP": "#FFEF00",
-    "DIE LINKE.": "#E9009E",
+    "DIE LINKE": "#E9009E",
     "DIE GRÜNEN": "#1AA037"
   },
   "partyAltNamesMapping": {
     "Union": "CDU/CSU",
     "CDU": "CDU/CSU",
     "Die Grünen": "DIE GRÜNEN",
-    "Die Linke": "DIE LINKE.",
+    "Die Linke": "DIE LINKE",
     "Bündnis 90/Die Grünen": "DIE GRÜNEN"
   }
 }

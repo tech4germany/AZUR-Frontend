@@ -3,13 +3,15 @@ import AzurDefault from "views/AzurDefault/AzurDefault";
 import AzurCompare from "views/AzurCompare/AzurCompare";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
+import PrototypeDisclaimer from "components/PrototypeDisclaimer";
 
 function App() {
   return (
     <Box className="App">
+      <PrototypeDisclaimer />
       <BrowserRouter>
         {/* NAV */}
-        {/*         <Flex justifyContent="end" mx="10" height="5vh">
+        {/*<Flex justifyContent="end" mx="10" height="5vh">
           <Link to="/">
             <Button>Azur Default</Button>
           </Link>

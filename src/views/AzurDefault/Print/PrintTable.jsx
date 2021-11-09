@@ -15,7 +15,6 @@ import PropTypes from "prop-types";
 
 import { parseSeatCountOutput } from "components/tables/CellRenders";
 
-// TODO PRINT ONLY MAX 500 ROWS
 const PrintTable = ({ tableData }) => {
   let tableOutput = null;
   // only take first 400 rows for printing

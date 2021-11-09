@@ -12,10 +12,13 @@ export default function ComparisonTable({ tableData }) {
 
   if (tableData != null && Array.isArray(tableData) && tableData.length >= 1) {
     // set up columns
+    /* TODO: Party names should be pulled directly from azurInput (it already works this way for AzurDefault)
+     *  among other things this will also provide proper sorting for the party names
+     */
     const partyNames = [
       ...new Set([
         ...Object.keys(tableData[0].dist_A.seats),
-        ...Object.keys(tableData[0]?.dist_B?.seats || {}), // TODO: Issue - First row of distB could be empty but rows could pop up later
+        ...Object.keys(tableData[0]?.dist_B?.seats || {}),
       ]),
     ];
 

@@ -1,19 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 
-import { useReactToPrint } from "react-to-print";
-import { HStack, Text, Button, Box } from "@chakra-ui/react";
+import { HStack, Text, Button } from "@chakra-ui/react";
 import { FaPrint } from "react-icons/fa";
-import PrintWrapper from "../Print/PrintWrapper";
 
-import PropTypes from "prop-types";
-
-const ExportIcons = ({ azurResponse, azurInput }) => {
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
-  // TODO only render PrintWrapper to dom if we are printing (onClick)
+const ExportIcons = () => {
   return (
     <HStack spacing="0">
       {/* // export button
@@ -26,7 +16,17 @@ const ExportIcons = ({ azurResponse, azurInput }) => {
         </HStack>
       </Button>
       */}
-      <Button variant="outline" onClick={handlePrint}>
+      <Button
+        variant="outline"
+        onClick={() => {
+          // unfortunately "beforeprint" did not realiably execute before the print preview is shown
+          // therefore we are manually dispatching it here and waiting for a short time before actually calling the print
+          window.dispatchEvent(new Event("beforeprint"));
+          window.setTimeout(() => {
+            window.print();
+          }, 150);
+        }}
+      >
         <HStack spacing="0.3rem">
           <FaPrint />
           <Text fontWeight="normal" fontSize="sm">
@@ -34,20 +34,8 @@ const ExportIcons = ({ azurResponse, azurInput }) => {
           </Text>
         </HStack>
       </Button>
-      <Box display="none">
-        <PrintWrapper
-          azurResponse={azurResponse}
-          azurInput={azurInput}
-          ref={componentRef}
-        />
-      </Box>
     </HStack>
   );
-};
-
-ExportIcons.propTypes = {
-  azurResponse: PropTypes.object,
-  azurInput: PropTypes.object,
 };
 
 export default ExportIcons;

@@ -6,6 +6,8 @@ export default function useAzur(azurInput) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
+  const abortController = new AbortController();
+
   //*** FETCHING AZUR OUTPUTS
   const fetchAzur = async (azurInputUpdate) => {
     setLoading(true);
@@ -21,6 +23,7 @@ export default function useAzur(azurInput) {
       headers: {
         "Content-Type": "application/json",
       },
+      signal: abortController.signal,
       body: JSON.stringify({
         votes: partyStrengthForApi,
         method: azurInputUpdate.method,
@@ -40,17 +43,19 @@ export default function useAzur(azurInput) {
           throw new Error(errorMessage);
         }
       })
-      .then((azurResponse) => { // TODO should not set states if requests props are no longer valid/ have been overwritten
+      .then((azurResponse) => {
         setError(null);
         setData(azurResponse);
+        setLoading(false); // do not set loading=false in a finally block because it should not be set on an abortError
       })
       .catch((fetchingError) => {
-        setData(null);
-        console.log(fetchingError);
-        setError(fetchingError);
-      })
-      .finally(() => {
-        setLoading(false);
+        if (fetchingError?.name === "AbortError") {
+          console.log("New Input - Aborted fetch");
+        } else {
+          setData(null);
+          setError(fetchingError);
+          setLoading(false);
+        }
       });
   };
 
@@ -60,6 +65,9 @@ export default function useAzur(azurInput) {
         fetchAzur(azurInput.data);
       }
     }
+    return () => {
+      abortController.abort();
+    };
   }, [azurInput]);
 
   return { data, loading, error };
